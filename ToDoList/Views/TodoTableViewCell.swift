@@ -1,0 +1,172 @@
+//
+//  TodoTableViewCell.swift
+//  ToDoList
+//
+//  Created by Dmitriy Eliseev on 23.09.2025.
+//
+
+import UIKit
+import SwiftUI
+
+final class TodoTableViewCell: UITableViewCell {
+    static let reuseId = "ToDoCell"
+    var toDoItem: TodoItemLocal?
+    
+    private lazy var containerView: UIView = {
+        $0.backgroundColor = .clear
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIView())
+    
+    private lazy var horizontalStackView: UIStackView = {
+        $0.axis = .horizontal
+        $0.spacing = 15
+        $0.alignment = .leading
+        $0.distribution = .fill
+        $0.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 12, trailing: 0)
+        $0.isLayoutMarginsRelativeArrangement = true
+        $0.backgroundColor = .clear
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIStackView())
+    
+    private lazy var circleImageView: UIImageView = {
+        $0.image = UIImage(systemName: "checkmark.circle")
+        $0.contentMode = .scaleAspectFill
+        $0.tintColor = .yellow
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIImageView())
+    
+    private lazy var verticalStackView: UIStackView = {
+        $0.axis = .vertical
+        $0.spacing = 15
+        $0.alignment = .fill
+        $0.distribution = .fill
+        $0.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 12, trailing: 0)
+        $0.isLayoutMarginsRelativeArrangement = true
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UIStackView())
+    
+    private lazy var titleLabel: UILabel = {
+        $0.text = Moc.data.first!.todo //Moc
+        $0.font = .systemFont(ofSize: 16, weight: .medium) //ок
+        $0.adjustsFontSizeToFitWidth = true
+        $0.textAlignment = .left
+        $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        $0.setContentCompressionResistancePriority(.required, for: .vertical)
+
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UILabel())
+    
+    private lazy var descriptionLabel: UILabel = {
+        $0.text = Moc.data.first!.content
+        $0.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.numberOfLines = 2
+        $0.textAlignment = .left
+        $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
+            $0.setContentCompressionResistancePriority(.required, for: .vertical)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UILabel())
+    
+    private lazy var dateLabel: UILabel = {
+        $0.text = Moc.data.first!.date.description
+        $0.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.adjustsFontSizeToFitWidth = true
+        $0.textAlignment = .left
+        $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        $0.setContentCompressionResistancePriority(.required, for: .vertical)
+
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UILabel())
+    
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupViews()
+        setupConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension TodoTableViewCell {
+    func update(_ toDoItem: TodoItemLocal) {
+        titleLabel.text = toDoItem.todo
+        descriptionLabel.text = toDoItem.content
+        dateLabel.text = toDoItem.date.description
+        setImage(toDoItem.completed)
+    }
+    
+    func setImage(_ flag: Bool) {
+        circleImageView.image = flag ? UIImage(systemName: "checkmark.circle") : UIImage(systemName: "circle")
+        circleImageView.tintColor = flag ? .yellow : .green
+    }
+}
+
+extension TodoTableViewCell {
+    private func setupViews(){
+        [containerView].forEach {
+            contentView.addSubview($0)
+        }
+        [horizontalStackView].forEach {
+            containerView.addSubview($0)
+        }
+        
+        [circleImageView, verticalStackView].forEach {
+            horizontalStackView.addArrangedSubview($0)
+        }
+        
+        [titleLabel, descriptionLabel, dateLabel].forEach {
+            verticalStackView.addArrangedSubview($0)
+        }
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
+            horizontalStackView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            horizontalStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            horizontalStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            horizontalStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+
+            circleImageView.widthAnchor.constraint(equalToConstant: 24),
+            circleImageView.heightAnchor.constraint(equalTo: circleImageView.widthAnchor),
+        ])
+        
+        // Optional: чтобы verticalStackView не растягивал descriptionLabel слишком сильно
+        descriptionLabel.setContentHuggingPriority(.required, for: .vertical)
+        descriptionLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+    }
+}
+
+struct ToDoTableViewCellPreview: UIViewRepresentable {
+    func makeUIView(context: Context) -> TodoTableViewCell {
+        let cell = TodoTableViewCell(style: .default, reuseIdentifier: TodoTableViewCell.reuseId)
+        // Настроим тестовые данные, если нужно
+        cell.toDoItem = Moc.data.first
+        return cell
+    }
+    
+    func updateUIView(_ uiView: TodoTableViewCell, context: Context) {
+        // можно обновлять содержимое ячейки, если потребуется
+    }
+}
+
+struct ToDoTableViewCell_Previews: PreviewProvider {
+    static var previews: some View {
+        ToDoTableViewCellPreview()
+            .previewLayout(.fixed(width: 375, height: 100)) // можно подогнать размер под ячейку
+            .padding()
+    }
+}
