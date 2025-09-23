@@ -23,6 +23,8 @@
 		26FCD0F22E8304D4009906DE /* UITableView+dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0F12E8304D4009906DE /* UITableView+dequeue.swift */; };
 		26FCD0F42E83055E009906DE /* TodoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0F32E83055E009906DE /* TodoTableView.swift */; };
 		26FCD0F62E83077B009906DE /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0F52E83077B009906DE /* TodoTableViewCell.swift */; };
+		26FCD0F92E83273E009906DE /* TodoListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0F82E83273E009906DE /* TodoListInteractor.swift */; };
+		26FCD0FB2E8327A5009906DE /* TodoListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0FA2E8327A5009906DE /* TodoListPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		26FCD0F12E8304D4009906DE /* UITableView+dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+dequeue.swift"; sourceTree = "<group>"; };
 		26FCD0F32E83055E009906DE /* TodoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableView.swift; sourceTree = "<group>"; };
 		26FCD0F52E83077B009906DE /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
+		26FCD0F82E83273E009906DE /* TodoListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListInteractor.swift; sourceTree = "<group>"; };
+		26FCD0FA2E8327A5009906DE /* TodoListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				26BD60B72E81A1A0006C61E0 /* ViewController.swift */,
 				26FCD0F32E83055E009906DE /* TodoTableView.swift */,
 				26FCD0F52E83077B009906DE /* TodoTableViewCell.swift */,
+				26FCD0F82E83273E009906DE /* TodoListInteractor.swift */,
+				26FCD0FA2E8327A5009906DE /* TodoListPresenter.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -227,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26BD60D22E81A403006C61E0 /* Constants.swift in Sources */,
+				26FCD0F92E83273E009906DE /* TodoListInteractor.swift in Sources */,
 				26BD60E22E81BD1D006C61E0 /* Todo.xcdatamodeld in Sources */,
 				26BD60B82E81A1A0006C61E0 /* ViewController.swift in Sources */,
 				26BD60B42E81A1A0006C61E0 /* AppDelegate.swift in Sources */,
@@ -237,6 +244,7 @@
 				26FCD0F22E8304D4009906DE /* UITableView+dequeue.swift in Sources */,
 				26BD60DC2E81B405006C61E0 /* Extension+URLSession.swift in Sources */,
 				26BD60CD2E81A383006C61E0 /* NetworkServices.swift in Sources */,
+				26FCD0FB2E8327A5009906DE /* TodoListPresenter.swift in Sources */,
 				26BD60D52E81A5DF006C61E0 /* TodoItem.swift in Sources */,
 				26BD60DE2E81BC9B006C61E0 /* StorageService.swift in Sources */,
 				26BD60B62E81A1A0006C61E0 /* SceneDelegate.swift in Sources */,

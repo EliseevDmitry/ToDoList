@@ -10,7 +10,16 @@ import SwiftUI
 
 final class TodoTableViewCell: UITableViewCell {
     static let reuseId = "ToDoCell"
-    var toDoItem: TodoItemLocal?
+    
+    private var toDoItem: TodoItemLocal? {
+        didSet {
+            guard let item = toDoItem else { return }
+            titleLabel.text = item.todo
+            descriptionLabel.text = item.content
+            dateLabel.text = item.date.description
+            setImage(item.completed)
+        }
+    }
     
     private lazy var containerView: UIView = {
         $0.backgroundColor = .clear
@@ -50,7 +59,7 @@ final class TodoTableViewCell: UITableViewCell {
     }(UIStackView())
     
     private lazy var titleLabel: UILabel = {
-        $0.text = Moc.data.first!.todo //Moc
+        //$0.text = Moc.data.first!.todo //Moc
         $0.font = .systemFont(ofSize: 16, weight: .medium) //ок
         $0.adjustsFontSizeToFitWidth = true
         $0.textAlignment = .left
@@ -62,7 +71,7 @@ final class TodoTableViewCell: UITableViewCell {
     }(UILabel())
     
     private lazy var descriptionLabel: UILabel = {
-        $0.text = Moc.data.first!.content
+        //$0.text = Moc.data.first!.content
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.numberOfLines = 2
         $0.textAlignment = .left
@@ -73,7 +82,7 @@ final class TodoTableViewCell: UITableViewCell {
     }(UILabel())
     
     private lazy var dateLabel: UILabel = {
-        $0.text = Moc.data.first!.date.description
+        //$0.text = Moc.data.first!.date.description
         $0.font = .systemFont(ofSize: 16, weight: .regular)
         $0.adjustsFontSizeToFitWidth = true
         $0.textAlignment = .left
@@ -98,10 +107,7 @@ final class TodoTableViewCell: UITableViewCell {
 
 extension TodoTableViewCell {
     func update(_ toDoItem: TodoItemLocal) {
-        titleLabel.text = toDoItem.todo
-        descriptionLabel.text = toDoItem.content
-        dateLabel.text = toDoItem.date.description
-        setImage(toDoItem.completed)
+        self.toDoItem = toDoItem
     }
     
     func setImage(_ flag: Bool) {
@@ -154,7 +160,7 @@ struct ToDoTableViewCellPreview: UIViewRepresentable {
     func makeUIView(context: Context) -> TodoTableViewCell {
         let cell = TodoTableViewCell(style: .default, reuseIdentifier: TodoTableViewCell.reuseId)
         // Настроим тестовые данные, если нужно
-        cell.toDoItem = Moc.data.first
+        cell.update(Moc.data.first!)
         return cell
     }
     

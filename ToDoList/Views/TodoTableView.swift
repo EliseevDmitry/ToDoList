@@ -8,20 +8,16 @@
 import UIKit
 
 final class TodoTableView: UITableView {
-    var toDoItems: [TodoItemLocal]
     
-    init(
+    override init(
         frame: CGRect = .zero,
-        style: UITableView.Style = .plain,
-        toDoItems: [TodoItemLocal]
+        style: UITableView.Style = .plain
     ) {
-        self.toDoItems = toDoItems
         super.init(frame: frame, style: style)
         customInitTanleView()
     }
     
     required init?(coder: NSCoder) {
-        self.toDoItems = []
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -29,8 +25,6 @@ final class TodoTableView: UITableView {
 
 extension TodoTableView {
     private func customInitTanleView() {
-        dataSource = self
-        delegate = self
         if #available(iOS 15.0, *) {
             sectionHeaderTopPadding = 0
         }
@@ -48,21 +42,5 @@ extension TodoTableView {
                 separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15) 
     }
     
-    
-}
-
-extension TodoTableView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        toDoItems.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueCell(indexPath) as TodoTableViewCell
-        cell.update(toDoItems[indexPath.row])
-        return cell
-    }
-}
-
-extension TodoTableView: UITableViewDelegate {
     
 }
