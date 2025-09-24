@@ -7,12 +7,25 @@
 
 import Foundation
 
-protocol TodoListInteractorProtocol {
-    func fetchTodos() -> [TodoItemLocal]
+protocol ITodoListInteractor {
+    func fetchTodos(completion: @escaping (Result<[TodoItem], Error>) -> Void)
 }
 
-final class TodoListInteractor: TodoListInteractorProtocol {
-    func fetchTodos() -> [TodoItemLocal] {
-        return Moc.data
+final class TodoListInteractor: ITodoListInteractor {
+    private let todoRepository: ITodoRepository
+    
+    init(todoRepository: ITodoRepository = TodoRepository()) {
+        self.todoRepository = todoRepository
+    }
+    
+    func fetchTodos(completion: @escaping (Result<[TodoItem], Error>) -> Void) {
+        todoRepository.getToDos { result in
+            switch result {
+            case .success(let todos):
+                completion(.success(todos))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

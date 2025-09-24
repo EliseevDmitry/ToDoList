@@ -7,37 +7,66 @@
 
 import Foundation
 
-//Название
-//Описание
-//Дата создания
-//Статус выполнена или нет
+protocol IToDo: Identifiable {
+    var id: UUID { get }
+    var todo: String { get }
+    var content: String { get }
+    var completed: Bool { get }
+    var date: Date { get }
+    
+    init(id: UUID, todo: String, content: String, completed: Bool, date: Date)
+}
 
 struct TodosResponse: Codable {
     let todos: [TodoItem]
-    //подумать надо ли
-    //let total: Int
-    //let skip: Int
-    //let limit: Int
 }
 
-struct TodoItem: Codable, Identifiable {
-    let id: Int
-    let todo: String
-    let completed: Bool
-    //let userId: Int
-    
-    var statusText: String {
-        completed ? "Completed" : "Pending"
+struct TodoItem: Codable, IToDo {
+    init(id: UUID, todo: String, content: String, completed: Bool, date: Date) {
+        self.id = id
+        self.todo = todo
+        self.content = content
+        self.completed = completed
+        self.date = date
     }
-}
-
-struct TodoItemLocal: Codable {
+    
+    
+    let id: UUID
     let todo: String
     let content: String
-    let date: Date
     let completed: Bool
+    let date: Date
     
-    var statusText: String {
-        completed ? "Completed" : "Pending"
+    enum CodingKeys: String, CodingKey {
+        case todo
+        case completed
+    }
+    
+    enum Consts {
+        static let content = "Тут должно быть подробное описание заметки"
+        static let completed = false
+        static let date = Date()
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.todo = try container.decode(String.self, forKey: .todo)
+        self.completed = try container.decode(Bool.self, forKey: .completed)
+        self.id = UUID()
+        self.content = Consts.content
+        self.date = Consts.date
+    }
+    
+    init(
+        todo: String,
+        content: String = Consts.content,
+        completed: Bool = Consts.completed,
+        date: Date = Consts.date
+    ) {
+        self.id = UUID()
+        self.todo = todo
+        self.content = content
+        self.completed = completed
+        self.date = date
     }
 }

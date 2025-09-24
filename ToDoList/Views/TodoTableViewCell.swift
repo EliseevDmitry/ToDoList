@@ -11,7 +11,7 @@ import SwiftUI
 final class TodoTableViewCell: UITableViewCell {
     static let reuseId = "ToDoCell"
     
-    private var toDoItem: TodoItemLocal? {
+    private var toDoItem: TodoItem? {
         didSet {
             guard let item = toDoItem else { return }
             titleLabel.text = item.todo
@@ -61,7 +61,7 @@ final class TodoTableViewCell: UITableViewCell {
     private lazy var titleLabel: UILabel = {
         //$0.text = Moc.data.first!.todo //Moc
         $0.font = .systemFont(ofSize: 16, weight: .medium) //ок
-        $0.adjustsFontSizeToFitWidth = true
+        //$0.adjustsFontSizeToFitWidth = true
         $0.textAlignment = .left
         $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -106,7 +106,7 @@ final class TodoTableViewCell: UITableViewCell {
 }
 
 extension TodoTableViewCell {
-    func update(_ toDoItem: TodoItemLocal) {
+    func update(_ toDoItem: TodoItem) {
         self.toDoItem = toDoItem
     }
     

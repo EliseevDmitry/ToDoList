@@ -9,18 +9,29 @@ import Foundation
 import CoreData
 
 protocol IStorageService {
-//    func addProduct(product: Product) -> Bool
-//    func deleteProduct(indexSet: IndexSet) -> Bool
-//    func updateProduct(entity: ProductEntities, product: Product) -> Bool
-//    func removeAllEntities() -> Bool
-//    func getProductsToEntities() -> [Product]
-//    func getEntitiByProductName(name: String) -> ProductEntities?
-//    func addToBasket(product: Product) -> Bool
+    func addTodo<T: IToDo>(
+        item: T,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    )
+    func addTodos<T: IToDo>(
+        items: [T],
+        completion: @escaping (Result<Bool, Error>) -> Void
+    )
+    func getToDos<T: IToDo>(
+        _ type: T.Type,
+        completion: @escaping (Result<[T], Error>) -> Void
+    )
+    func updateTodo<T: IToDo>(
+        item: T,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    )
+    func deleteTodo(
+        id: UUID,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    )
 }
 
-//NSPersistentContainer(name: "Todo")
 final class StorageService: IStorageService {
-    private var toDos: [TodoEntities] = []
     private let container: NSPersistentContainer
     
     init(container:  NSPersistentContainer){
@@ -31,129 +42,151 @@ final class StorageService: IStorageService {
             } else {
                 print("Successfully loaded core data!")
             }
-            self.fechTodos()
         }
     }
 }
 
 extension StorageService {
-//    
-//    @discardableResult
-//    func addProduct(product: Product) -> Bool {
-//        let newProduct = ProductEntities(context: container.viewContext)
-//        newProduct.name = product.name
-//        newProduct.detail = product.detail
-//        newProduct.price = Int64(product.price)
-//        newProduct.image = product.image
-//        newProduct.ispromo = product.isPromo
-//        return saveData()
-//    }
-//    
-//    func deleteProduct(indexSet: IndexSet) -> Bool {
-//        guard let index = indexSet.first else { return false }
-//        let entiti = savedProducts[index]
-//        container.viewContext.delete(entiti)
-//        return saveData()
-//    }
-//    
-//    func updateProduct(entity: ProductEntities, product: Product) -> Bool {
-//        entity.name = product.name
-//        entity.detail = product.detail
-//        entity.price = Int64(product.price)
-//        entity.image = product.image
-//        entity.ispromo = product.isPromo
-//        return saveData()
-//    }
-//    
-//    func removeAllEntities() -> Bool {
-//        savedProducts.forEach { container.viewContext.delete($0)}
-//        return saveData()
-//    }
-//    
-//    func getProductsToEntities() -> [Product] {
-//        if savedProducts.isEmpty {
-//            return []
-//        }
-//        var products: [Product] = []
-//        for item in savedProducts {
-//            let product = Product(
-//                name: item.name ?? "",
-//                detail: item.detail ?? "",
-//                price: Int(item.price),
-//                image: item.image ?? "",
-//                isPromo: false,
-//                count: 1
-//            )
-//            products.append(product)
-//        }
-//        return products
-//    }
-//
-    //запрос задач с кор даты
-    private func fechTodos(){
-        let request = NSFetchRequest<TodoEntities>(entityName: "TodoEntities")
-        do{
-            toDos = try container.viewContext.fetch(request)
-        } catch let error {
-            print("Error request Core Data \(error.localizedDescription)")
+    func addTodo<T: IToDo>(
+        item: T,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        container.performBackgroundTask { context in
+            self.convertItem(item: item, context: context)
+            self.saveContext(context, completion: completion)
         }
     }
-//    
-//    private func saveData() -> Bool {
-//        do{
-//            try container.viewContext.save()
-//            fechProducts()
-//            return true
-//        } catch let error {
-//            print("Error saving  data to Core Data. \(error.localizedDescription)")
-//        }
-//        return false
-//    }
-//    
-//    func getEntitiByProductName(name: String) -> ProductEntities? {
-//        for item in savedProducts {
-//            if item.name == name {
-//                return item
-//            }
-//        }
-//        return nil
-//    }
-//    
-//    func addToBasket(product: Product) -> Bool {
-//        guard let entity = getEntitiByProductName(name: product.name) else {
-//            if addProduct(product: product) {
-//                return true
-//            }
-//            return false
-//        }
-//        return updateProduct(entity: entity, product: product)
-//    }
-//    
-}
-//
-//
-//extension ProductEntities {
-//    func toProduct() -> Product {
-//        return Product(
-//            name: self.name ?? "",
-//            detail: self.detail ?? "",
-//            price: Int(self.price),
-//            image: self.image ?? "",
-//            isPromo: self.ispromo,
-//            count: 1
-//        )
-//    }
-//}
-//
-//extension Product {
-//    func toProductEntity(context: NSManagedObjectContext) -> ProductEntities {
-//        let entity = ProductEntities(context: context)
-//        entity.name = self.name
-//        entity.detail = self.detail
-//        entity.price = Int64(self.price)
-//        entity.image = self.image
-//        entity.ispromo = self.isPromo
-//        return entity
-//    }
-//}
+    
+    func addTodos<T: IToDo>(
+        items: [T],
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        container.performBackgroundTask { context in
+            for item in items {
+                self.convertItem(item: item, context: context)
+            }
+            self.saveContext(context, completion: completion)
+        }
+    }
+    
+    func getToDos<T: IToDo>(
+        _ type: T.Type,
+        completion: @escaping (Result<[T], Error>) -> Void
+    ) {
+        fetchTodos { entities in
+            switch entities {
+            case .success(let entities):
+                let items: [T] = self.convertEntities(entities)
+                completion(.success(items))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 
+    func updateTodo<T: IToDo>(
+        item: T,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        container.performBackgroundTask { context in
+            let request: NSFetchRequest<TodoEntities> = TodoEntities.fetchRequest()
+            request.predicate = self.predicate(for: item.id)
+            request.fetchLimit = 1
+            do {
+                if let entity = try context.fetch(request).first {
+                    self.updateEntity(entity: entity, item: item)
+                }
+                self.saveContext(context, completion: completion)
+            } catch {
+                    completion(.failure(error))
+            }
+        }
+    }
+
+    func deleteTodo(
+        id: UUID,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        container.performBackgroundTask { context in
+            let request: NSFetchRequest<TodoEntities> = TodoEntities.fetchRequest()
+            request.predicate = self.predicate(for: id)
+            do {
+                let todos = try context.fetch(request)
+                todos.forEach { context.delete($0) }
+                self.saveContext(context, completion: completion)
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+}
+
+extension StorageService {
+    //запрос данный у CoreData в фоновом потоке
+    private func fetchTodos(completion: @escaping (Result<[TodoEntities], Error>) -> Void) {
+        container.performBackgroundTask { context in
+            let request: NSFetchRequest<TodoEntities> = TodoEntities.fetchRequest()
+            do {
+                let todos = try context.fetch(request)
+                completion(.success(todos))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    //конвертируем TodoEntities - CoreData, в модель данных соответствующую протоку IToDo
+    private func convertEntities<T: IToDo>(_ entities: [TodoEntities]) -> [T] {
+        let items: [T] = entities.compactMap { entity in
+            guard
+                let id = entity.id,
+                let todo = entity.todo,
+                let content = entity.content,
+                let date = entity.date
+            else {
+                return nil
+            }
+            return T(
+                id: id,
+                todo: todo,
+                content: content,
+                completed: entity.completed,
+                date: date
+            )
+        }
+        return items
+    }
+    
+    private func convertItem<T: IToDo>(item: T, context: NSManagedObjectContext) {
+        let newEntity = TodoEntities(context: context)
+        newEntity.id = item.id
+        newEntity.todo = item.todo
+        newEntity.content = item.content
+        newEntity.completed = item.completed
+        newEntity.date = item.date
+    }
+    
+    private func saveContext(
+        _ context: NSManagedObjectContext,
+        completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        do {
+            try context.save()
+                completion(.success(true))
+        } catch {
+                completion(.failure(error))
+        }
+    }
+    
+    private func updateEntity<T: IToDo>(entity: TodoEntities, item: T) {
+        entity.todo = item.todo
+        entity.content = item.content
+        entity.completed = item.completed
+        entity.date = item.date
+    }
+    
+    private func predicate(for id: UUID) -> NSPredicate {
+        NSPredicate(format: "id == %@", id as CVarArg)
+    }
+    
+}

@@ -10,7 +10,7 @@ import UIKit
 final class ViewController: UIViewController {
      
     private lazy var tableView = TodoTableView()
-    private var presenter: TodoListPresenterProtocol!
+    private var presenter: ITodoListPresenter!
     
     
     override func viewDidLoad() {
@@ -28,11 +28,19 @@ final class ViewController: UIViewController {
         
 }
 
-extension ViewController: TodoListViewProtocol {
+extension ViewController: ITodoListView {
     //разобраться
     func reloadData() {
         tableView.reloadData()
     }
+    
+    func showError(_ message: String) {
+            let alert = UIAlertController(title: "Ошибка",
+                                          message: message,
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+        }
 }
 
 extension ViewController {

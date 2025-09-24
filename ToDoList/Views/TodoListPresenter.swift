@@ -7,22 +7,23 @@
 
 import Foundation
 
-protocol TodoListPresenterProtocol {
+protocol ITodoListPresenter {
     var numberOfTodos: Int { get }
-    func todo(at index: Int) -> TodoItemLocal?
+    func todo(at index: Int) -> TodoItem?
     func loadTodos()
 }
 
-protocol TodoListViewProtocol: AnyObject {
+protocol ITodoListView: AnyObject {
     func reloadData()
+    func showError(_: String)
 }
 
-final class TodoListPresenter: TodoListPresenterProtocol {
-    private let interactor: TodoListInteractorProtocol
-    private weak var view: TodoListViewProtocol?
-    private var todos: [TodoItemLocal] = []
+final class TodoListPresenter: ITodoListPresenter {
+    private let interactor: ITodoListInteractor
+    private weak var view: ITodoListView?
+    private var todos: [TodoItem] = []
     
-    init(interactor: TodoListInteractorProtocol, view: TodoListViewProtocol) {
+    init(interactor: ITodoListInteractor, view: ITodoListView) {
         self.interactor = interactor
         self.view = view
     }
@@ -31,13 +32,23 @@ final class TodoListPresenter: TodoListPresenterProtocol {
         todos.count
     }
     
-    func todo(at index: Int) -> TodoItemLocal? {
+    func todo(at index: Int) -> TodoItem? {
         guard index < todos.count else { return nil }
         return todos[index]
     }
     
     func loadTodos() {
-        todos = interactor.fetchTodos()
-        view?.reloadData()
+        interactor.fetchTodos { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let items):
+                    self.todos = items
+                    self.view?.reloadData()
+                case .failure(let error):
+                    self.view?.showError(error.localizedDescription)
+                }
+            }
+        }
     }
 }
