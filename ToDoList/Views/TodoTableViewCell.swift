@@ -16,13 +16,14 @@ final class TodoTableViewCell: UITableViewCell {
             guard let item = toDoItem else { return }
             titleLabel.text = item.todo
             descriptionLabel.text = item.content
-            dateLabel.text = item.date.description
+            dateLabel.text = item.date.getToDoDateFormat
             setImage(item.completed)
         }
     }
     
     private lazy var containerView: UIView = {
-        $0.backgroundColor = .clear
+        $0.backgroundColor = .background //требуется изменить
+        //$0.layer.cornerRadius = 15
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
