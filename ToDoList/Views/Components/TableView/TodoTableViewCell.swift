@@ -22,7 +22,7 @@ final class TodoTableViewCell: UITableViewCell {
     }
     
     private lazy var containerView: UIView = {
-        $0.backgroundColor = .background //требуется изменить
+        $0.backgroundColor = .clear //требуется изменить
         //$0.layer.cornerRadius = 15
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
@@ -97,6 +97,7 @@ final class TodoTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         setupViews()
         setupConstraints()
     }

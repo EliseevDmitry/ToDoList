@@ -14,7 +14,7 @@ final class TodoTableView: UITableView {
         style: UITableView.Style = .plain
     ) {
         super.init(frame: frame, style: style)
-        customInitTanleView()
+        customInitTableView()
     }
     
     required init?(coder: NSCoder) {
@@ -24,23 +24,23 @@ final class TodoTableView: UITableView {
 }
 
 extension TodoTableView {
-    private func customInitTanleView() {
+    private func customInitTableView() {
         if #available(iOS 15.0, *) {
             sectionHeaderTopPadding = 0
         }
         registerCell(TodoTableViewCell.self)
         rowHeight = UITableView.automaticDimension
         estimatedRowHeight = 100
-        translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .orange
+        
+        backgroundColor = .clear
         separatorStyle = .none
         contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         rowHeight = UITableView.automaticDimension
         
         separatorStyle = .singleLine      // линии между ячейками
                 separatorColor = .lightGray       // цвет линии
-                separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15) 
+                separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+        translatesAutoresizingMaskIntoConstraints = false
     }
-    
-    
+
 }

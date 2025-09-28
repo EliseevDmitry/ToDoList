@@ -12,7 +12,7 @@
 		263F1E692E8820A100D97344 /* FooterUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F1E682E8820A100D97344 /* FooterUIView.swift */; };
 		26BD60B42E81A1A0006C61E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60B32E81A1A0006C61E0 /* AppDelegate.swift */; };
 		26BD60B62E81A1A0006C61E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60B52E81A1A0006C61E0 /* SceneDelegate.swift */; };
-		26BD60B82E81A1A0006C61E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60B72E81A1A0006C61E0 /* ViewController.swift */; };
+		26BD60B82E81A1A0006C61E0 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60B72E81A1A0006C61E0 /* TasksViewController.swift */; };
 		26BD60BD2E81A1A1006C61E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26BD60BC2E81A1A1006C61E0 /* Assets.xcassets */; };
 		26BD60C02E81A1A1006C61E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26BD60BE2E81A1A1006C61E0 /* LaunchScreen.storyboard */; };
 		26BD60CD2E81A383006C61E0 /* NetworkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60CC2E81A383006C61E0 /* NetworkServices.swift */; };
@@ -24,6 +24,15 @@
 		26BD60E22E81BD1D006C61E0 /* Todo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60E02E81BD1D006C61E0 /* Todo.xcdatamodeld */; };
 		26E3201A2E841646003A82E5 /* TodoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E320192E841646003A82E5 /* TodoRepository.swift */; };
 		26E3201D2E8418DB003A82E5 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3201C2E8418DB003A82E5 /* SettingsService.swift */; };
+		26E3B0642E88ED0B008A127F /* ScreenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B0632E88ED0B008A127F /* ScreenApp.swift */; };
+		26E3B0662E88F1F6008A127F /* Extension+UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B0652E88F1F6008A127F /* Extension+UINavigationController.swift */; };
+		26E3B0682E88F74B008A127F /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B0672E88F74B008A127F /* Extension+UIColor.swift */; };
+		26E3B0702E890AA4008A127F /* Extension+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B06F2E890AA4008A127F /* Extension+Font.swift */; };
+		26E3B0732E8920A4008A127F /* ToDoContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B0722E8920A4008A127F /* ToDoContextMenu.swift */; };
+		26E3B0752E8922F8008A127F /* PreviewProviderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B0742E8922F8008A127F /* PreviewProviderViewController.swift */; };
+		26E3B07B2E8942C8008A127F /* Extension+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B07A2E8942C8008A127F /* Extension+UITableView.swift */; };
+		26E3B07D2E89796D008A127F /* SearchUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B07C2E89796D008A127F /* SearchUITextField.swift */; };
+		26E3B0802E898973008A127F /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B07F2E898973008A127F /* Extension+UIView.swift */; };
 		26ED04952E84FBD900DE33CC /* Extension+UIMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ED04942E84FBC600DE33CC /* Extension+UIMenu.swift */; };
 		26FCD0EF2E8302DD009906DE /* Moc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0EE2E8302DD009906DE /* Moc.swift */; };
 		26FCD0F22E8304D4009906DE /* UITableView+dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0F12E8304D4009906DE /* UITableView+dequeue.swift */; };
@@ -40,7 +49,7 @@
 		26BD60B02E81A1A0006C61E0 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26BD60B32E81A1A0006C61E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26BD60B52E81A1A0006C61E0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		26BD60B72E81A1A0006C61E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		26BD60B72E81A1A0006C61E0 /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		26BD60BC2E81A1A1006C61E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		26BD60BF2E81A1A1006C61E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		26BD60C12E81A1A1006C61E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,6 +62,15 @@
 		26BD60E12E81BD1D006C61E0 /* Todo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Todo.xcdatamodel; sourceTree = "<group>"; };
 		26E320192E841646003A82E5 /* TodoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepository.swift; sourceTree = "<group>"; };
 		26E3201C2E8418DB003A82E5 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
+		26E3B0632E88ED0B008A127F /* ScreenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenApp.swift; sourceTree = "<group>"; };
+		26E3B0652E88F1F6008A127F /* Extension+UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UINavigationController.swift"; sourceTree = "<group>"; };
+		26E3B0672E88F74B008A127F /* Extension+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
+		26E3B06F2E890AA4008A127F /* Extension+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Font.swift"; sourceTree = "<group>"; };
+		26E3B0722E8920A4008A127F /* ToDoContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoContextMenu.swift; sourceTree = "<group>"; };
+		26E3B0742E8922F8008A127F /* PreviewProviderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProviderViewController.swift; sourceTree = "<group>"; };
+		26E3B07A2E8942C8008A127F /* Extension+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITableView.swift"; sourceTree = "<group>"; };
+		26E3B07C2E89796D008A127F /* SearchUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUITextField.swift; sourceTree = "<group>"; };
+		26E3B07F2E898973008A127F /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
 		26ED04942E84FBC600DE33CC /* Extension+UIMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIMenu.swift"; sourceTree = "<group>"; };
 		26FCD0EE2E8302DD009906DE /* Moc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moc.swift; sourceTree = "<group>"; };
 		26FCD0F12E8304D4009906DE /* UITableView+dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+dequeue.swift"; sourceTree = "<group>"; };
@@ -76,7 +94,11 @@
 		263F1E632E88144700D97344 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				26E3B0772E89232C008A127F /* TableView */,
+				26E3B0762E892314008A127F /* ContextMenu */,
 				263F1E642E88145F00D97344 /* ToDoAlertError.swift */,
+				263F1E682E8820A100D97344 /* FooterUIView.swift */,
+				26E3B07C2E89796D008A127F /* SearchUITextField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -100,13 +122,14 @@
 		26BD60C82E81A1BC006C61E0 /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				26FCD0ED2E8302C4009906DE /* MOC */,
-				26BD60D82E81A6B0006C61E0 /* Extensions */,
-				26BD60D32E81A567006C61E0 /* Entity */,
-				26BD60CE2E81A3C0006C61E0 /* Constants */,
-				26BD60CB2E81A31D006C61E0 /* Services */,
 				26BD60C92E81A2FD006C61E0 /* App */,
+				26BD60D32E81A567006C61E0 /* Entity */,
+				26BD60CB2E81A31D006C61E0 /* Services */,
 				26BD60CA2E81A308006C61E0 /* Views */,
+				26BD60D82E81A6B0006C61E0 /* Extensions */,
+				26BD60CE2E81A3C0006C61E0 /* Constants */,
+				26E3B0622E88ECF3008A127F /* Helper */,
+				26FCD0ED2E8302C4009906DE /* MOC */,
 				26BD60BE2E81A1A1006C61E0 /* LaunchScreen.storyboard */,
 				26BD60BC2E81A1A1006C61E0 /* Assets.xcassets */,
 				26BD60C12E81A1A1006C61E0 /* Info.plist */,
@@ -127,13 +150,8 @@
 		26BD60CA2E81A308006C61E0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				26E3B0712E891A0B008A127F /* TasksVC */,
 				263F1E632E88144700D97344 /* Components */,
-				26BD60B72E81A1A0006C61E0 /* ViewController.swift */,
-				26FCD0F32E83055E009906DE /* TodoTableView.swift */,
-				263F1E682E8820A100D97344 /* FooterUIView.swift */,
-				26FCD0F52E83077B009906DE /* TodoTableViewCell.swift */,
-				26FCD0F82E83273E009906DE /* TodoListInteractor.swift */,
-				26FCD0FA2E8327A5009906DE /* TodoListPresenter.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -172,9 +190,50 @@
 				26FCD0F12E8304D4009906DE /* UITableView+dequeue.swift */,
 				26BD60D92E81A6C2006C61E0 /* Extension+URLResponse.swift */,
 				26BD60DB2E81B405006C61E0 /* Extension+URLSession.swift */,
+				26E3B0672E88F74B008A127F /* Extension+UIColor.swift */,
 				263F1E662E881D9000D97344 /* Extension+Date.swift */,
+				26E3B0652E88F1F6008A127F /* Extension+UINavigationController.swift */,
+				26E3B06F2E890AA4008A127F /* Extension+Font.swift */,
+				26E3B07A2E8942C8008A127F /* Extension+UITableView.swift */,
+				26E3B07F2E898973008A127F /* Extension+UIView.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		26E3B0622E88ECF3008A127F /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				26E3B0632E88ED0B008A127F /* ScreenApp.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		26E3B0712E891A0B008A127F /* TasksVC */ = {
+			isa = PBXGroup;
+			children = (
+				26BD60B72E81A1A0006C61E0 /* TasksViewController.swift */,
+				26FCD0F82E83273E009906DE /* TodoListInteractor.swift */,
+				26FCD0FA2E8327A5009906DE /* TodoListPresenter.swift */,
+			);
+			path = TasksVC;
+			sourceTree = "<group>";
+		};
+		26E3B0762E892314008A127F /* ContextMenu */ = {
+			isa = PBXGroup;
+			children = (
+				26E3B0722E8920A4008A127F /* ToDoContextMenu.swift */,
+				26E3B0742E8922F8008A127F /* PreviewProviderViewController.swift */,
+			);
+			path = ContextMenu;
+			sourceTree = "<group>";
+		};
+		26E3B0772E89232C008A127F /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				26FCD0F32E83055E009906DE /* TodoTableView.swift */,
+				26FCD0F52E83077B009906DE /* TodoTableViewCell.swift */,
+			);
+			path = TableView;
 			sourceTree = "<group>";
 		};
 		26FCD0ED2E8302C4009906DE /* MOC */ = {
@@ -263,23 +322,32 @@
 				26BD60D22E81A403006C61E0 /* Constants.swift in Sources */,
 				26FCD0F92E83273E009906DE /* TodoListInteractor.swift in Sources */,
 				26BD60E22E81BD1D006C61E0 /* Todo.xcdatamodeld in Sources */,
-				26BD60B82E81A1A0006C61E0 /* ViewController.swift in Sources */,
+				26BD60B82E81A1A0006C61E0 /* TasksViewController.swift in Sources */,
+				26E3B0732E8920A4008A127F /* ToDoContextMenu.swift in Sources */,
 				26BD60B42E81A1A0006C61E0 /* AppDelegate.swift in Sources */,
 				263F1E692E8820A100D97344 /* FooterUIView.swift in Sources */,
 				26FCD0F42E83055E009906DE /* TodoTableView.swift in Sources */,
+				26E3B07D2E89796D008A127F /* SearchUITextField.swift in Sources */,
+				26E3B0642E88ED0B008A127F /* ScreenApp.swift in Sources */,
+				26E3B0702E890AA4008A127F /* Extension+Font.swift in Sources */,
 				263F1E652E88145F00D97344 /* ToDoAlertError.swift in Sources */,
+				26E3B0662E88F1F6008A127F /* Extension+UINavigationController.swift in Sources */,
+				26E3B07B2E8942C8008A127F /* Extension+UITableView.swift in Sources */,
 				263F1E672E881D9000D97344 /* Extension+Date.swift in Sources */,
 				26FCD0EF2E8302DD009906DE /* Moc.swift in Sources */,
 				26BD60DA2E81A6C2006C61E0 /* Extension+URLResponse.swift in Sources */,
 				26FCD0F62E83077B009906DE /* TodoTableViewCell.swift in Sources */,
+				26E3B0752E8922F8008A127F /* PreviewProviderViewController.swift in Sources */,
 				26FCD0F22E8304D4009906DE /* UITableView+dequeue.swift in Sources */,
 				26BD60DC2E81B405006C61E0 /* Extension+URLSession.swift in Sources */,
 				26BD60CD2E81A383006C61E0 /* NetworkServices.swift in Sources */,
 				26FCD0FB2E8327A5009906DE /* TodoListPresenter.swift in Sources */,
 				26BD60D52E81A5DF006C61E0 /* TodoItem.swift in Sources */,
 				26E3201A2E841646003A82E5 /* TodoRepository.swift in Sources */,
+				26E3B0802E898973008A127F /* Extension+UIView.swift in Sources */,
 				26BD60DE2E81BC9B006C61E0 /* StorageService.swift in Sources */,
 				26BD60B62E81A1A0006C61E0 /* SceneDelegate.swift in Sources */,
+				26E3B0682E88F74B008A127F /* Extension+UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,8 +377,9 @@
 				INFOPLIST_FILE = ToDoList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -319,9 +388,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.eliseev.dmitry.ToDoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -337,8 +410,9 @@
 				INFOPLIST_FILE = ToDoList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -347,9 +421,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.eliseev.dmitry.ToDoList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

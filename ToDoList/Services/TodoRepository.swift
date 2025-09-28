@@ -10,6 +10,8 @@ import CoreData
 
 protocol ITodoRepository {
     func getToDos(completion: @escaping (Result<[TodoItem], Error>) -> Void)
+    func deleteToDO(id: UUID, completion: @escaping (Result<Void, Error>) -> Void)
+    func updateToDO(item: any IToDo, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 final class TodoRepository: ITodoRepository {
@@ -35,6 +37,28 @@ extension TodoRepository {
             fetchFromNetwork(completion: completion)
         } else {
             fetchFromStorage(completion: completion)
+        }
+    }
+    
+    func deleteToDO(id: UUID, completion: @escaping (Result<Void, Error>) -> Void) {
+        storage.deleteTodo(id: id) { result in
+            switch result {
+            case .success:
+                completion(.success(()))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
+    }
+    
+    func updateToDO(item: any IToDo, completion: @escaping (Result<Void, Error>) -> Void) {
+        storage.updateTodo(item: item) { result in
+            switch result {
+            case .success(let success):
+                completion(.success(()))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
         }
     }
 }

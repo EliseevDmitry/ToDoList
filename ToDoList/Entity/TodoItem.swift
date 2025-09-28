@@ -14,7 +14,13 @@ protocol IToDo: Identifiable {
     var completed: Bool { get }
     var date: Date { get }
     
-    init(id: UUID, todo: String, content: String, completed: Bool, date: Date)
+    init(
+        id: UUID,
+        todo: String,
+        content: String,
+        completed: Bool,
+        date: Date
+    )
 }
 
 struct TodosResponse: Codable {
@@ -22,7 +28,13 @@ struct TodosResponse: Codable {
 }
 
 struct TodoItem: Codable, IToDo {
-    init(id: UUID, todo: String, content: String, completed: Bool, date: Date) {
+    init(
+        id: UUID,
+        todo: String,
+        content: String,
+        completed: Bool,
+        date: Date
+    ) {
         self.id = id
         self.todo = todo
         self.content = content
@@ -30,11 +42,10 @@ struct TodoItem: Codable, IToDo {
         self.date = date
     }
     
-    
     let id: UUID
     let todo: String
     let content: String
-    let completed: Bool
+    var completed: Bool
     let date: Date
     
     enum CodingKeys: String, CodingKey {
@@ -51,7 +62,10 @@ struct TodoItem: Codable, IToDo {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.todo = try container.decode(String.self, forKey: .todo)
-        self.completed = try container.decode(Bool.self, forKey: .completed)
+        self.completed = try container.decode(
+            Bool.self,
+            forKey: .completed
+        )
         self.id = UUID()
         self.content = Consts.content
         self.date = Consts.date
@@ -68,5 +82,9 @@ struct TodoItem: Codable, IToDo {
         self.content = content
         self.completed = completed
         self.date = date
+    }
+    
+    mutating func updateCompleted() {
+        self.completed = true
     }
 }
