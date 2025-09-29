@@ -7,6 +7,9 @@
 
 import Foundation
 
+/// Протокол для абстрактного представления задачи.
+/// Позволяет работать с любыми реализациями ToDo на уровне сервисов,
+/// не привязываясь к конкретной модели данных.
 protocol IToDo: Identifiable {
     var id: UUID { get }
     var todo: String { get }
@@ -14,6 +17,7 @@ protocol IToDo: Identifiable {
     var completed: Bool { get }
     var date: Date { get }
     
+    /// Инициализация объекта через все поля.
     init(
         id: UUID,
         todo: String,
@@ -23,11 +27,41 @@ protocol IToDo: Identifiable {
     )
 }
 
+/// Ответ от API с массивом задач.
+/// В задании не требуется пагинация, поэтому забираем только базовые данные.
 struct TodosResponse: Codable {
     let todos: [TodoItem]
 }
 
+/// Модель задачи приложения.
+/// Используется для хранения локальных и сетевых данных, реализует `IToDo`.
+/// `id`, `content` и `date` генерируется локально, остальные поля соответствуют требованиям задания.
 struct TodoItem: Codable, IToDo {
+    enum CodingKeys: String, CodingKey {
+        case todo
+        case completed
+    }
+    
+    enum Consts {
+        static let content = "Тут должно быть подробное описание заметки"
+        static let completed = false
+        static let date = Date()
+    }
+    
+    let id: UUID
+    let todo: String
+    let content: String
+    var completed: Bool
+    let date: Date
+    
+    /// Полный инициализатор для явного создания задачи.
+    /// Позволяет задать все свойства, включая локально генерируемый `id` и дату.
+    /// - Parameters:
+    ///   - id: Уникальный идентификатор задачи.
+    ///   - todo: Заголовок задачи.
+    ///   - content: Подробное описание.
+    ///   - completed: Статус выполнения.
+    ///   - date: Дата создания задачи.
     init(
         id: UUID,
         todo: String,
@@ -42,23 +76,8 @@ struct TodoItem: Codable, IToDo {
         self.date = date
     }
     
-    let id: UUID
-    let todo: String
-    let content: String
-    var completed: Bool
-    let date: Date
-    
-    enum CodingKeys: String, CodingKey {
-        case todo
-        case completed
-    }
-    
-    enum Consts {
-        static let content = "Тут должно быть подробное описание заметки"
-        static let completed = false
-        static let date = Date()
-    }
-    
+    /// Инициализация из сети (декодирование).
+    /// Локально создаются `id`, `content` и `date`.
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.todo = try container.decode(String.self, forKey: .todo)
@@ -71,6 +90,7 @@ struct TodoItem: Codable, IToDo {
         self.date = Consts.date
     }
     
+    /// Основной инициализатор для локального создания задач.
     init(
         todo: String,
         content: String = Consts.content,
@@ -84,6 +104,7 @@ struct TodoItem: Codable, IToDo {
         self.date = date
     }
     
+    /// Помечает задачу как выполненную.
     mutating func updateCompleted() {
         self.completed = true
     }

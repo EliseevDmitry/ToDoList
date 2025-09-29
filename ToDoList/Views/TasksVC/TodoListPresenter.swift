@@ -13,6 +13,8 @@ protocol ITodoListPresenter {
     func loadTodos()
     func deleteToDo(at index: Int)
     func completedToDo(at index: Int)
+    func searchToDoItems(query: String)
+    func addNewFixedItem(item: TodoItem)
 }
 
 protocol ITodoListView: AnyObject {
@@ -21,14 +23,19 @@ protocol ITodoListView: AnyObject {
 }
 
 final class TodoListPresenter: ITodoListPresenter {
+    
     private let interactor: ITodoListInteractor
     private weak var view: ITodoListView?
     private var todos: [TodoItem] = []
     
-    init(interactor: ITodoListInteractor, view: ITodoListView) {
-        self.interactor = interactor
-        self.view = view
-    }
+    init(interactor: ITodoListInteractor, view: ITodoListView? = nil) {
+            self.interactor = interactor
+            self.view = view
+        }
+        
+        func setView(_ view: ITodoListView) {
+            self.view = view
+        }
     
     var numberOfTodos: Int {
         todos.count
@@ -41,11 +48,12 @@ final class TodoListPresenter: ITodoListPresenter {
     
     func loadTodos() {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.interactor.fetchTodos { [weak self] result in
+            self.interactor.fetchItems { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let items):
-                    self.todos = items
+                    self.todos.removeAll()
+                    self.todos = items.sorted { $0.date > $1.date }
                     DispatchQueue.main.async { self.view?.reloadData() }
                 case .failure(let error):
                     DispatchQueue.main.async { self.view?.showError(error.localizedDescription) }
@@ -60,7 +68,7 @@ final class TodoListPresenter: ITodoListPresenter {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
-                case .success:
+                case .success(_):
                     self.todos.remove(at: index)
                     self.view?.reloadData()
                 case .failure(let error):
@@ -77,7 +85,7 @@ final class TodoListPresenter: ITodoListPresenter {
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
-                case .success(let success):
+                case .success(_):
                     self.todos[index] = entity
                     self.view?.reloadData()
                 case .failure(let error):
@@ -85,6 +93,42 @@ final class TodoListPresenter: ITodoListPresenter {
                 }
             }
         }
-    
     }
+    
+    func searchToDoItems(query: String) {
+        guard !query.isEmpty else {
+            loadTodos()
+            return
+        }
+        
+        interactor.searchItems(query: query) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let items):
+                    self.todos.removeAll()
+                    self.todos = items.sorted { $0.date > $1.date }
+                    self.view?.reloadData()
+                case .failure(let error):
+                    self.view?.showError(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func addNewFixedItem(item: TodoItem) {
+        interactor.addItem(item: item) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    self.todos.insert(item, at: 0)
+                    self.view?.reloadData()
+                case .failure(let error):
+                    self.view?.showError(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
 }

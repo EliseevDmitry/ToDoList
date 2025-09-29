@@ -6,24 +6,18 @@
 //
 
 import UIKit
-import SwiftUI
 
 final class TodoTableViewCell: UITableViewCell {
     static let reuseId = "ToDoCell"
     
     private var toDoItem: TodoItem? {
         didSet {
-            guard let item = toDoItem else { return }
-            titleLabel.text = item.todo
-            descriptionLabel.text = item.content
-            dateLabel.text = item.date.getToDoDateFormat
-            setImage(item.completed)
+            updateUIComponents()
         }
     }
     
     private lazy var containerView: UIView = {
-        $0.backgroundColor = .clear //требуется изменить
-        //$0.layer.cornerRadius = 15
+        $0.backgroundColor = UIColor.theme.background
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UIView())
@@ -60,21 +54,20 @@ final class TodoTableViewCell: UITableViewCell {
     }(UIStackView())
     
     private lazy var titleLabel: UILabel = {
-        //$0.text = Moc.data.first!.todo //Moc
-        $0.font = .systemFont(ofSize: 16, weight: .medium) //ок
-        //$0.adjustsFontSizeToFitWidth = true
+        $0.font = UIFont.theme.cardTitle
+        $0.textColor = UIColor.theme.activeText
         $0.textAlignment = .left
         $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
-
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
     
     private lazy var descriptionLabel: UILabel = {
-        //$0.text = Moc.data.first!.content
-        $0.font = .systemFont(ofSize: 16, weight: .regular)
+        $0.font = UIFont.theme.cardContentAndDate
+        $0.textColor = UIColor.theme.activeText
         $0.numberOfLines = 2
+        $0.adjustsFontSizeToFitWidth = true
         $0.textAlignment = .left
         $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
             $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -83,13 +76,11 @@ final class TodoTableViewCell: UITableViewCell {
     }(UILabel())
     
     private lazy var dateLabel: UILabel = {
-        //$0.text = Moc.data.first!.date.description
-        $0.font = .systemFont(ofSize: 16, weight: .regular)
-        $0.adjustsFontSizeToFitWidth = true
+        $0.font = UIFont.theme.cardContentAndDate
+        $0.textColor = UIColor.theme.cardDateText
         $0.textAlignment = .left
         $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
         $0.setContentCompressionResistancePriority(.required, for: .vertical)
-
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(UILabel())
@@ -114,7 +105,10 @@ extension TodoTableViewCell {
     
     func setImage(_ flag: Bool) {
         circleImageView.image = flag ? UIImage(systemName: "checkmark.circle") : UIImage(systemName: "circle")
-        circleImageView.tintColor = flag ? .yellow : .green
+        circleImageView.tintColor = flag ? UIColor.theme.customYellow : UIColor.theme.activeCircle
+        titleLabel.textColor = flag ? UIColor.theme.cardDateText : UIColor.theme.activeText
+        descriptionLabel.textColor = flag ? UIColor.theme.cardDateText : UIColor.theme.activeText
+       // flag ? titleLabel.applyStrikethrough() : titleLabel.removeStrikethrough()
     }
 }
 
@@ -152,29 +146,18 @@ extension TodoTableViewCell {
             circleImageView.heightAnchor.constraint(equalTo: circleImageView.widthAnchor),
         ])
         
-        // Optional: чтобы verticalStackView не растягивал descriptionLabel слишком сильно
         descriptionLabel.setContentHuggingPriority(.required, for: .vertical)
         descriptionLabel.setContentCompressionResistancePriority(.required, for: .vertical)
     }
 }
 
-struct ToDoTableViewCellPreview: UIViewRepresentable {
-    func makeUIView(context: Context) -> TodoTableViewCell {
-        let cell = TodoTableViewCell(style: .default, reuseIdentifier: TodoTableViewCell.reuseId)
-        // Настроим тестовые данные, если нужно
-        cell.update(Moc.data.first!)
-        return cell
-    }
-    
-    func updateUIView(_ uiView: TodoTableViewCell, context: Context) {
-        // можно обновлять содержимое ячейки, если потребуется
-    }
-}
 
-struct ToDoTableViewCell_Previews: PreviewProvider {
-    static var previews: some View {
-        ToDoTableViewCellPreview()
-            .previewLayout(.fixed(width: 375, height: 100)) // можно подогнать размер под ячейку
-            .padding()
+extension TodoTableViewCell {
+    private func updateUIComponents(){
+        guard let item = toDoItem else { return }
+        titleLabel.text = item.todo
+        descriptionLabel.text = item.content
+        dateLabel.text = item.date.getToDoDateFormat
+        setImage(item.completed)
     }
 }

@@ -22,6 +22,9 @@
 		26BD60DC2E81B405006C61E0 /* Extension+URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60DB2E81B405006C61E0 /* Extension+URLSession.swift */; };
 		26BD60DE2E81BC9B006C61E0 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60DD2E81BC9B006C61E0 /* StorageService.swift */; };
 		26BD60E22E81BD1D006C61E0 /* Todo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60E02E81BD1D006C61E0 /* Todo.xcdatamodeld */; };
+		26C8610F2E8AFBBD000067BE /* Di.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8610E2E8AFBBD000067BE /* Di.swift */; };
+		26C861132E8AFBF1000067BE /* ScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C861122E8AFBF1000067BE /* ScreenFactory.swift */; };
+		26C861152E8B0ECD000067BE /* Extension+Lable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C861142E8B0ECD000067BE /* Extension+Lable.swift */; };
 		26E3201A2E841646003A82E5 /* TodoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E320192E841646003A82E5 /* TodoRepository.swift */; };
 		26E3201D2E8418DB003A82E5 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3201C2E8418DB003A82E5 /* SettingsService.swift */; };
 		26E3B0642E88ED0B008A127F /* ScreenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B0632E88ED0B008A127F /* ScreenApp.swift */; };
@@ -60,6 +63,9 @@
 		26BD60DB2E81B405006C61E0 /* Extension+URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+URLSession.swift"; sourceTree = "<group>"; };
 		26BD60DD2E81BC9B006C61E0 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		26BD60E12E81BD1D006C61E0 /* Todo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Todo.xcdatamodel; sourceTree = "<group>"; };
+		26C8610E2E8AFBBD000067BE /* Di.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Di.swift; sourceTree = "<group>"; };
+		26C861122E8AFBF1000067BE /* ScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenFactory.swift; sourceTree = "<group>"; };
+		26C861142E8B0ECD000067BE /* Extension+Lable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Lable.swift"; sourceTree = "<group>"; };
 		26E320192E841646003A82E5 /* TodoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepository.swift; sourceTree = "<group>"; };
 		26E3201C2E8418DB003A82E5 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		26E3B0632E88ED0B008A127F /* ScreenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenApp.swift; sourceTree = "<group>"; };
@@ -143,6 +149,7 @@
 			children = (
 				26BD60B32E81A1A0006C61E0 /* AppDelegate.swift */,
 				26BD60B52E81A1A0006C61E0 /* SceneDelegate.swift */,
+				26C8610D2E8AFB9A000067BE /* ScreenFactory */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -196,8 +203,18 @@
 				26E3B06F2E890AA4008A127F /* Extension+Font.swift */,
 				26E3B07A2E8942C8008A127F /* Extension+UITableView.swift */,
 				26E3B07F2E898973008A127F /* Extension+UIView.swift */,
+				26C861142E8B0ECD000067BE /* Extension+Lable.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		26C8610D2E8AFB9A000067BE /* ScreenFactory */ = {
+			isa = PBXGroup;
+			children = (
+				26C8610E2E8AFBBD000067BE /* Di.swift */,
+				26C861122E8AFBF1000067BE /* ScreenFactory.swift */,
+			);
+			path = ScreenFactory;
 			sourceTree = "<group>";
 		};
 		26E3B0622E88ECF3008A127F /* Helper */ = {
@@ -322,6 +339,7 @@
 				26BD60D22E81A403006C61E0 /* Constants.swift in Sources */,
 				26FCD0F92E83273E009906DE /* TodoListInteractor.swift in Sources */,
 				26BD60E22E81BD1D006C61E0 /* Todo.xcdatamodeld in Sources */,
+				26C861132E8AFBF1000067BE /* ScreenFactory.swift in Sources */,
 				26BD60B82E81A1A0006C61E0 /* TasksViewController.swift in Sources */,
 				26E3B0732E8920A4008A127F /* ToDoContextMenu.swift in Sources */,
 				26BD60B42E81A1A0006C61E0 /* AppDelegate.swift in Sources */,
@@ -333,12 +351,14 @@
 				263F1E652E88145F00D97344 /* ToDoAlertError.swift in Sources */,
 				26E3B0662E88F1F6008A127F /* Extension+UINavigationController.swift in Sources */,
 				26E3B07B2E8942C8008A127F /* Extension+UITableView.swift in Sources */,
+				26C8610F2E8AFBBD000067BE /* Di.swift in Sources */,
 				263F1E672E881D9000D97344 /* Extension+Date.swift in Sources */,
 				26FCD0EF2E8302DD009906DE /* Moc.swift in Sources */,
 				26BD60DA2E81A6C2006C61E0 /* Extension+URLResponse.swift in Sources */,
 				26FCD0F62E83077B009906DE /* TodoTableViewCell.swift in Sources */,
 				26E3B0752E8922F8008A127F /* PreviewProviderViewController.swift in Sources */,
 				26FCD0F22E8304D4009906DE /* UITableView+dequeue.swift in Sources */,
+				26C861152E8B0ECD000067BE /* Extension+Lable.swift in Sources */,
 				26BD60DC2E81B405006C61E0 /* Extension+URLSession.swift in Sources */,
 				26BD60CD2E81A383006C61E0 /* NetworkServices.swift in Sources */,
 				26FCD0FB2E8327A5009906DE /* TodoListPresenter.swift in Sources */,
@@ -377,7 +397,7 @@
 				INFOPLIST_FILE = ToDoList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
@@ -410,7 +430,7 @@
 				INFOPLIST_FILE = ToDoList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;

@@ -21,6 +21,8 @@ final class FooterUIView: UIView {
         static let footerTitle = "Задач"
     }
     
+    var onAddToDo: (() -> Void)?
+    
     private lazy var horizontalStackView: UIStackView = {
         $0.axis = .horizontal
         $0.alignment = .center
@@ -82,7 +84,7 @@ extension FooterUIView {
 
 extension FooterUIView {
     @objc func addNewTodo() {
-        print("Test")
+        onAddToDo?()
     }
 }
 

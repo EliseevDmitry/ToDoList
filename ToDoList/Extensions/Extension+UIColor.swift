@@ -20,6 +20,7 @@ struct ColorTheme {
     let footerBackground = UIColor(resource: .footer)
     let cardDateText = UIColor(resource: .cardDateText)
     let searchBackground = UIColor(resource: .searchBackground)
+    let activeCircle = UIColor(resource: .activeCircle)
     var searchPlaceholder: UIColor {
         cardDateText
     }
