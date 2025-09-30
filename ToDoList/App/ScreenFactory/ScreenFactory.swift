@@ -16,9 +16,11 @@ final class ScreenFactory {
     
     func makeTasksViewController() -> UIViewController {
         let interactor = di.todoListInteractor
-        let presenter = TodoListPresenter(interactor: interactor, view: nil)
+        let router = TasksRouter(viewController: nil)
+        let presenter = TodoListPresenter(interactor: interactor, view: nil, router: router)
         let viewController = TasksViewController(presenter: presenter)
         presenter.setView(viewController)
+        router.setViewController(viewController: viewController)
         return viewController
     }
 }

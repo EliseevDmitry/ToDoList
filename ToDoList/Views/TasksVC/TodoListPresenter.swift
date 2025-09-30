@@ -15,7 +15,9 @@ protocol ITodoListPresenter {
     func completedToDo(at index: Int)
     func searchToDoItems(query: String)
     func addNewFixedItem(item: TodoItem)
+    func didSelectTodo(at index: Int)
 }
+
 
 protocol ITodoListView: AnyObject {
     func reloadData()
@@ -24,13 +26,17 @@ protocol ITodoListView: AnyObject {
 
 final class TodoListPresenter: ITodoListPresenter {
     
+    
+
     private let interactor: ITodoListInteractor
     private weak var view: ITodoListView?
+    private let router: ITasksRouter
     private var todos: [TodoItem] = []
     
-    init(interactor: ITodoListInteractor, view: ITodoListView? = nil) {
+    init(interactor: ITodoListInteractor, view: ITodoListView? = nil, router: ITasksRouter) {
             self.interactor = interactor
             self.view = view
+        self.router = router
         }
         
         func setView(_ view: ITodoListView) {
@@ -39,6 +45,15 @@ final class TodoListPresenter: ITodoListPresenter {
     
     var numberOfTodos: Int {
         todos.count
+    }
+    
+    func showTodoDetail(todoItem: TodoItem) {
+        router.showTodoDetail(todoItem: todoItem)
+    }
+    
+    func didSelectTodo(at index: Int) {
+            guard let todo = todo(at: index) else { return }
+            router.showTodoDetail(todoItem: todo)
     }
     
     func todo(at index: Int) -> TodoItem? {

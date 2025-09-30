@@ -18,7 +18,7 @@ final class TasksViewController: UIViewController {
         static let newFixedToDoItem = TodoItem(
             id: UUID(),
             todo: "Новая заметка",
-            content: "Отредактируй заметку",
+            content: "Отредактируй заметку Отредактируй заметку Отредактируй заметку Отредактируй заметку Отредактируй заметку Отредактируй заметку Отредактируй заметку",
             completed: false,
             date: .now
         )
@@ -165,13 +165,19 @@ extension TasksViewController: UITableViewDelegate {
     /// Используется для закрепления строки поиска (sticky-header).
     /// Логика вынесена в extension `UIView.getHeader(with:)` для изоляции UI-конструкции.
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        section == 0 ? UIView.getHeader(with: searchView) : nil
+       section == 0 ? UIView.getHeader(with: searchView) : nil
     }
     
     /// Возвращает высоту Header-а для секции.
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? Consts.heightSearchView : 0
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.didSelectTodo(at: indexPath.row)
+         //tableView.deselectRow(at: indexPath, animated: true)
+        
+        }
 }
 
 // MARK: - Private functions
@@ -193,7 +199,7 @@ extension TasksViewController {
     
     /// Строит иерархию view (`subviews`) для контроллера.
     private func setupViews() {
-        [backgroundView, tableView, footer].forEach{
+       [backgroundView, tableView, footer].forEach{
             view.addSubview($0)
         }
     }

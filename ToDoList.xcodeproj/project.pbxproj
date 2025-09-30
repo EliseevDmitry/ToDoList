@@ -24,7 +24,7 @@
 		26BD60E22E81BD1D006C61E0 /* Todo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60E02E81BD1D006C61E0 /* Todo.xcdatamodeld */; };
 		26C8610F2E8AFBBD000067BE /* Di.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8610E2E8AFBBD000067BE /* Di.swift */; };
 		26C861132E8AFBF1000067BE /* ScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C861122E8AFBF1000067BE /* ScreenFactory.swift */; };
-		26C861152E8B0ECD000067BE /* Extension+Lable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C861142E8B0ECD000067BE /* Extension+Lable.swift */; };
+		26C861152E8B0ECD000067BE /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C861142E8B0ECD000067BE /* Extension+String.swift */; };
 		26E3201A2E841646003A82E5 /* TodoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E320192E841646003A82E5 /* TodoRepository.swift */; };
 		26E3201D2E8418DB003A82E5 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3201C2E8418DB003A82E5 /* SettingsService.swift */; };
 		26E3B0642E88ED0B008A127F /* ScreenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B0632E88ED0B008A127F /* ScreenApp.swift */; };
@@ -36,6 +36,8 @@
 		26E3B07B2E8942C8008A127F /* Extension+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B07A2E8942C8008A127F /* Extension+UITableView.swift */; };
 		26E3B07D2E89796D008A127F /* SearchUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B07C2E89796D008A127F /* SearchUITextField.swift */; };
 		26E3B0802E898973008A127F /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B07F2E898973008A127F /* Extension+UIView.swift */; };
+		26EC298F2E8BECFC0075A893 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EC298E2E8BECFC0075A893 /* Router.swift */; };
+		26EC29922E8BF1440075A893 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EC29912E8BF1440075A893 /* TodoDetailViewController.swift */; };
 		26ED04952E84FBD900DE33CC /* Extension+UIMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ED04942E84FBC600DE33CC /* Extension+UIMenu.swift */; };
 		26FCD0EF2E8302DD009906DE /* Moc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0EE2E8302DD009906DE /* Moc.swift */; };
 		26FCD0F22E8304D4009906DE /* UITableView+dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0F12E8304D4009906DE /* UITableView+dequeue.swift */; };
@@ -65,7 +67,7 @@
 		26BD60E12E81BD1D006C61E0 /* Todo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Todo.xcdatamodel; sourceTree = "<group>"; };
 		26C8610E2E8AFBBD000067BE /* Di.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Di.swift; sourceTree = "<group>"; };
 		26C861122E8AFBF1000067BE /* ScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenFactory.swift; sourceTree = "<group>"; };
-		26C861142E8B0ECD000067BE /* Extension+Lable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Lable.swift"; sourceTree = "<group>"; };
+		26C861142E8B0ECD000067BE /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
 		26E320192E841646003A82E5 /* TodoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepository.swift; sourceTree = "<group>"; };
 		26E3201C2E8418DB003A82E5 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		26E3B0632E88ED0B008A127F /* ScreenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenApp.swift; sourceTree = "<group>"; };
@@ -77,6 +79,8 @@
 		26E3B07A2E8942C8008A127F /* Extension+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITableView.swift"; sourceTree = "<group>"; };
 		26E3B07C2E89796D008A127F /* SearchUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUITextField.swift; sourceTree = "<group>"; };
 		26E3B07F2E898973008A127F /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
+		26EC298E2E8BECFC0075A893 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		26EC29912E8BF1440075A893 /* TodoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewController.swift; sourceTree = "<group>"; };
 		26ED04942E84FBC600DE33CC /* Extension+UIMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIMenu.swift"; sourceTree = "<group>"; };
 		26FCD0EE2E8302DD009906DE /* Moc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moc.swift; sourceTree = "<group>"; };
 		26FCD0F12E8304D4009906DE /* UITableView+dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+dequeue.swift"; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				26BD60C92E81A2FD006C61E0 /* App */,
+				26EC298D2E8BECDC0075A893 /* Router */,
 				26BD60D32E81A567006C61E0 /* Entity */,
 				26BD60CB2E81A31D006C61E0 /* Services */,
 				26BD60CA2E81A308006C61E0 /* Views */,
@@ -158,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				26E3B0712E891A0B008A127F /* TasksVC */,
+				26EC29902E8BF1120075A893 /* TodoDetailVC */,
 				263F1E632E88144700D97344 /* Components */,
 			);
 			path = Views;
@@ -203,7 +209,7 @@
 				26E3B06F2E890AA4008A127F /* Extension+Font.swift */,
 				26E3B07A2E8942C8008A127F /* Extension+UITableView.swift */,
 				26E3B07F2E898973008A127F /* Extension+UIView.swift */,
-				26C861142E8B0ECD000067BE /* Extension+Lable.swift */,
+				26C861142E8B0ECD000067BE /* Extension+String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -251,6 +257,22 @@
 				26FCD0F52E83077B009906DE /* TodoTableViewCell.swift */,
 			);
 			path = TableView;
+			sourceTree = "<group>";
+		};
+		26EC298D2E8BECDC0075A893 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				26EC298E2E8BECFC0075A893 /* Router.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		26EC29902E8BF1120075A893 /* TodoDetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				26EC29912E8BF1440075A893 /* TodoDetailViewController.swift */,
+			);
+			path = TodoDetailVC;
 			sourceTree = "<group>";
 		};
 		26FCD0ED2E8302C4009906DE /* MOC */ = {
@@ -351,6 +373,8 @@
 				263F1E652E88145F00D97344 /* ToDoAlertError.swift in Sources */,
 				26E3B0662E88F1F6008A127F /* Extension+UINavigationController.swift in Sources */,
 				26E3B07B2E8942C8008A127F /* Extension+UITableView.swift in Sources */,
+				26EC29922E8BF1440075A893 /* TodoDetailViewController.swift in Sources */,
+				26EC298F2E8BECFC0075A893 /* Router.swift in Sources */,
 				26C8610F2E8AFBBD000067BE /* Di.swift in Sources */,
 				263F1E672E881D9000D97344 /* Extension+Date.swift in Sources */,
 				26FCD0EF2E8302DD009906DE /* Moc.swift in Sources */,
@@ -358,7 +382,7 @@
 				26FCD0F62E83077B009906DE /* TodoTableViewCell.swift in Sources */,
 				26E3B0752E8922F8008A127F /* PreviewProviderViewController.swift in Sources */,
 				26FCD0F22E8304D4009906DE /* UITableView+dequeue.swift in Sources */,
-				26C861152E8B0ECD000067BE /* Extension+Lable.swift in Sources */,
+				26C861152E8B0ECD000067BE /* Extension+String.swift in Sources */,
 				26BD60DC2E81B405006C61E0 /* Extension+URLSession.swift in Sources */,
 				26BD60CD2E81A383006C61E0 /* NetworkServices.swift in Sources */,
 				26FCD0FB2E8327A5009906DE /* TodoListPresenter.swift in Sources */,

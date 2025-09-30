@@ -8,18 +8,8 @@
 import UIKit
 
 final class PreviewProviderViewController: UIViewController {
-    
-    private let entity: (any IToDo)?
-    
-    init(entity: (any IToDo)?) {
-        self.entity = entity
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    /// Константы, используемые в `PreviewProviderViewController`.
+    /// Централизованное хранение настроек внешнего вида и поведения UIViewController.
     enum Consts {
         static let vStackLayoutMargins = NSDirectionalEdgeInsets(
             top: 12,
@@ -37,7 +27,21 @@ final class PreviewProviderViewController: UIViewController {
         )
     }
     
+    private let entity: (any IToDo)?
+    
+    // MARK: - Lifecycle
+    
+    init(entity: (any IToDo)?) {
+        self.entity = entity
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - UI Components
+    
     private lazy var verticalStackView: UIStackView = {
         $0.axis = .vertical
         $0.alignment = .leading
@@ -76,6 +80,7 @@ final class PreviewProviderViewController: UIViewController {
     }(UILabel())
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         customInitPreviewProvider()
@@ -85,6 +90,7 @@ final class PreviewProviderViewController: UIViewController {
 }
 
 // MARK: - Private functions
+
 extension PreviewProviderViewController {
     /// Конфигурирует внешний вид и базовые свойства UIViewController.
     private func customInitPreviewProvider() {
@@ -107,7 +113,9 @@ extension PreviewProviderViewController {
     
     /// Настраивает и активирует констрейнты для всех подвидов контроллера.
     private func setupConstraints() {
+        
         // MARK: - verticalStackView
+        
         NSLayoutConstraint.activate([
             verticalStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             verticalStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

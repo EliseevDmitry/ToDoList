@@ -8,39 +8,52 @@
 import UIKit
 
 final class TodoTableView: UITableView {
+    /// Константы, используемые в `TodoTableView`.
+    /// Централизованное хранение настроек внешнего вида и поведения таблицы.
+    enum Consts {
+        static let topPadding: CGFloat = 0
+        static let rowHeight: CGFloat = 90
+        static let separatorInset = UIEdgeInsets(
+            top: 0,
+            left: 20,
+            bottom: 0,
+            right: 20
+        )
+    }
     
+    // MARK: - Lifecycle
+    
+    /// Инициализатор таблицы с возможностью выбора стиля.
+    /// Выполняет настройку базовых свойств через `setupProperties()`.
     override init(
         frame: CGRect = .zero,
         style: UITableView.Style = .plain
     ) {
         super.init(frame: frame, style: style)
-        customInitTableView()
+        setupProperties()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
+// MARK: - Private functions
+
 extension TodoTableView {
-    private func customInitTableView() {
+    /// Настраивает основные свойства таблицы: внешний вид, высоту строк, регистрация ячеек и разделителей.
+    /// Для iOS 15+ обнуляет верхний padding заголовка секции для согласованного отображения с предыдущими версиями iOS.
+    private func setupProperties() {
         if #available(iOS 15.0, *) {
-            sectionHeaderTopPadding = 0
+            sectionHeaderTopPadding = Consts.topPadding
         }
         registerCell(TodoTableViewCell.self)
-        rowHeight = UITableView.automaticDimension
-        estimatedRowHeight = 100
-        
         backgroundColor = .clear
-        separatorStyle = .none
-        contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        estimatedRowHeight = Consts.rowHeight
         rowHeight = UITableView.automaticDimension
-        
-        separatorStyle = .singleLine      // линии между ячейками
-                separatorColor = .lightGray       // цвет линии
-                separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+        separatorStyle = .singleLine
+        separatorColor = .lightGray
+        separatorInset = Consts.separatorInset
         translatesAutoresizingMaskIntoConstraints = false
     }
-
 }
