@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Протокол для абстракции URLSession, чтобы облегчить тестирование через dependency injection.
+/// Позволяет подменять реальный URLSession моками или заглушками.
 protocol URLSessionProtocol {
     func dataTask(
         with url: URL,
@@ -14,4 +16,5 @@ protocol URLSessionProtocol {
     ) -> URLSessionDataTask
 }
 
+/// Расширение реального URLSession для соответствия протоколу.
 extension URLSession: URLSessionProtocol {}

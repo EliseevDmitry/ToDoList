@@ -7,10 +7,13 @@
 
 import UIKit
 
+/// Расширение для удобного доступа к кастомным цветам приложения через `UIColor.theme`.
 extension UIColor {
     static let theme = ColorTheme()
 }
 
+/// Структура с набором стандартных цветов приложения.
+/// Централизует цветовую палитру и упрощает поддержку UI.
 struct ColorTheme {
     let activeText = UIColor(resource: .activeToDoText)
     let completedText = UIColor(resource: .completedToDoText)

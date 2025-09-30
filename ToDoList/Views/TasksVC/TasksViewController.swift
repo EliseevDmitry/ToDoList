@@ -7,18 +7,32 @@
 
 import UIKit
 
+/// Протокол для связи Presenter → View в VIPER-архитектуре.
+/// Определяет базовые методы обновления UI и отображения ошибок в TasksViewController.
+protocol ITodoListView: AnyObject {
+    func reloadData()
+    func showError(_ message: String)
+    func clearSearch()
+    func updateFooterCount(_ count: Int)
+}
+
 final class TasksViewController: UIViewController {
     
     /// Константы, используемые в `TasksViewController`.
     /// Вынесены в enum для централизованного хранения значений, связанных с UI и фиксированным ToDo-объектом.
     enum Consts {
+        static let footerInitCount = 0
         static let navTitle = "Задачи"
         static let footerHeight: CGFloat = 49
         static let heightSearchView: CGFloat = 52
         static let newFixedToDoItem = TodoItem(
             id: UUID(),
             todo: "Новая заметка",
-            content: "Отредактируй заметку Отредактируй заметку Отредактируй заметку Отредактируй заметку Отредактируй заметку Отредактируй заметку Отредактируй заметку",
+            content:
+"""
+Это ваша новая заметка. Здесь можно записывать мысли, идеи и задачи. Редактируйте текст, добавляйте детали и используйте её для планирования дел или хранения важных идей.
+"""
+            ,
             completed: false,
             date: .now
         )
@@ -46,8 +60,9 @@ final class TasksViewController: UIViewController {
     /// Нижняя панель (footer), показывающая количество задач и позволяющая добавить новую.
     /// Использует замыкание `onAddToDo` для делегирования действия презентеру.
     private lazy var footer: FooterUIView = {
-        $0.updateCount(presenter?.numberOfTodos ?? 0)
-        $0.onAddToDo = { self.presenter.addNewFixedItem(item: Consts.newFixedToDoItem) }
+        $0.onAddToDo = { [weak self] in
+            self?.presenter.didTapAddNewItem()
+        }
         return $0
     }(FooterUIView())
     
@@ -92,7 +107,6 @@ extension TasksViewController: ITodoListView {
     /// Перезагружает таблицу задач и синхронизирует состояние футера с актуальным числом задач.
     func reloadData() {
         tableView.reloadData()
-        footer.updateCount(presenter.numberOfTodos)
     }
     
     /// Отображает ошибку пользователю через `UIAlertController`.
@@ -100,6 +114,16 @@ extension TasksViewController: ITodoListView {
     /// - Parameter message: Локализованный текст ошибки.
     func showError(_ message: String) {
         ToDoAlertError.present(on: self, message: message)
+    }
+    
+    /// Сбрасывает текст в поле поиска
+    func clearSearch() {
+        searchView.text = ""
+    }
+    
+    /// Обновляет отображаемое количество задач в футере, синхронизируя UI с моделью
+    func updateFooterCount(_ count: Int) {
+        footer.updateCount(count)
     }
 }
 
@@ -165,7 +189,7 @@ extension TasksViewController: UITableViewDelegate {
     /// Используется для закрепления строки поиска (sticky-header).
     /// Логика вынесена в extension `UIView.getHeader(with:)` для изоляции UI-конструкции.
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-       section == 0 ? UIView.getHeader(with: searchView) : nil
+        section == 0 ? UIView.getHeader(with: searchView) : nil
     }
     
     /// Возвращает высоту Header-а для секции.
@@ -173,11 +197,13 @@ extension TasksViewController: UITableViewDelegate {
         return section == 0 ? Consts.heightSearchView : 0
     }
     
+    /// Обрабатывает выбор строки таблицы: уведомляет презентер о выборе задачи
+    /// и снимает выделение для корректного UI-поведения.
+    /// Навигация через Presenter -> Router
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didSelectTodo(at: indexPath.row)
-         //tableView.deselectRow(at: indexPath, animated: true)
-        
-        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 // MARK: - Private functions
@@ -199,7 +225,7 @@ extension TasksViewController {
     
     /// Строит иерархию view (`subviews`) для контроллера.
     private func setupViews() {
-       [backgroundView, tableView, footer].forEach{
+        [backgroundView, tableView, footer].forEach{
             view.addSubview($0)
         }
     }

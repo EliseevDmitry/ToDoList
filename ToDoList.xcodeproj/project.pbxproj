@@ -10,6 +10,7 @@
 		263F1E652E88145F00D97344 /* ToDoAlertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F1E642E88145F00D97344 /* ToDoAlertError.swift */; };
 		263F1E672E881D9000D97344 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F1E662E881D9000D97344 /* Extension+Date.swift */; };
 		263F1E692E8820A100D97344 /* FooterUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F1E682E8820A100D97344 /* FooterUIView.swift */; };
+		26744E502E8C15F000026A0A /* TodoDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26744E4F2E8C15F000026A0A /* TodoDetailPresenter.swift */; };
 		26BD60B42E81A1A0006C61E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60B32E81A1A0006C61E0 /* AppDelegate.swift */; };
 		26BD60B62E81A1A0006C61E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60B52E81A1A0006C61E0 /* SceneDelegate.swift */; };
 		26BD60B82E81A1A0006C61E0 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60B72E81A1A0006C61E0 /* TasksViewController.swift */; };
@@ -30,7 +31,7 @@
 		26E3B0642E88ED0B008A127F /* ScreenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B0632E88ED0B008A127F /* ScreenApp.swift */; };
 		26E3B0662E88F1F6008A127F /* Extension+UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B0652E88F1F6008A127F /* Extension+UINavigationController.swift */; };
 		26E3B0682E88F74B008A127F /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B0672E88F74B008A127F /* Extension+UIColor.swift */; };
-		26E3B0702E890AA4008A127F /* Extension+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B06F2E890AA4008A127F /* Extension+Font.swift */; };
+		26E3B0702E890AA4008A127F /* Extension+UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B06F2E890AA4008A127F /* Extension+UIFont.swift */; };
 		26E3B0732E8920A4008A127F /* ToDoContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B0722E8920A4008A127F /* ToDoContextMenu.swift */; };
 		26E3B0752E8922F8008A127F /* PreviewProviderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B0742E8922F8008A127F /* PreviewProviderViewController.swift */; };
 		26E3B07B2E8942C8008A127F /* Extension+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B07A2E8942C8008A127F /* Extension+UITableView.swift */; };
@@ -40,7 +41,7 @@
 		26EC29922E8BF1440075A893 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EC29912E8BF1440075A893 /* TodoDetailViewController.swift */; };
 		26ED04952E84FBD900DE33CC /* Extension+UIMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ED04942E84FBC600DE33CC /* Extension+UIMenu.swift */; };
 		26FCD0EF2E8302DD009906DE /* Moc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0EE2E8302DD009906DE /* Moc.swift */; };
-		26FCD0F22E8304D4009906DE /* UITableView+dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0F12E8304D4009906DE /* UITableView+dequeue.swift */; };
+		26FCD0F22E8304D4009906DE /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0F12E8304D4009906DE /* UITableView+Reusable.swift */; };
 		26FCD0F42E83055E009906DE /* TodoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0F32E83055E009906DE /* TodoTableView.swift */; };
 		26FCD0F62E83077B009906DE /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0F52E83077B009906DE /* TodoTableViewCell.swift */; };
 		26FCD0F92E83273E009906DE /* TodoListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0F82E83273E009906DE /* TodoListInteractor.swift */; };
@@ -51,6 +52,7 @@
 		263F1E642E88145F00D97344 /* ToDoAlertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoAlertError.swift; sourceTree = "<group>"; };
 		263F1E662E881D9000D97344 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		263F1E682E8820A100D97344 /* FooterUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterUIView.swift; sourceTree = "<group>"; };
+		26744E4F2E8C15F000026A0A /* TodoDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailPresenter.swift; sourceTree = "<group>"; };
 		26BD60B02E81A1A0006C61E0 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26BD60B32E81A1A0006C61E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26BD60B52E81A1A0006C61E0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,7 +75,7 @@
 		26E3B0632E88ED0B008A127F /* ScreenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenApp.swift; sourceTree = "<group>"; };
 		26E3B0652E88F1F6008A127F /* Extension+UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UINavigationController.swift"; sourceTree = "<group>"; };
 		26E3B0672E88F74B008A127F /* Extension+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
-		26E3B06F2E890AA4008A127F /* Extension+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Font.swift"; sourceTree = "<group>"; };
+		26E3B06F2E890AA4008A127F /* Extension+UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIFont.swift"; sourceTree = "<group>"; };
 		26E3B0722E8920A4008A127F /* ToDoContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoContextMenu.swift; sourceTree = "<group>"; };
 		26E3B0742E8922F8008A127F /* PreviewProviderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProviderViewController.swift; sourceTree = "<group>"; };
 		26E3B07A2E8942C8008A127F /* Extension+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITableView.swift"; sourceTree = "<group>"; };
@@ -83,7 +85,7 @@
 		26EC29912E8BF1440075A893 /* TodoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewController.swift; sourceTree = "<group>"; };
 		26ED04942E84FBC600DE33CC /* Extension+UIMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIMenu.swift"; sourceTree = "<group>"; };
 		26FCD0EE2E8302DD009906DE /* Moc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moc.swift; sourceTree = "<group>"; };
-		26FCD0F12E8304D4009906DE /* UITableView+dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+dequeue.swift"; sourceTree = "<group>"; };
+		26FCD0F12E8304D4009906DE /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
 		26FCD0F32E83055E009906DE /* TodoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableView.swift; sourceTree = "<group>"; };
 		26FCD0F52E83077B009906DE /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		26FCD0F82E83273E009906DE /* TodoListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListInteractor.swift; sourceTree = "<group>"; };
@@ -199,17 +201,17 @@
 		26BD60D82E81A6B0006C61E0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				26ED04942E84FBC600DE33CC /* Extension+UIMenu.swift */,
-				26FCD0F12E8304D4009906DE /* UITableView+dequeue.swift */,
-				26BD60D92E81A6C2006C61E0 /* Extension+URLResponse.swift */,
-				26BD60DB2E81B405006C61E0 /* Extension+URLSession.swift */,
-				26E3B0672E88F74B008A127F /* Extension+UIColor.swift */,
 				263F1E662E881D9000D97344 /* Extension+Date.swift */,
-				26E3B0652E88F1F6008A127F /* Extension+UINavigationController.swift */,
-				26E3B06F2E890AA4008A127F /* Extension+Font.swift */,
-				26E3B07A2E8942C8008A127F /* Extension+UITableView.swift */,
-				26E3B07F2E898973008A127F /* Extension+UIView.swift */,
 				26C861142E8B0ECD000067BE /* Extension+String.swift */,
+				26FCD0F12E8304D4009906DE /* UITableView+Reusable.swift */,
+				26E3B07F2E898973008A127F /* Extension+UIView.swift */,
+				26ED04942E84FBC600DE33CC /* Extension+UIMenu.swift */,
+				26E3B06F2E890AA4008A127F /* Extension+UIFont.swift */,
+				26E3B0672E88F74B008A127F /* Extension+UIColor.swift */,
+				26E3B07A2E8942C8008A127F /* Extension+UITableView.swift */,
+				26E3B0652E88F1F6008A127F /* Extension+UINavigationController.swift */,
+				26BD60DB2E81B405006C61E0 /* Extension+URLSession.swift */,
+				26BD60D92E81A6C2006C61E0 /* Extension+URLResponse.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -271,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				26EC29912E8BF1440075A893 /* TodoDetailViewController.swift */,
+				26744E4F2E8C15F000026A0A /* TodoDetailPresenter.swift */,
 			);
 			path = TodoDetailVC;
 			sourceTree = "<group>";
@@ -369,7 +372,7 @@
 				26FCD0F42E83055E009906DE /* TodoTableView.swift in Sources */,
 				26E3B07D2E89796D008A127F /* SearchUITextField.swift in Sources */,
 				26E3B0642E88ED0B008A127F /* ScreenApp.swift in Sources */,
-				26E3B0702E890AA4008A127F /* Extension+Font.swift in Sources */,
+				26E3B0702E890AA4008A127F /* Extension+UIFont.swift in Sources */,
 				263F1E652E88145F00D97344 /* ToDoAlertError.swift in Sources */,
 				26E3B0662E88F1F6008A127F /* Extension+UINavigationController.swift in Sources */,
 				26E3B07B2E8942C8008A127F /* Extension+UITableView.swift in Sources */,
@@ -381,7 +384,7 @@
 				26BD60DA2E81A6C2006C61E0 /* Extension+URLResponse.swift in Sources */,
 				26FCD0F62E83077B009906DE /* TodoTableViewCell.swift in Sources */,
 				26E3B0752E8922F8008A127F /* PreviewProviderViewController.swift in Sources */,
-				26FCD0F22E8304D4009906DE /* UITableView+dequeue.swift in Sources */,
+				26FCD0F22E8304D4009906DE /* UITableView+Reusable.swift in Sources */,
 				26C861152E8B0ECD000067BE /* Extension+String.swift in Sources */,
 				26BD60DC2E81B405006C61E0 /* Extension+URLSession.swift in Sources */,
 				26BD60CD2E81A383006C61E0 /* NetworkServices.swift in Sources */,
@@ -391,6 +394,7 @@
 				26E3B0802E898973008A127F /* Extension+UIView.swift in Sources */,
 				26BD60DE2E81BC9B006C61E0 /* StorageService.swift in Sources */,
 				26BD60B62E81A1A0006C61E0 /* SceneDelegate.swift in Sources */,
+				26744E502E8C15F000026A0A /* TodoDetailPresenter.swift in Sources */,
 				26E3B0682E88F74B008A127F /* Extension+UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
