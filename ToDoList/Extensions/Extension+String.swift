@@ -8,6 +8,8 @@
 import UIKit
 
 extension String {
+    /// Формирует NSAttributedString с учетом статуса выполнения задачи.
+    /// Добавляет зачеркивание и изменяет цвет для завершенных задач.
     func styled(
         isCompleted: Bool,
         font: UIFont = UIFont.theme.cardTitle,

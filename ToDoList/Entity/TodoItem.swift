@@ -25,6 +25,8 @@ protocol IToDo: Identifiable {
         completed: Bool,
         date: Date
     )
+    mutating func updateCompleted()
+    mutating func updateTodoAndContent(todo: String, content: String)
 }
 
 /// Ответ от API с массивом задач.
@@ -49,10 +51,10 @@ struct TodoItem: Codable, IToDo {
     }
     
     let id: UUID
-    let todo: String
-    let content: String
+    var todo: String
+    var content: String
     var completed: Bool
-    let date: Date
+    var date: Date
     
     /// Полный инициализатор для явного создания задачи.
     /// Позволяет задать все свойства, включая локально генерируемый `id` и дату.
@@ -107,5 +109,13 @@ struct TodoItem: Codable, IToDo {
     /// Помечает задачу как выполненную.
     mutating func updateCompleted() {
         self.completed = true
+    }
+    
+    /// Обновляет заголовок и содержание задачи, одновременно обновляя дату последнего изменения.
+    /// Используется при редактировании задачи пользователем, чтобы сохранить актуальность данных.
+    mutating func updateTodoAndContent(todo: String, content: String) {
+        self.todo = todo
+        self.content = content
+        self.date = Date.now
     }
 }

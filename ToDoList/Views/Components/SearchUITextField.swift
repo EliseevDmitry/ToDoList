@@ -4,116 +4,22 @@
 //
 //  Created by Dmitriy Eliseev on 28.09.2025.
 //
-/*
+
 import UIKit
 
 final class SearchUITextField: UITextField {
-    
+    /// Константы, используемые в `SearchUITextField`.
     enum Consts {
         static let cornerRadius: CGFloat = 10
         static let placeholderText = "Search"
         static let imageSystemName = "magnifyingglass"
         static let imageButtonSystemName = "xmark.circle.fill"
-    }
-    
-    private lazy var searchImageView: UIImageView = {
-        let searchImage = UIImage(systemName: Consts.imageSystemName)?
-            .withTintColor(
-                UIColor.theme.searchPlaceholder,
-                renderingMode: .alwaysOriginal
-            )
-        $0.frame = CGRect(x: 0, y: 0, width: 20, height: 22)
-        $0.image = searchImage
-        $0.contentMode = .scaleAspectFit
-        return $0
-    }(UIImageView())
-    
-    private lazy var clearButton: UIButton = {
-        let clearImage = UIImage(systemName: Consts.imageButtonSystemName)?
-            .withTintColor(
-                UIColor.theme.searchPlaceholder,
-                renderingMode: .alwaysOriginal
-            )
-        $0.setImage(clearImage, for: .normal)
-        $0.frame = CGRect(x: 0, y: 0, width: 17, height: 22)
-        $0.addTarget(self, action: #selector(clearText), for: .touchUpInside)
-        return $0
-    }(UIButton(type: .custom))
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        customInitUITextField()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-    }
-    
-        override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
-            var rect = super.leftViewRect(forBounds: bounds)
-            rect.origin.x += 3
-            return rect
-        }
-        override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
-            var rect = super.rightViewRect(forBounds: bounds)
-            rect.origin.x -= 3
-            return rect
-        }
-    
-        override func textRect(forBounds bounds: CGRect) -> CGRect {
-            var rect = super.textRect(forBounds: bounds)
-            rect.origin.x += 3
-            return rect
-        }
-}
-
-extension SearchUITextField {
-    @objc private func clearText() {
-        self.text = ""
-        sendActions(for: .editingChanged)
-    }
-}
-
-
-extension SearchUITextField {
-    private func customInitUITextField() {
-        textColor = UIColor.theme.activeText
-        backgroundColor = UIColor.theme.searchBackground
-        borderStyle = .none
-        layer.cornerRadius = Consts.cornerRadius
-        clipsToBounds = true
-        
-        let placeholderAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.theme.searchPlaceholder,
-            .font: UIFont.theme.searchPlaceholder
-        ]
-        attributedPlaceholder = NSAttributedString(
-            string: Consts.placeholderText,
-            attributes: placeholderAttributes
-        )
-        leftView = searchImageView
-        leftViewMode = .always
-        rightView = clearButton
-        rightViewMode = .always
-    }
-}
-*/
-
-import UIKit
-
-final class SearchUITextField: UITextField {
-    
-    enum Consts {
-        static let cornerRadius: CGFloat = 10
-        static let placeholderText = "Search"
-        static let imageSystemName = "magnifyingglass"
-        static let imageButtonSystemName = "xmark.circle.fill"
-        static let leftPadding: CGFloat = 6      // отступ для иконки поиска
-        static let rightPadding: CGFloat = 30    // отступ для кнопки очистки
+        static let leftPadding: CGFloat = 6
+        static let rightPadding: CGFloat = 3
         static let iconSize: CGSize = CGSize(width: 20, height: 22)
-        static let buttonSize: CGSize = CGSize(width: 17, height: 22)
+        static let buttonSize: CGSize = CGSize(width: 20, height: 22)
     }
+    
     var onTextChanged: ((String) -> Void)?
     
     // MARK: - Views
@@ -124,13 +30,19 @@ final class SearchUITextField: UITextField {
             .withTintColor(UIColor.theme.searchPlaceholder, renderingMode: .alwaysOriginal)
         imageView.image = searchImage
         imageView.contentMode = .scaleAspectFit
-        imageView.frame = CGRect(origin: CGPoint(x: Consts.leftPadding, y: 0),
-                                 size: Consts.iconSize)
-        
+        imageView.frame = CGRect(
+            origin: CGPoint(x: Consts.leftPadding, y: 0),
+            size: Consts.iconSize
+        )
         let containerWidth = Consts.iconSize.width + Consts.leftPadding * 2
-        let container = UIView(frame: CGRect(x: 0, y: 0,
-                                             width: containerWidth,
-                                             height: Consts.iconSize.height))
+        let container = UIView(
+            frame: CGRect(
+                x: 0,
+                y: 0,
+                width: containerWidth,
+                height: Consts.iconSize.height
+            )
+        )
         container.addSubview(imageView)
         return container
     }()
@@ -142,13 +54,15 @@ final class SearchUITextField: UITextField {
         button.setImage(clearImage, for: .normal)
         button.frame = CGRect(origin: .zero, size: Consts.buttonSize)
         button.addTarget(self, action: #selector(clearText), for: .touchUpInside)
-        
         let containerWidth = Consts.buttonSize.width + Consts.rightPadding
-        let container = UIView(frame: CGRect(x: 0, y: 0,
-                                             width: containerWidth,
-                                             height: Consts.buttonSize.height))
-        
-        // размещаем кнопку в начале контейнера
+        let container = UIView(
+            frame: CGRect(
+                x: 0,
+                y: 0,
+                width: containerWidth,
+                height: Consts.buttonSize.height
+            )
+        )
         button.center.y = container.bounds.midY
         container.addSubview(button)
         return container
@@ -158,44 +72,46 @@ final class SearchUITextField: UITextField {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        customInitUITextField()
+        setupProperties()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        customInitUITextField()
+        setupProperties()
     }
 }
 
 // MARK: - Actions
 
 extension SearchUITextField {
+    /// Очищает текстовое поле и вызывает callback при изменении текста.
+    /// Обновляет видимость кнопки очистки справа.
     @objc private func clearText() {
         self.text = ""
+        onTextChanged?("")
         sendActions(for: .editingChanged)
         updateClearButtonVisibility()
     }
     
+    /// Вызывается при изменении текста пользователем.
+    /// Обновляет видимость кнопки очистки и уведомляет через callback.
     @objc private func textDidChange() {
         updateClearButtonVisibility()
         onTextChanged?(self.text ?? "")
     }
-    
-    private func updateClearButtonVisibility() {
-        rightViewMode = (text?.isEmpty == false) ? .always : .never
-    }
 }
 
-// MARK: - Setup
+// MARK: - Private functions
 
 extension SearchUITextField {
-    private func customInitUITextField() {
+    /// Настраивает внешний вид и поведение текстового поля.
+    /// Устанавливает плейсхолдер, цвета, скругления и вью для иконок.
+    private func setupProperties() {
         textColor = UIColor.theme.activeText
         backgroundColor = UIColor.theme.searchBackground
         borderStyle = .none
         layer.cornerRadius = Consts.cornerRadius
         clipsToBounds = true
-        
         let placeholderAttributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.theme.searchPlaceholder,
             .font: UIFont.theme.searchPlaceholder
@@ -204,14 +120,16 @@ extension SearchUITextField {
             string: Consts.placeholderText,
             attributes: placeholderAttributes
         )
-        
         leftView = searchImageViewContainer
         leftViewMode = .always
         rightView = clearButtonContainer
-        rightViewMode = .never // скрыта по умолчанию
-        
+        rightViewMode = .never
         addTarget(self, action: #selector(textDidChange), for: .editingChanged)
     }
+    
+    /// Обновляет видимость кнопки очистки в зависимости от текста.
+    /// Показывает кнопку, если текст не пустой, скрывает иначе.
+    private func updateClearButtonVisibility() {
+        rightViewMode = (text?.isEmpty == false) ? .always : .never
+    }
 }
-
-

@@ -7,7 +7,11 @@
 
 import UIKit
 
+/// Расширение для удобного создания кастомного превью контекстного меню таблицы.
+/// Позволяет задать размер, скругление и прозрачный фон превью для анимации.
 extension UITableView {
+    /// Константы для кастомного превью контекстного меню таблицы.
+    /// Включают размер превью и радиус скругления углов.
     enum Consts {
         static let previewSize = CGSize(
             width: ScreenApp.width - 40,
@@ -15,7 +19,10 @@ extension UITableView {
         )
         static let cornerRadius: CGFloat = 12
     }
-
+    
+    /// Создает `UITargetedPreview` для контекстного меню на основе конфигурации.
+    /// - Parameter configuration: Конфигурация контекстного меню с `identifier` как `IndexPath`
+    /// - Returns: Сконфигурированное превью с прозрачным фоном и заданными параметрами
     func makeTargetedPreview(for configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         guard let indexPath = configuration.identifier as? IndexPath,
               let _ = self.cellForRow(at: indexPath)
@@ -42,14 +49,6 @@ extension UITableView {
             cornerRadius: Consts.cornerRadius
         )
         parameters.shadowPath = nil
-//        let dummyView = UIView(
-//            frame: CGRect(
-//                origin: .zero,
-//                size: Consts.previewSize
-//            )
-//        )
-//        dummyView.backgroundColor = .clear
-//        dummyView.layer.cornerRadius = Consts.cornerRadius
         let dummyView = UIView()
         return UITargetedPreview(view: dummyView, parameters: parameters, target: target)
     }

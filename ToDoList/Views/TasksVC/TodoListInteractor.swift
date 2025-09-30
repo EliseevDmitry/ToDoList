@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Интерфейс для взаимодействия слоя Interactor с внешними источниками данных (репозиториями).
+/// Определяет базовые операции CRUD и поиск для задач приложения.
 protocol ITodoListInteractor {
     func addItem(item: any IToDo, completion: @escaping (Result<Bool, Error>) -> Void)
     func fetchItems(completion: @escaping (Result<[TodoItem], Error>) -> Void)
@@ -15,6 +17,8 @@ protocol ITodoListInteractor {
     func searchItems(query: String, completion: @escaping (Result<[TodoItem], Error>) -> Void)
 }
 
+/// Реализация `ITodoListInteractor`, инкапсулирующая бизнес-логику работы с задачами.
+/// Делегирует все операции конкретному репозиторию `ITodoRepository`.
 final class TodoListInteractor: ITodoListInteractor {
     private let todoRepository: ITodoRepository
     
@@ -41,5 +45,4 @@ final class TodoListInteractor: ITodoListInteractor {
     func searchItems(query: String, completion: @escaping (Result<[TodoItem], any Error>) -> Void) {
         todoRepository.searchTodos(query: query, completion: completion)
     }
-  
 }

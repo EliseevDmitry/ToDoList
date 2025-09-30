@@ -199,7 +199,7 @@ extension TodoTableViewCell {
         circleImageView.tintColor = flag ? UIColor.theme.customYellow : UIColor.theme.activeCircle
         titleLabel.textColor = flag ? UIColor.theme.cardDateText : UIColor.theme.activeText
         descriptionLabel.textColor = flag ? UIColor.theme.cardDateText : UIColor.theme.activeText
-        //через расширение String
+        ///через расширение String - .styled(isCompleted: true/false)
         titleLabel.attributedText = flag ? titleLabel.text?.styled(isCompleted: true) ?? .none : titleLabel.text?.styled(isCompleted: false) ?? .none
     }
 }
