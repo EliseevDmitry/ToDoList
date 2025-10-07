@@ -26,7 +26,7 @@ final class TodoTableViewCell: UITableViewCell {
     
     /// Модель данных текущей задачи, отображаемой в ячейке.
     /// При изменении автоматически обновляет UI-компоненты через `updateUIComponents()`.
-    private var toDoItem: TodoItem? {
+    private var toDoItem: (any IToDo)? {
         didSet {
             updateUIComponents()
         }
@@ -114,7 +114,7 @@ final class TodoTableViewCell: UITableViewCell {
 extension TodoTableViewCell {
     /// Обновляет содержимое ячейки новым элементом `TodoItem`.
     /// Триггерит перерисовку UI-компонентов через `updateUIComponents()`.
-    func update(_ toDoItem: TodoItem) {
+    func update(_ toDoItem: any IToDo) {
         self.toDoItem = toDoItem
     }
 }

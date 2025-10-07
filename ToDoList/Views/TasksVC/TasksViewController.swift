@@ -25,17 +25,18 @@ final class TasksViewController: UIViewController {
         static let navTitle = "Задачи"
         static let footerHeight: CGFloat = 49
         static let heightSearchView: CGFloat = 52
-        static let newFixedToDoItem = TodoItem(
-            id: UUID(),
-            todo: "Новая заметка",
-            content:
-"""
-Это ваша новая заметка. Здесь можно записывать мысли, идеи и задачи. Редактируйте текст, добавляйте детали и используйте её для планирования дел или хранения важных идей.
-"""
-            ,
-            completed: false,
-            date: .now
-        )
+        static func newFixedToDoItem() -> TodoItem {
+            TodoItem(
+                todo: "Новая заметка",
+                content:
+    """
+    Это ваша новая заметка. Здесь можно записывать мысли, идеи и задачи. Редактируйте текст, добавляйте детали и используйте её для планирования дел или хранения важных идей.
+    """
+                ,
+                completed: false,
+                date: .now
+            )
+            }
     }
     
     // MARK: - UI Components

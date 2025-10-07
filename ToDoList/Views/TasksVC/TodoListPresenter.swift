@@ -12,17 +12,17 @@ import Foundation
 /// Используется в VIPER-архитектуре для связи View ↔ Presenter.
 protocol ITodoListPresenter {
     var numberOfTodos: Int { get }
-    func todo(at index: Int) -> TodoItem?
+    func todo(at index: Int) ->  TodoItem?
     func didSelectTodo(at index: Int)
     func didTapAddNewItem()
     func setView(_ view: ITodoListView)
     
     // MARK: - CRUD
     
-    func addNewFixedItem(item: TodoItem)
+    func addNewFixedItem<T: IToDo>(item: T)
     func loadTodos()
     func completedToDo(at index: Int)
-    func updateItem(entity: TodoItem)
+    func updateItem<T: IToDo>(entity: T)
     func deleteToDo(at index: Int)
     
     // MARK: - Search
@@ -34,11 +34,11 @@ protocol ITodoListPresenter {
 /// Отвечает за бизнес-логику списка, обработку CRUD операций и поиск.
 /// Использует Interactor для работы с данными и Router для навигации.
 /// Обновление UI централизовано через `handleResult` и `update`.
-final class TodoListPresenter {
-    private let interactor: ITodoListInteractor
+final class TodoListPresenter  {
+    private let interactor: ITodoInteractor
     private weak var view: ITodoListView?
     private let router: ITasksRouter
-    private var todos: [TodoItem] = []
+    private var todos: [any IToDo] = []
     var numberOfTodos: Int {
         todos.count
     }
@@ -48,7 +48,7 @@ final class TodoListPresenter {
     ///   - interactor: Инстанс ITodoListInteractor.
     ///   - view: Необязательный экземпляр ITodoListView.
     ///   - router: Экземпляр ITasksRouter для навигации.
-    init(interactor: ITodoListInteractor, view: ITodoListView? = nil, router: ITasksRouter) {
+    init(interactor: ITodoInteractor, view: ITodoListView? = nil, router: ITasksRouter) {
         self.interactor = interactor
         self.view = view
         self.router = router
@@ -58,17 +58,20 @@ final class TodoListPresenter {
 // MARK: - ITodoListPresenter
 
 extension TodoListPresenter: ITodoListPresenter {
-    /// Возвращает задачу по индексу, безопасно проверяя границы массива.
+
+    
     func todo(at index: Int) -> TodoItem? {
         guard index < todos.count else { return nil }
-        return todos[index]
+        return todos[index] as? TodoItem
     }
+
+
     
     /// Обработка выбора задачи пользователем.
     /// Делегирует навигацию через Router.
     func didSelectTodo(at index: Int) {
         guard let todo = todo(at: index) else { return }
-        router.showTodoDetail(todoItem: todo)
+        //router.showTodoDetail(todoItem: todo)
     }
     
     /// Добавление новой фиксированной задачи.
@@ -76,7 +79,7 @@ extension TodoListPresenter: ITodoListPresenter {
     func didTapAddNewItem() {
         view?.clearSearch()
         searchToDoItems(query: "")
-        addNewFixedItem(item: TasksViewController.Consts.newFixedToDoItem)
+        addNewFixedItem(item: TasksViewController.Consts.newFixedToDoItem())
     }
     
     /// Устанавливает view для связи Presenter ↔ View.
@@ -84,99 +87,53 @@ extension TodoListPresenter: ITodoListPresenter {
         self.view = view
     }
     
-    /// Добавление нового TodoItem через Interactor.
-    /// UI обновляется через handleResult.
-    func addNewFixedItem(item: TodoItem) {
-        interactor.addItem(item: item) { [weak self] result in
-            guard let self = self else { return }
-            self.handleResult(result) {
-                self.todos.insert(item, at: 0)
-                self.update()
-            }
+
+    
+    /// Загрузка всех задач из Interactor в фоне.
+    func loadTodos() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.interactor.fetchItems()
         }
     }
     
-    /// Загрузка всех задач из Interactor в фоне.
-    /// UI обновляется через `update`.
-    func loadTodos() {
+    /// Добавление нового TodoItem через Interactor.
+
+    func addNewFixedItem<T: IToDo>(item: T) {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.interactor.fetchItems { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let items):
-                    self.todos.removeAll()
-                    self.todos = self.sortTodos(items)
-                    DispatchQueue.main.async {
-                        self.update()
-                    }
-                case .failure(let error):
-                    DispatchQueue.main.async { self.view?.showError(error.localizedDescription) }
-                }
-            }
+            self.interactor.addItem(item)
         }
     }
     
     /// Отметка задачи как выполненной.
-    /// Обновление UI через handleResult.
+    /// какой то ловит глюк
     func completedToDo(at index: Int) {
         guard var entity = todo(at: index) else { return }
         entity.updateCompleted()
-        interactor.updateItem(item: entity) { [weak self] result in
-            guard let self = self else { return }
-            self.handleResult(result) {
-                self.todos[index] = entity
-                self.update()
-            }
-        }
+        updateItem(entity: entity)
     }
     
     /// Обновление задачи через Interactor.
-    /// UI обновляется через handleResult.
-    func updateItem(entity: TodoItem) {
-        interactor.updateItem(item: entity) { [weak self] result in
-            guard let self = self else { return }
-            self.handleResult(result) {
-                if let index = self.todos.firstIndex(where: { $0.id == entity.id }) {
-                    self.todos[index] = entity
-                }
-                self.view?.reloadData()
-            }
-        }
+    func updateItem<T: IToDo>(entity: T) {
+        interactor.updateItem(entity)
     }
     
     /// Удаление задачи через Interactor.
-    /// UI обновляется через handleResult.
     func deleteToDo(at index: Int) {
         guard let entity = todo(at: index) else { return }
-        interactor.deleteItem(id: entity.id) { [weak self] result in
-            guard let self = self else { return }
-            self.handleResult(result) {
-                self.todos.remove(at: index)
-                self.update()
-            }
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.interactor.deleteItem(id: entity.id)
         }
     }
     
     /// Поиск задач по строке запроса.
     /// Если query пустой — подгружаем все задачи через loadTodos.
-    /// UI обновляется через handleFetchResult.
     func searchToDoItems(query: String) {
         guard !query.isEmpty else {
-            loadTodos()
+            interactor.fetchItems()
             return
         }
-        interactor.searchItems(query: query) { [weak self] result in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let items):
-                    self.todos.removeAll()
-                    self.todos = self.sortTodos(items)
-                    self.update()
-                case .failure(let error):
-                    self.view?.showError(error.localizedDescription)
-                }
-            }
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.interactor.searchItems(query: query)
         }
     }
 }
@@ -185,8 +142,8 @@ extension TodoListPresenter: ITodoListPresenter {
 
 extension TodoListPresenter {
     /// Навигация к экрану деталей задачи.
-    private func showTodoDetail(todoItem: TodoItem) {
-        router.showTodoDetail(todoItem: todoItem)
+    private func showTodoDetail<T: IToDo>(todoItem: T) {
+        //router.showTodoDetail(todoItem: todoItem)
     }
     
     /// Обновление UI после изменения списка задач.
@@ -197,24 +154,56 @@ extension TodoListPresenter {
     }
     
     /// Сортировка задач по дате (от новых к старым).
-    private func sortTodos(_ items: [TodoItem]) -> [TodoItem] {
+    private func sortTodos<T: IToDo>(_ items: [T]) -> [T] {
         items.sorted { $0.date > $1.date }
     }
+
+}
+
+
+extension TodoListPresenter: ITodoInteractorOutput {
+   
     
-    /// Унифицированная обработка Result<Bool, Error> для CRUD операций.
-    /// UI обновляется на главном потоке через DispatchQueue.main.async.
-    /// - Parameters:
-    ///   - result: Результат операции Interactor.
-    ///   - onSuccess: Замыкание для выполнения при успешной операции.
-    private func handleResult(_ result: Result<Bool, Error>, onSuccess: @escaping () -> Void) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            switch result {
-            case .success(_):
-                onSuccess()
-            case .failure(let error):
-                self.view?.showError(error.localizedDescription)
-            }
+    func didAddTodo<T: IToDo>(_ todo: T) {
+        self.todos.insert(todo, at: 0)
+        DispatchQueue.main.async {
+            self.update()
         }
     }
+    
+    func didUpdateTodo<T: IToDo>(_ todo: T) {
+        guard let index = self.todos.firstIndex(where: { $0.id == todo.id }) else { return }
+        self.todos[index] = todo
+        DispatchQueue.main.async {
+            self.update()
+        }
+    }
+    func didFetchTodos<T: IToDo>(_ todos: [T]) {
+        self.todos.removeAll()
+        self.todos = sortTodos(todos)
+        DispatchQueue.main.async {
+            self.update()
+        }
+    }
+
+    func didDeleteTodo(id: UUID) {
+        guard let index = todos.firstIndex(where: { $0.id == id }) else { return }
+        self.todos.remove(at: index)
+        DispatchQueue.main.async {
+            self.update()
+        }
+    }
+    
+    func didFail(with error: Error) {
+        view?.showError(error.localizedDescription)
+    }
+
+    func didSearchTodos<T: IToDo>(_ todos: [T]) {
+        self.todos.removeAll()
+        self.todos = self.sortTodos(todos)
+        DispatchQueue.main.async {
+            self.update()
+        }
+    }
+ 
 }

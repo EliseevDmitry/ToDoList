@@ -7,42 +7,82 @@
 
 import Foundation
 
-/// Интерфейс для взаимодействия слоя Interactor с внешними источниками данных (репозиториями).
-/// Определяет базовые операции CRUD и поиск для задач приложения.
-protocol ITodoListInteractor {
-    func addItem(item: any IToDo, completion: @escaping (Result<Bool, Error>) -> Void)
-    func fetchItems(completion: @escaping (Result<[TodoItem], Error>) -> Void)
-    func updateItem(item: any IToDo, completion: @escaping (Result<Bool, Error>) -> Void)
-    func deleteItem(id: UUID, completion: @escaping (Result<Bool, Error>) -> Void)
-    func searchItems(query: String, completion: @escaping (Result<[TodoItem], Error>) -> Void)
+protocol ITodoInteractor: AnyObject {
+    func fetchItems()
+    func addItem<T: IToDo>(_ item: T)
+    func updateItem<T: IToDo>(_ item: T)
+    func deleteItem(id: UUID)
+    func searchItems(query: String)
 }
 
-/// Реализация `ITodoListInteractor`, инкапсулирующая бизнес-логику работы с задачами.
-/// Делегирует все операции конкретному репозиторию `ITodoRepository`.
-final class TodoListInteractor: ITodoListInteractor {
+protocol ITodoInteractorOutput: AnyObject {
+    func didFetchTodos<T: IToDo>(_ todos: [T])
+    func didAddTodo<T: IToDo>(_ todo: T)
+    func didUpdateTodo<T: IToDo>(_ todo: T)
+    func didDeleteTodo(id: UUID)
+    func didSearchTodos<T: IToDo>(_ todos: [T])
+    func didFail(with error: Error)
+}
+
+final class TodoListInteractor {
     private let todoRepository: ITodoRepository
+    weak var output: ITodoInteractorOutput?
     
     init(todoRepository: ITodoRepository = TodoRepository()) {
         self.todoRepository = todoRepository
     }
-    
-    func addItem(item: any IToDo, completion: @escaping (Result<Bool, any Error>) -> Void) {
-        todoRepository.addToDo(item: item, completion: completion)
+}
+
+extension TodoListInteractor: ITodoInteractor {
+    func fetchItems() {
+        todoRepository.getToDos { [weak self] result in
+            self?.handleResult(result) { todos in
+                self?.output?.didFetchTodos(todos)
+            }
+        }
     }
     
-    func fetchItems(completion: @escaping (Result<[TodoItem], Error>) -> Void) {
-        todoRepository.getToDos(completion: completion)
+    func addItem<T: IToDo>(_ item: T) {
+        todoRepository.addToDo(item: item) { [weak self] result in
+            self?.handleResult(result) { _ in
+                self?.output?.didAddTodo(item)
+            }
+        }
     }
     
-    func deleteItem(id: UUID, completion: @escaping (Result<Bool, Error>) -> Void) {
-        todoRepository.deleteToDO(id: id, completion: completion)
+    func updateItem<T: IToDo>(_ item: T) {
+        todoRepository.updateToDO(item: item) { [weak self] result in
+            self?.handleResult(result) { _ in
+                self?.output?.didUpdateTodo(item)
+            }
+        }
     }
     
-    func updateItem(item: any IToDo, completion: @escaping (Result<Bool, Error>) -> Void) {
-        todoRepository.updateToDO(item: item, completion: completion)
+    func deleteItem(id: UUID) {
+        todoRepository.deleteToDO(id: id) { [weak self] result in
+            self?.handleResult(result) { _ in
+                self?.output?.didDeleteTodo(id: id)
+            }
+        }
     }
     
-    func searchItems(query: String, completion: @escaping (Result<[TodoItem], any Error>) -> Void) {
-        todoRepository.searchTodos(query: query, completion: completion)
+    func searchItems(query: String) {
+        todoRepository.searchTodos(query: query) { [weak self] result in
+            self?.handleResult(result) { todos in
+                self?.output?.didSearchTodos(todos)
+            }
+        }
+    }
+}
+
+extension TodoListInteractor {
+    private func handleResult<T>(
+        _ result: Result<T, Error>,
+        onSuccess: (T) -> Void
+    ) {
+        switch result {
+        case .success(let value): onSuccess(value)
+        case .failure(let error): output?.didFail(with: error)
+        }
     }
 }
