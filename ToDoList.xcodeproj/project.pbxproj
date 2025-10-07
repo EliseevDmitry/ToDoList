@@ -237,8 +237,8 @@
 			isa = PBXGroup;
 			children = (
 				26BD60B72E81A1A0006C61E0 /* TasksViewController.swift */,
-				26FCD0F82E83273E009906DE /* TodoListInteractor.swift */,
 				26FCD0FA2E8327A5009906DE /* TodoListPresenter.swift */,
+				26FCD0F82E83273E009906DE /* TodoListInteractor.swift */,
 			);
 			path = TasksVC;
 			sourceTree = "<group>";

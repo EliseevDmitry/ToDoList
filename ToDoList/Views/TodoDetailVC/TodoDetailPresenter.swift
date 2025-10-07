@@ -55,7 +55,8 @@ extension TodoDetailPresenter: ITodoDetailPresenter {
     /// Обрабатывает нажатие кнопки "Назад".
     /// Делегирует навигацию Router-у.
     func didTapBack() {
-        router.pop()
+      //  router.pop(viewController: )
+        //router.pop(viewController: <#T##UIViewController?#>)
     }
     
     /// Вызывается после загрузки View.

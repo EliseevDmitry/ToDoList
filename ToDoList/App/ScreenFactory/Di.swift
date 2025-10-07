@@ -11,9 +11,9 @@
 /// Обеспечивает централизованное создание и конфигурацию модулей для VIPER-сценариев.
 final class Di {
     let todoRepository: ITodoRepository
-    var todoListInteractor: ITodoListInteractor {
+    lazy var todoListInteractor: TodoListInteractor = {
         TodoListInteractor(todoRepository: todoRepository)
-    }
+    }()
     let router: ITasksRouter
     lazy var screenFactory: ScreenFactory = {
         ScreenFactory(di: self)
@@ -21,6 +21,6 @@ final class Di {
     
     init() {
         self.todoRepository = TodoRepository()
-        self.router = TasksRouter(viewController: nil)
+        self.router = TasksRouter()
     }
 }

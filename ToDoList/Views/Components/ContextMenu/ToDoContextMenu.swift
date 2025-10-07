@@ -27,7 +27,7 @@ final class ToDoContextMenu {
     /// - Returns: `UIContextMenuConfiguration`, готовая к применению в `UITableView`.
     static func makeMenu(
         for indexPath: IndexPath,
-        entity: TodoItem?,
+        entity: (any IToDo)?,
         actions: @escaping (ToDoContextMenuAction) -> Void
     ) -> UIContextMenuConfiguration {
         UIContextMenuConfiguration(

@@ -11,7 +11,7 @@ import UIKit
 /// Централизует построение VIPER-модулей, обеспечивая корректное связывание презентеров с вью и роутером.
 final class ScreenFactory {
     private unowned let di: Di
-    private var todoListPresenter: ITodoListPresenter
+    private var todoListPresenter: TodoListPresenter
     
     init(
         di: Di
@@ -22,6 +22,7 @@ final class ScreenFactory {
             view: nil,
             router: di.router
         )
+        self.di.todoListInteractor.output = self.todoListPresenter
     }
     
     /// Создает и конфигурирует `TasksViewController` с привязанным презентером и роутером.
@@ -29,7 +30,8 @@ final class ScreenFactory {
     func makeTasksViewController() -> UIViewController {
         let viewController = TasksViewController(presenter: todoListPresenter)
         todoListPresenter.setView(viewController)
-        di.router.setViewController(viewController: viewController)
+        
+        //di.router.setViewController(viewController: viewController)
         return viewController
     }
     
