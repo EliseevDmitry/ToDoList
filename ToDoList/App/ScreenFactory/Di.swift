@@ -5,22 +5,20 @@
 //  Created by Dmitriy Eliseev on 30.09.2025.
 //
 
-// MARK: - Dependency Injection Container
 
-/// DI-контейнер для управления зависимостями приложения: репозитории, интеракторы, роутеры и фабрика экранов.
-/// Обеспечивает централизованное создание и конфигурацию модулей для VIPER-сценариев.
 final class Di {
     let todoRepository: ITodoRepository
-    lazy var todoListInteractor: TodoListInteractor = {
-        TodoListInteractor(todoRepository: todoRepository)
-    }()
     let router: ITasksRouter
-    lazy var screenFactory: ScreenFactory = {
-        ScreenFactory(di: self)
-    }()
+    let screenFactory: ScreenFactory
     
-    init() {
-        self.todoRepository = TodoRepository()
-        self.router = TasksRouter()
+    init(
+        todoRepository: ITodoRepository = TodoRepository(),
+        router: ITasksRouter = TasksRouter(),
+        screenFactory: ScreenFactory = ScreenFactory()
+    ) {
+        self.todoRepository = todoRepository
+        self.router = router
+        self.screenFactory = screenFactory
+        screenFactory.di = self
     }
 }

@@ -7,28 +7,22 @@
 
 import UIKit
 
-/// Протокол, описывающий маршруты и навигацию для экрана списка задач.
 protocol ITasksRouter: AnyObject {
-
-    /// Переходит на экран деталей конкретного ToDo элемента
-    func showTodoDetail(viewController: UIViewController?, todoItem: TodoItem)
-    
-    /// Выполняет возврат на предыдущий экран в навигационном стеке
-    func pop(viewController: UIViewController?)
+    func showTodoDetail(from source: ITodoListView?, destination: ITodoDetailView)
+    func pop(from source: ITodoDetailView?)
 }
 
-/// Реализация роутера, отвечающего за навигацию из TasksViewController.
-/// Управляет переходами между экраном списка задач и экраном деталей.
 final class TasksRouter: ITasksRouter {
-    
-    /// Создает экран деталей и пушит его в навигационный стек
-    func showTodoDetail(viewController: UIViewController?, todoItem: TodoItem) {
-        let detailVC = di.screenFactory.makeTodoDetailViewViewController(todoItem: todoItem)
-        viewController?.navigationController?.pushViewController(detailVC, animated: true)
+
+    func showTodoDetail(from source: ITodoListView?, destination: ITodoDetailView) {
+        guard let sourceVC = source as? UIViewController,
+              let destinationVC = destination as? UIViewController
+        else { return }
+        sourceVC.navigationController?.pushViewController(destinationVC, animated: true)
     }
-    
-    /// Выполняет pop текущего контроллера из навигационного стека
-    func pop(viewController: UIViewController?) {
-        viewController?.navigationController?.popViewController(animated: true)
+
+    func pop(from source: ITodoDetailView?) {
+        guard let sourceVC = source as? UIViewController else { return }
+        sourceVC.navigationController?.popViewController(animated: true)
     }
 }
