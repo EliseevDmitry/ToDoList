@@ -8,50 +8,50 @@
 /*
 import Foundation
 
-/// Тестовые данные для приложения на начальном этапе разработки.
-/// Не использовался Mockoon; данные создаются локально и не используются в продакшене.
-struct Moc {
-    /// Предопределённый список задач `TodoItem` для отладки UI и логики.
+/// Mock data used during early development and UI testing.
+/// Data is generated locally and not used in production.
+struct MockData {
+    /// Predefined list of `TodoItem` objects for debugging and UI previews.
     static let data: [TodoItem] = [
         TodoItem(
-            todo: "Уборка в квартире",
-            content: "Провести уборку в квартире, Провести уборку в квартире, Провести уборку в квартире, Провести уборку в квартире, Провести уборку в квартире",
+            todo: "Apartment cleaning",
+            content: "Clean up the apartment thoroughly.",
             completed: true,
             date: Date()
         ),
         TodoItem(
-            todo: "Покупки",
-            content: "Купить продукты: молоко, хлеб, овощи",
+            todo: "Grocery shopping",
+            content: "Buy milk, bread, and vegetables.",
             completed: false,
             date: Date().addingTimeInterval(3600)
         ),
         TodoItem(
-            todo: "Тренировка",
-            content: "Сделать пробежку 5 км и растяжку",
+            todo: "Workout",
+            content: "Run 5 km and do stretching.",
             completed: false,
             date: Date().addingTimeInterval(7200)
         ),
         TodoItem(
-            todo: "Работа над проектом",
-            content: "Завершить экран авторизации в приложении",
+            todo: "Project work",
+            content: "Finish the login screen in the app.",
             completed: true,
             date: Date().addingTimeInterval(10800)
         ),
         TodoItem(
-            todo: "Чтение книги",
-            content: "Прочитать 20 страниц книги по SwiftUI",
+            todo: "Reading",
+            content: "Read 20 pages of the SwiftUI book.",
             completed: false,
             date: Date().addingTimeInterval(14400)
         ),
         TodoItem(
-            todo: "Звонок другу",
-            content: "Позвонить и обсудить поездку на выходных",
+            todo: "Call a friend",
+            content: "Discuss weekend travel plans.",
             completed: false,
             date: Date().addingTimeInterval(18000)
         ),
         TodoItem(
-            todo: "Просмотр фильма",
-            content: "Посмотреть новый детектив в онлайне",
+            todo: "Watch a movie",
+            content: "Watch the new detective film online.",
             completed: false,
             date: Date().addingTimeInterval(21600)
         )

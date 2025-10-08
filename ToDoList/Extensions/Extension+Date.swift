@@ -8,8 +8,7 @@
 import Foundation
 
 extension Date {
-    /// Статический `DateFormatter` для форматирования даты задач.
-    /// Создается один раз, чтобы избежать затрат на многократное создание при больших списках.
+    /// Shared DateFormatter for task dates ("dd/MM/yyyy").
     private static let toDoDate: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
@@ -17,8 +16,7 @@ extension Date {
         return formatter
     }()
     
-    /// Преобразует `Date` в строку в формате "dd/MM/yyyy" для отображения в UI.
-    /// Использует статический `DateFormatter` для оптимизации производительности.
+    /// Returns date string in "dd/MM/yyyy" format using shared formatter.
     var getToDoDateFormat: String {
         return Date.toDoDate.string(from: self)
     }

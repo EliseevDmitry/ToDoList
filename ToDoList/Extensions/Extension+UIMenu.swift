@@ -8,7 +8,8 @@
 import UIKit
 
 extension UIMenu {
-    /// Константы, используемые для формирования стандартного контекстного меню задач. /// Включают локализованные строки иконок и их `UIImage`-ресурсы. /// Иконки принудительно переводятся в `.alwaysTemplate` режим для корректного отображения /// в зависимости от системной темы (Light/Dark).
+    /// Common constants for task context menus.
+    /// Includes localized titles and template-rendered icons for Light/Dark mode support.
     enum Consts {
         static let editTitle = "Редактировать"
         static let shareTitle = "Завершить"
@@ -21,18 +22,18 @@ extension UIMenu {
             .withRenderingMode(.alwaysTemplate)
     }
     
-    /// Фабричный метод для создания стандартизированного меню действий с задачей
+    /// Factory for standardized task action menu.
     /// - Parameters:
-    ///   - editTitle: Локализованное название действия редактирования
-    ///   - shareTitle: Локализованное название действия публикации
-    ///   - deleteTitle: Локализованное название действия удаления
-    ///   - editImage: Кастомная иконка для действия редактирования (опционально)
-    ///   - shareImage: Кастомная иконка для действия публикации (опционально)
-    ///   - deleteImage: Кастомная иконка для действия удаления (опционально)
-    ///   - onEdit: Closure, выполняемый при выборе действия редактирования
-    ///   - onShare: Closure, выполняемый при выборе действия публикации
-    ///   - onDelete: Closure, выполняемый при выборе действия удаления
-    /// - Returns: Сконфигурированный экземпляр UIMenu с тремя основными действиями
+    ///   - editTitle: Edit action title.
+    ///   - shareTitle: Share action title.
+    ///   - deleteTitle: Delete action title.
+    ///   - editImage: Edit action icon.
+    ///   - shareImage: Share action icon.
+    ///   - deleteImage: Delete action icon.
+    ///   - onEdit: Edit action handler.
+    ///   - onShare: Share action handler.
+    ///   - onDelete: Delete action handler.
+    /// - Returns: Configured UIMenu with standard task actions.
     static func makeToDoActionMenu(
         editTitle: String = Consts.editTitle,
         shareTitle: String = Consts.shareTitle,

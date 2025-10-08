@@ -7,10 +7,10 @@
 
 import Foundation
 
-/// Константы приложения.
+/// App-wide constants.
 enum Constants {
-    /// URL для получения списка задач с API.
-    /// Формируется через `URLComponents` для безопасного построения URL.
+    /// Base URL for fetching todo list from API.
+    /// Built using `URLComponents` for safety and readability.
     static let todosURL: URL = {
         var components = URLComponents()
         components.scheme = "https"
@@ -22,6 +22,3 @@ enum Constants {
         return url
     }()
 }
-
-
-//напиши комментарии к основным элементам в формате /// - сделай его профессиональным для ios программистов senior уровня, некоторые блоки я пометил комментарием // для твоего акцента

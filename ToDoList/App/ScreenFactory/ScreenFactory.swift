@@ -7,46 +7,27 @@
 
 import UIKit
 
-/// Фабрика экранов, создающая и конфигурирующая ViewController-и с соответствующими презентерами и зависимостями.
-/// Централизует построение VIPER-модулей, обеспечивая корректное связывание презентеров с вью и роутером.
+/// Factory for building view controllers with their presenter, interactor, and router wired.
 final class ScreenFactory {
-    private unowned let di: Di
-    private var todoListPresenter: TodoListPresenter
+    /// Reference to the DI container.
+    unowned var di: Di!
     
-    init(
-        di: Di
-    ) {
-        self.di = di
-        self.todoListPresenter = TodoListPresenter(
-            interactor: di.todoListInteractor,
-            view: nil,
-            router: di.router
-        )
-        self.di.todoListInteractor.output = self.todoListPresenter
+    /// Builds the Todo list module.
+    func makeToDoList() -> ITodoListView {
+        let interactor = TodoListInteractor(todoRepository: di.todoRepository)
+        let presenter = TodoListPresenter(interactor: interactor, router: di.router)
+        interactor.output = presenter
+        let view = TasksViewController(presenter: presenter)
+        presenter.setView(view)
+        return view
     }
     
-    /// Создает и конфигурирует `TasksViewController` с привязанным презентером и роутером.
-    /// Обеспечивает корректное связывание View с презентером и назначение корневого контроллера роутеру.
-    func makeTasksViewController() -> UIViewController {
-        let viewController = TasksViewController(presenter: todoListPresenter)
-        todoListPresenter.setView(viewController)
-        
-        //di.router.setViewController(viewController: viewController)
-        return viewController
-    }
-    
-    /// Создает и конфигурирует `TodoDetailViewController` для конкретного ToDo элемента.
-    /// Презентер связывается с вью и получает ссылку на общий список презентера для обновления данных.
-    func makeTodoDetailViewViewController(todoItem: any IToDo) -> UIViewController {
-        let router = di.router
-        let presenter = TodoDetailPresenter(
-            view: nil,
-            router: router,
-            todo: todoItem,
-            listPresenter: todoListPresenter
-        )
-        let viewController = TodoDetailViewController(presenter: presenter)
-        presenter.setView(viewController)
-        return viewController
+    /// Builds the Todo detail module for a specific todo item.
+    func makeToDoDetail<T: IToDo>(todo: T, presenterOutput: ITodoDetailOutput) -> ITodoDetailView {
+        let presenter = TodoDetailPresenter(router: di.router, todo: todo)
+        let view = TodoDetailViewController(presenter: presenter)
+        presenter.setView(view)
+        presenter.delegate = presenterOutput
+        return view
     }
 }

@@ -203,15 +203,15 @@
 			children = (
 				263F1E662E881D9000D97344 /* Extension+Date.swift */,
 				26C861142E8B0ECD000067BE /* Extension+String.swift */,
-				26FCD0F12E8304D4009906DE /* UITableView+Reusable.swift */,
-				26E3B07F2E898973008A127F /* Extension+UIView.swift */,
-				26ED04942E84FBC600DE33CC /* Extension+UIMenu.swift */,
-				26E3B06F2E890AA4008A127F /* Extension+UIFont.swift */,
 				26E3B0672E88F74B008A127F /* Extension+UIColor.swift */,
-				26E3B07A2E8942C8008A127F /* Extension+UITableView.swift */,
+				26E3B06F2E890AA4008A127F /* Extension+UIFont.swift */,
+				26ED04942E84FBC600DE33CC /* Extension+UIMenu.swift */,
 				26E3B0652E88F1F6008A127F /* Extension+UINavigationController.swift */,
-				26BD60DB2E81B405006C61E0 /* Extension+URLSession.swift */,
+				26E3B07A2E8942C8008A127F /* Extension+UITableView.swift */,
+				26E3B07F2E898973008A127F /* Extension+UIView.swift */,
 				26BD60D92E81A6C2006C61E0 /* Extension+URLResponse.swift */,
+				26BD60DB2E81B405006C61E0 /* Extension+URLSession.swift */,
+				26FCD0F12E8304D4009906DE /* UITableView+Reusable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";

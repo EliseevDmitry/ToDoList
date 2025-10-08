@@ -7,28 +7,28 @@
 
 import UIKit
 
-/// Протокол для идентификации повторно используемых ячеек таблицы.
+/// Marker protocol for reusable table view cells.
 protocol Reusable {}
 
-/// Все UITableViewCell автоматически соответствуют Reusable.
+/// All UITableViewCell conform to Reusable by default.
 extension UITableViewCell: Reusable {}
 
 extension Reusable where Self: UITableViewCell {
-    /// Возвращает строку с названием класса для reuseIdentifier.
+    /// Class name as reuseIdentifier.
     static var reuseID: String {
         return String.init(describing: self)
     }
 }
 
-// MARK: - UITableView helper extensions
+// MARK: - UITableView helpers
 
 extension UITableView {
-    /// Регистрация ячейки по классу с использованием reuseID.
+    /// Registers a UITableViewCell subclass using its reuseID.
     func registerCell<Cell: UITableViewCell>(_ cellClass: Cell.Type) {
         register(cellClass, forCellReuseIdentifier: cellClass.reuseID)
     }
     
-    /// Декодирование ячейки по IndexPath с безопасным приведением типа.
+    /// Dequeues a reusable cell with type-safe cast.
     func dequeueCell<Cell: UITableViewCell>(_ indexPath: IndexPath) -> Cell {
         guard let cell = self.dequeueReusableCell(withIdentifier: Cell.reuseID, for: indexPath) as? Cell
         else { fatalError("Fatal error for cell at \(indexPath)") }

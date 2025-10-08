@@ -28,7 +28,7 @@ final class TodoListInteractor {
     private let todoRepository: ITodoRepository
     weak var output: ITodoInteractorOutput?
     
-    init(todoRepository: ITodoRepository = TodoRepository()) {
+    init(todoRepository: ITodoRepository) {
         self.todoRepository = todoRepository
     }
 }

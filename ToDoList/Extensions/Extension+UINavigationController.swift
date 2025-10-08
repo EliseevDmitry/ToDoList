@@ -7,9 +7,9 @@
 
 import UIKit
 
-/// Расширение UINavigationController для применения кастомного стиля с черным фоном.
-/// Настраивает Large Title с белым текстом и скрывает стандартный title.
+/// Custom UINavigationController styling with black background and white large title.
 extension UINavigationController {
+    /// Applies black large-title appearance and hides default small title.
     func applyBlackLargeTitleStyle() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -19,8 +19,8 @@ extension UINavigationController {
             .font: UIFont.systemFont(ofSize: 32, weight: .bold)
         ]
         appearance.titleTextAttributes = [
-                    .foregroundColor: UIColor.clear
-                ]
+            .foregroundColor: UIColor.clear
+        ]
         navigationBar.standardAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
         navigationBar.compactAppearance = appearance

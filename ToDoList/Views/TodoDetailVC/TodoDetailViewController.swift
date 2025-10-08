@@ -75,6 +75,7 @@ final class TodoDetailViewController: UIViewController {
         setupConstraints()
         setupCustomBackButton()
         setupProperties()
+     
         presenter.viewDidLoad()
     }
 }

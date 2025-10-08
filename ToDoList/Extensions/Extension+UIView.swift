@@ -8,18 +8,18 @@
 import UIKit
 
 extension UIView {
-    /// Константы для создания стандартного заголовка view.
+    /// Layout constants for standard header views.
     enum Consts {
         static let edgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         static let heightSubview: CGFloat = 36
     }
     
-    /// Создает контейнерный view с заданным subview и инсетами, упрощая конфигурацию header для UITableView.
+    /// Builds a container view with a subview and insets — useful for table headers.
     /// - Parameters:
-    ///   - subview: Любой view, который будет добавлен в контейнер
-    ///   - insets: Отступы вокруг subview
-    ///   - backgroundColor: Цвет фона контейнера
-    /// - Returns: UIView, готовый к использованию как заголовок секции
+    ///   - subview: View to embed inside the container.
+    ///   - insets: Edge insets around the subview.
+    ///   - backgroundColor: Container background color.
+    /// - Returns: Configured header container view.
     static func getHeader(
         with subview: UIView,
         insets: UIEdgeInsets = Consts.edgeInsets,

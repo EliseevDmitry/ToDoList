@@ -30,6 +30,7 @@ protocol ITodoListPresenter {
     func searchToDoItems(query: String)
 }
 
+
 /// Презентер списка задач.
 /// Отвечает за бизнес-логику списка, обработку CRUD операций и поиск.
 /// Использует Interactor для работы с данными и Router для навигации.
@@ -48,7 +49,11 @@ final class TodoListPresenter  {
     ///   - interactor: Инстанс ITodoListInteractor.
     ///   - view: Необязательный экземпляр ITodoListView.
     ///   - router: Экземпляр ITasksRouter для навигации.
-    init(interactor: ITodoInteractor, view: ITodoListView? = nil, router: ITasksRouter) {
+    init(
+        interactor: ITodoInteractor,
+        view: ITodoListView? = nil,
+        router: ITasksRouter
+    ) {
         self.interactor = interactor
         self.view = view
         self.router = router
@@ -58,20 +63,17 @@ final class TodoListPresenter  {
 // MARK: - ITodoListPresenter
 
 extension TodoListPresenter: ITodoListPresenter {
-
-    
     func todo(at index: Int) -> TodoItem? {
         guard index < todos.count else { return nil }
         return todos[index] as? TodoItem
     }
 
-
-    
     /// Обработка выбора задачи пользователем.
     /// Делегирует навигацию через Router.
     func didSelectTodo(at index: Int) {
         guard let todo = todo(at: index) else { return }
-        //router.showTodoDetail(todoItem: todo)
+        let destination = di.screenFactory.makeToDoDetail(todo: todo, presenterOutput: self)
+        router.showTodoDetail(from: self.view, destination: destination)
     }
     
     /// Добавление новой фиксированной задачи.
@@ -82,13 +84,11 @@ extension TodoListPresenter: ITodoListPresenter {
         addNewFixedItem(item: TasksViewController.Consts.newFixedToDoItem())
     }
     
-    /// Устанавливает view для связи Presenter ↔ View.
+    /// Устанавливает view для связи Presenter ↔ View. - нужно подумать над вынос логики в DI и ScreenFactory
     func setView(_ view: ITodoListView) {
         self.view = view
     }
-    
 
-    
     /// Загрузка всех задач из Interactor в фоне.
     func loadTodos() {
         DispatchQueue.global(qos: .userInitiated).async {
@@ -97,7 +97,6 @@ extension TodoListPresenter: ITodoListPresenter {
     }
     
     /// Добавление нового TodoItem через Interactor.
-
     func addNewFixedItem<T: IToDo>(item: T) {
         DispatchQueue.global(qos: .userInitiated).async {
             self.interactor.addItem(item)
@@ -105,7 +104,6 @@ extension TodoListPresenter: ITodoListPresenter {
     }
     
     /// Отметка задачи как выполненной.
-    /// какой то ловит глюк
     func completedToDo(at index: Int) {
         guard var entity = todo(at: index) else { return }
         entity.updateCompleted()
@@ -141,10 +139,6 @@ extension TodoListPresenter: ITodoListPresenter {
 // MARK: - Private Helpers
 
 extension TodoListPresenter {
-    /// Навигация к экрану деталей задачи.
-    private func showTodoDetail<T: IToDo>(todoItem: T) {
-        //router.showTodoDetail(todoItem: todoItem)
-    }
     
     /// Обновление UI после изменения списка задач.
     /// Перезагружает таблицу и обновляет footer.
@@ -161,9 +155,9 @@ extension TodoListPresenter {
 }
 
 
+//взаимодействие с interactor
 extension TodoListPresenter: ITodoInteractorOutput {
-   
-    
+
     func didAddTodo<T: IToDo>(_ todo: T) {
         self.todos.insert(todo, at: 0)
         DispatchQueue.main.async {
@@ -206,4 +200,12 @@ extension TodoListPresenter: ITodoInteractorOutput {
         }
     }
  
+}
+
+
+//взаимодействие с презентер datailView
+extension TodoListPresenter: ITodoDetailOutput {
+    func didUpdateItem<T: IToDo>(entity: T) {
+        self.updateItem(entity: entity)
+    }
 }

@@ -8,18 +8,14 @@
 import UIKit
 
 extension String {
-    /// Формирует NSAttributedString с учетом статуса выполнения задачи.
-    /// Добавляет зачеркивание и изменяет цвет для завершенных задач.
+    /// Returns NSAttributedString styled based on task completion (strikethrough + color).
     func styled(
         isCompleted: Bool,
         font: UIFont = UIFont.theme.cardTitle,
         activeTextColor: UIColor = UIColor.theme.activeText,
         strikethroughColor: UIColor = UIColor.theme.cardDateText
     ) -> NSAttributedString {
-        var attributes: [NSAttributedString.Key: Any] = [
-            .font: font
-        ]
-        
+        var attributes: [NSAttributedString.Key: Any] = [.font: font]
         if isCompleted {
             attributes[.strikethroughStyle] = NSUnderlineStyle.single.rawValue
             attributes[.foregroundColor] = strikethroughColor
@@ -28,7 +24,6 @@ extension String {
             attributes[.strikethroughStyle] = 0
             attributes[.foregroundColor] = activeTextColor
         }
-        
         return NSAttributedString(string: self, attributes: attributes)
     }
 }
