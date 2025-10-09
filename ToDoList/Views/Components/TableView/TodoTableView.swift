@@ -8,8 +8,8 @@
 import UIKit
 
 final class TodoTableView: UITableView {
-    /// Константы, используемые в `TodoTableView`.
-    /// Централизованное хранение настроек внешнего вида и поведения таблицы.
+    /// Constants used in `TodoTableView`.
+    /// Centralized appearance and behavior configuration.
     enum Consts {
         static let topPadding: CGFloat = 0
         static let rowHeight: CGFloat = 90
@@ -23,8 +23,8 @@ final class TodoTableView: UITableView {
     
     // MARK: - Lifecycle
     
-    /// Инициализатор таблицы с возможностью выбора стиля.
-    /// Выполняет настройку базовых свойств через `setupProperties()`.
+    /// Initializes the table view with a configurable style.
+    /// Sets up default appearance and behavior via `setupProperties()`.
     override init(
         frame: CGRect = .zero,
         style: UITableView.Style = .plain
@@ -41,8 +41,8 @@ final class TodoTableView: UITableView {
 // MARK: - Private functions
 
 extension TodoTableView {
-    /// Настраивает основные свойства таблицы: внешний вид, высоту строк, регистрация ячеек и разделителей.
-    /// Для iOS 15+ обнуляет верхний padding заголовка секции для согласованного отображения с предыдущими версиями iOS.
+    /// Configures key table view properties: layout, row height, cell registration, and separators.
+    /// For iOS 15+, removes section header top padding for consistent layout across iOS versions.
     private func setupProperties() {
         if #available(iOS 15.0, *) {
             sectionHeaderTopPadding = Consts.topPadding

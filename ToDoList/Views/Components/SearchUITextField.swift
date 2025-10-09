@@ -8,7 +8,7 @@
 import UIKit
 
 final class SearchUITextField: UITextField {
-    /// Константы, используемые в `SearchUITextField`.
+    /// UI constants for layout and appearance.
     enum Consts {
         static let cornerRadius: CGFloat = 10
         static let placeholderText = "Search"
@@ -84,8 +84,8 @@ final class SearchUITextField: UITextField {
 // MARK: - Actions
 
 extension SearchUITextField {
-    /// Очищает текстовое поле и вызывает callback при изменении текста.
-    /// Обновляет видимость кнопки очистки справа.
+    /// Clears the text field and triggers the callback.
+    /// Updates the visibility of the clear button.
     @objc private func clearText() {
         self.text = ""
         onTextChanged?("")
@@ -93,8 +93,8 @@ extension SearchUITextField {
         updateClearButtonVisibility()
     }
     
-    /// Вызывается при изменении текста пользователем.
-    /// Обновляет видимость кнопки очистки и уведомляет через callback.
+    /// Called when the text changes.
+    /// Updates the clear button visibility and notifies via callback.
     @objc private func textDidChange() {
         updateClearButtonVisibility()
         onTextChanged?(self.text ?? "")
@@ -104,8 +104,8 @@ extension SearchUITextField {
 // MARK: - Private functions
 
 extension SearchUITextField {
-    /// Настраивает внешний вид и поведение текстового поля.
-    /// Устанавливает плейсхолдер, цвета, скругления и вью для иконок.
+    /// Configures appearance and behavior of the text field.
+    /// Sets placeholder, colors, corner radius, and icon views.
     private func setupProperties() {
         textColor = UIColor.theme.activeText
         backgroundColor = UIColor.theme.searchBackground
@@ -127,8 +127,8 @@ extension SearchUITextField {
         addTarget(self, action: #selector(textDidChange), for: .editingChanged)
     }
     
-    /// Обновляет видимость кнопки очистки в зависимости от текста.
-    /// Показывает кнопку, если текст не пустой, скрывает иначе.
+    /// Updates the visibility of the clear button based on text content.
+    /// Shows the button if text is not empty, hides otherwise.
     private func updateClearButtonVisibility() {
         rightViewMode = (text?.isEmpty == false) ? .always : .never
     }

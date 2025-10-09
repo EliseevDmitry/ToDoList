@@ -8,8 +8,8 @@
 import UIKit
 
 final class TodoTableViewCell: UITableViewCell {
-    /// Константы, используемые в `TodoTableViewCell`.
-    /// Вынесены в enum для централизованного хранения значений, связанных с UI
+    /// Constants used in `TodoTableViewCell`.
+    /// Centralized UI-related configuration.
     enum Consts {
         static let hStackSpacing: CGFloat = 8
         static let hStackaLyoutMargins = NSDirectionalEdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20)
@@ -21,11 +21,11 @@ final class TodoTableViewCell: UITableViewCell {
         static let circleWH: CGFloat = 24
     }
     
-    /// Уникальный идентификатор для повторного использования ячейки `TodoTableViewCell` в таблице (`UITableView`).
+    /// Reuse identifier for `TodoTableViewCell`.
     static let reuseId = "ToDoCell"
     
-    /// Модель данных текущей задачи, отображаемой в ячейке.
-    /// При изменении автоматически обновляет UI-компоненты через `updateUIComponents()`.
+    /// Data model representing the current todo item.
+    /// Updates the UI automatically via `updateUIComponents()` when changed.
     private var toDoItem: (any IToDo)? {
         didSet {
             updateUIComponents()
@@ -112,8 +112,8 @@ final class TodoTableViewCell: UITableViewCell {
 // MARK: - Public functions
 
 extension TodoTableViewCell {
-    /// Обновляет содержимое ячейки новым элементом `TodoItem`.
-    /// Триггерит перерисовку UI-компонентов через `updateUIComponents()`.
+    /// Updates the cell with a new `IToDo` model.
+    /// Triggers UI refresh through `updateUIComponents()`.
     func update(_ toDoItem: any IToDo) {
         self.toDoItem = toDoItem
     }
@@ -122,8 +122,8 @@ extension TodoTableViewCell {
 // MARK: - Private functions
 
 extension TodoTableViewCell {
-    /// Конфигурирует иерархию вью: добавляет сабвью и настраивает stack view.
-    /// Отвечает за структурное размещение UI-компонентов внутри ячейки.
+    /// Builds the view hierarchy and configures stack views.
+    /// Responsible for structuring all UI components inside the cell.
     private func setupViews(){
         [containerView].forEach {
             contentView.addSubview($0)
@@ -141,8 +141,8 @@ extension TodoTableViewCell {
         }
     }
     
-    /// Активирует Auto Layout констрейнты для всех UI-элементов.
-    /// Обеспечивает корректное позиционирование и размеры внутри `UITableViewCell`.
+    /// Activates Auto Layout constraints for all subviews.
+    /// Ensures proper layout and sizing inside the table view cell.
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             
@@ -174,14 +174,14 @@ extension TodoTableViewCell {
         ])
     }
     
-    /// Применяет дополнительные свойства к ячейке.
-    /// В текущей реализации отключает выделение (`selectionStyle = .none`).
+    /// Applies additional cell-level configurations.
+    /// Disables selection highlighting.
     private func setupProperties() {
         selectionStyle = .none
     }
     
-    /// Перезаполняет UI-компоненты данными из `toDoItem`.
-    /// Вызывается при изменении модели для актуализации текста и стиля.
+    /// Refreshes UI components with data from the current `toDoItem`.
+    /// Updates text labels and the completion state indicator.
     private func updateUIComponents(){
         guard let item = toDoItem else { return }
         titleLabel.text = item.todo
@@ -190,10 +190,8 @@ extension TodoTableViewCell {
         setImage(item.completed)
     }
     
-    /// Устанавливает состояние иконки и стилей текста в зависимости от `completed`.
-    /// Использует тему приложения и строковое расширение для атрибутированного текста.
-    /// Атрибутированный текст устанавливается через экстеншн `String.styled(isCompleted:)`,
-    /// что обеспечивает корректное применение зачеркивания и цвета текста.
+    /// Updates the completion icon and text styles based on the `completed` flag.
+    /// Uses theming and attributed string styling via `String.styled(isCompleted:)`.
     private func setImage(_ flag: Bool) {
         circleImageView.image = flag ? UIImage(systemName: Consts.completedImageName) : UIImage(systemName: Consts.activeImageName)
         circleImageView.tintColor = flag ? UIColor.theme.customYellow : UIColor.theme.activeCircle

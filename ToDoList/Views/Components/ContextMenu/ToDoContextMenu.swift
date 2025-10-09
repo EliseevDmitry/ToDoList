@@ -7,24 +7,23 @@
 
 import UIKit
 
-/// Утилитарный класс для создания контекстного меню задач (`TodoItem`) в `UITableView`.
-/// Инкапсулирует логику построения `UIContextMenuConfiguration` с предопределёнными действиями: редактирование, шаринг и удаление.
-/// `share` переопределён для действия "Завершить" в логике завершения задачи `ToDo`.
-/// Иконка оставлена без изменений, как указано в дизайн-макете, для сохранения визуальной согласованности.
+/// Utility class to create a context menu for `TodoItem` in `UITableView`.
+/// Encapsulates `UIContextMenuConfiguration` logic with predefined actions: edit, share, delete.
+/// The `share` action is used for marking a task as complete. Icons match the design spec.
 final class ToDoContextMenu {
-    /// Возможные действия, доступные в контекстном меню задачи.
+    /// Available actions in the context menu.
     enum ToDoContextMenuAction {
         case edit, share, delete
     }
     
-    /// Создаёт конфигурацию контекстного меню для указанного элемента.
+    /// Creates a context menu configuration for a given item.
     ///
     /// - Parameters:
-    ///   - indexPath: индекс элемента в списке, используется как идентификатор меню.
-    ///   - entity: объект `TodoItem`, данные которого можно показать в превью меню.
-    ///   - actions: замыкание обратного вызова с выбранным действием меню.
+    ///   - indexPath: Item index used as menu identifier.
+    ///   - entity: `TodoItem` whose data can be shown in the preview.
+    ///   - actions: Callback invoked with the selected menu action.
     ///
-    /// - Returns: `UIContextMenuConfiguration`, готовая к применению в `UITableView`.
+    /// - Returns: Configured `UIContextMenuConfiguration` for the table view.
     static func makeMenu(
         for indexPath: IndexPath,
         entity: (any IToDo)?,

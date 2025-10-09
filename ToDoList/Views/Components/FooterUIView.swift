@@ -8,7 +8,7 @@
 import UIKit
 
 final class FooterUIView: UIView {
-    /// Константы, используемые в `FooterUIView`.
+    /// UI constants for layout and appearance.
     enum Consts {
         static let systemImageName = "square.and.pencil"
         static let hStackLayoutMargins = NSDirectionalEdgeInsets(
@@ -18,7 +18,7 @@ final class FooterUIView: UIView {
             trailing: 20
         )
         static let imageSize: CGFloat = 28
-        static let footerTitle = "Задач"
+        static let footerTitle = "Tasks"
     }
     
     var onAddToDo: (() -> Void)?
@@ -83,11 +83,8 @@ final class FooterUIView: UIView {
 // MARK: - Public Functions
 
 extension FooterUIView {
-    /// Обновляет количество задач, отображаемое в футере.
-    /// - Parameter newCount: Новое количество задач.
-    ///
-    /// Функция обновляет внутреннее состояние `count` и автоматически обновляет текст `titleLabel`,
-    /// чтобы пользователь видел актуальное количество задач в интерфейсе.
+    /// Updates the task count displayed in the footer.
+    /// Automatically refreshes `titleLabel` to reflect the current count.
     func updateCount(_ newCount: Int) {
         self.count = newCount
         titleLabel.text = "\(count) \(Consts.footerTitle)"
@@ -97,11 +94,8 @@ extension FooterUIView {
 // MARK: - @objc Functions
 
 extension FooterUIView {
-    /// Обработчик нажатия кнопки добавления новой задачи.
-    ///
-    /// Вызывает замыкание `onAddToDo`, которое должно быть установлено извне,
-    /// чтобы делегировать логику добавления задачи контроллеру или Presenter-у.
-    /// Используется @objc для привязки к UIButton через `addTarget`.
+    /// Handles the add-task button tap.
+    /// Calls `onAddToDo` closure to delegate task creation externally.
     @objc func addNewTodo() {
         onAddToDo?()
     }
@@ -110,12 +104,12 @@ extension FooterUIView {
 // MARK: - Private Functions
 
 extension FooterUIView {
-    /// Настройка общих свойств view.
+    /// Configures general view properties.
     private func setupProperties() {
         translatesAutoresizingMaskIntoConstraints = false
     }
     
-    /// Добавляет все UI-компоненты в иерархию view.
+    /// Adds all UI components to the view hierarchy.
     private func setupViews() {
         [horizontalStackView].forEach {
             addSubview($0)
@@ -124,7 +118,8 @@ extension FooterUIView {
             horizontalStackView.addArrangedSubview($0)
         }
     }
-    /// Настройка AutoLayout constraints для UI компонентов.
+    
+    /// Sets up Auto Layout constraints for UI components.
     private func setupConstraints() {
         
         // MARK: - horizontalStackView

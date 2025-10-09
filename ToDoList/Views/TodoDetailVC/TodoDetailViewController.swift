@@ -7,25 +7,21 @@
 
 import UIKit
 
-/// Протокол View для экрана деталей задачи.
-/// Определяет публичный метод для отображения модели `IToDo`.
+/// View protocol for Todo detail screen.
 protocol ITodoDetailView: AnyObject {
-    /// Отображает данные задачи на экране.
-    /// - Parameter todo: Экземпляр задачи, реализующий IToDo.
-    func display(todo: any IToDo)
+    /// Displays the Todo model on the screen.
+    func display<T: IToDo>(todo: T)
 }
 
-/// ViewController для экрана деталей задачи.
-/// Отвечает за отображение и редактирование информации о задаче.
-/// Использует VIPER: взаимодействует с Presenter через `ITodoDetailPresenter`.
+/// ViewController for Todo detail screen using VIPER.
 final class TodoDetailViewController: UIViewController {
-    /// Константы, используемые в `TodoDetailViewController`.
+    /// Constants for layout and UI configuration.
     enum Consts {
         static let leftOffset: CGFloat = 20
         static let rightOffset: CGFloat = -20
         static let titleSpacing: CGFloat = 8
         static let dateSpacing: CGFloat = 16
-        static let buttonTitle = "Назад"
+        static let buttonTitle = "Back"
         static let buttonImage = "chevron.left"
     }
     
@@ -75,7 +71,6 @@ final class TodoDetailViewController: UIViewController {
         setupConstraints()
         setupCustomBackButton()
         setupProperties()
-     
         presenter.viewDidLoad()
     }
 }
@@ -83,10 +78,8 @@ final class TodoDetailViewController: UIViewController {
 // MARK: - ITodoDetailView functions
 
 extension TodoDetailViewController: ITodoDetailView {
-    /// Отображение задачи на экране.
-    /// Обновляет titleText, dateLabel и contentText.
-    /// - Parameter todo: Экземпляр IToDo.
-    func display(todo: any IToDo) {
+    /// Displays Todo data on the screen.
+    func display<T: IToDo>(todo: T) {
         titleText.text = todo.todo
         dateLabel.text = todo.date.getToDoDateFormat
         contentText.text = todo.content
@@ -96,14 +89,14 @@ extension TodoDetailViewController: ITodoDetailView {
 // MARK: - Private functions
 
 extension TodoDetailViewController {
-    /// Добавляет все UI-компоненты в иерархию view.
+    /// Adds UI components to the view hierarchy.
     private func setupViews(){
         [titleText, dateLabel, contentText].forEach{
             view.addSubview($0)
         }
     }
     
-    /// Настройка AutoLayout constraints для UI компонентов.
+    /// Sets up AutoLayout constraints for UI components.
     private func setupConstraints() {
         
         // MARK: - TitleText constraints
@@ -156,8 +149,7 @@ extension TodoDetailViewController {
         ])
     }
     
-    /// Настройка кастомной кнопки "Назад" в navigation bar.
-    /// Сохраняет UX и визуальный стиль приложения.
+    /// Sets up a custom "Back" button in the navigation bar.
     private func setupCustomBackButton() {
         let backButton = UIButton(type: .system)
         backButton.setTitle(Consts.buttonTitle, for: .normal)
@@ -171,8 +163,7 @@ extension TodoDetailViewController {
         navigationItem.leftBarButtonItem = barButton
     }
     
-    /// Настройка общих свойств view.
-    /// Цвет фона, largeTitleDisplayMode и др.
+    /// Configures general view properties.
     private func setupProperties() {
         navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = UIColor.theme.background
@@ -182,8 +173,7 @@ extension TodoDetailViewController {
 // MARK: - @objc functions
 
 extension TodoDetailViewController {
-    /// Обработка нажатия на кастомную кнопку "Назад".
-    /// Сначала обновляет данные через presenter, затем выполняет навигацию назад.
+    /// Handles custom "Back" button tap: updates item then navigates back.
     @objc private func customBackButtonTapped() {
         let title = titleText.text ?? ""
         let content = contentText.text ?? ""

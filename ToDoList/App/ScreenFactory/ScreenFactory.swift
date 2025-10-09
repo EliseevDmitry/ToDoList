@@ -16,7 +16,7 @@ final class ScreenFactory {
     func makeToDoList() -> ITodoListView {
         let interactor = TodoListInteractor(todoRepository: di.todoRepository)
         let presenter = TodoListPresenter(interactor: interactor, router: di.router)
-        interactor.output = presenter
+        interactor.delegate = presenter
         let view = TasksViewController(presenter: presenter)
         presenter.setView(view)
         return view

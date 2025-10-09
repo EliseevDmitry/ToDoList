@@ -11,9 +11,9 @@ extension UIMenu {
     /// Common constants for task context menus.
     /// Includes localized titles and template-rendered icons for Light/Dark mode support.
     enum Consts {
-        static let editTitle = "Редактировать"
-        static let shareTitle = "Завершить"
-        static let deleteTitle = "Удалить"
+        static let editTitle = "Edit"
+        static let shareTitle = "Complete"
+        static let deleteTitle = "Delete"
         static let editImage = UIImage(resource: .edit)
             .withRenderingMode(.alwaysTemplate)
         static let shareImage = UIImage(resource: .export)

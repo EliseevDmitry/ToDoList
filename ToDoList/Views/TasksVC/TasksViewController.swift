@@ -7,8 +7,8 @@
 
 import UIKit
 
-/// Протокол для связи Presenter → View в VIPER-архитектуре.
-/// Определяет базовые методы обновления UI и отображения ошибок в TasksViewController.
+/// Protocol for Presenter → View communication in VIPER.
+/// Defines basic methods for UI updates and error handling in TasksViewController.
 protocol ITodoListView: AnyObject {
     func reloadData()
     func showError(_ message: String)
@@ -18,48 +18,48 @@ protocol ITodoListView: AnyObject {
 
 final class TasksViewController: UIViewController {
     
-    /// Константы, используемые в `TasksViewController`.
-    /// Вынесены в enum для централизованного хранения значений, связанных с UI и фиксированным ToDo-объектом.
+    /// Constants used in `TasksViewController`.
+    /// Centralized storage for UI-related values and default ToDo item.
     enum Consts {
         static let footerInitCount = 0
-        static let navTitle = "Задачи"
+        static let navTitle = "Tasks"
         static let footerHeight: CGFloat = 49
         static let heightSearchView: CGFloat = 52
         static func newFixedToDoItem() -> TodoItem {
             TodoItem(
-                todo: "Новая заметка",
+                todo: "New task",
                 content:
     """
-    Это ваша новая заметка. Здесь можно записывать мысли, идеи и задачи. Редактируйте текст, добавляйте детали и используйте её для планирования дел или хранения важных идей.
+    This is your new note. You can use it to jot down thoughts, ideas, and tasks. Edit the text, add details, and use it to plan your day or store important ideas.
     """
                 ,
                 completed: false,
                 date: .now
             )
-            }
+        }
     }
     
     // MARK: - UI Components
     
-    /// Таблица для отображения списка задач.
-    /// Кастомный subclass, инкапсулирующий базовые настройки.
+    /// Table view displaying the list of tasks.
+    /// Custom subclass encapsulating basic setup.
     private lazy var tableView = TodoTableView()
     
-    /// Поисковое поле для фильтрации заметок.
+    /// Search field for filtering notes.
     private lazy var searchView: SearchUITextField = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
     }(SearchUITextField())
     
-    /// Фоновая вью, отображаемая при пустом списке или в режиме поиска.
+    /// Background view shown when the list is empty or during search.
     private lazy var backgroundView: UIView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = UIColor.theme.background
         return $0
     }(UIView())
     
-    /// Нижняя панель (footer), показывающая количество задач и позволяющая добавить новую.
-    /// Использует замыкание `onAddToDo` для делегирования действия презентеру.
+    /// Footer view showing task count and providing an add button.
+    /// Uses `onAddToDo` closure to delegate actions to the presenter.
     private lazy var footer: FooterUIView = {
         $0.onAddToDo = { [weak self] in
             self?.presenter.didTapAddNewItem()
@@ -67,7 +67,7 @@ final class TasksViewController: UIViewController {
         return $0
     }(FooterUIView())
     
-    /// Презентер, реализующий бизнес-логику списка задач в рамках VIPER-архитектуры.
+    /// Presenter handling business logic for the task list in VIPER.
     private var presenter: ITodoListPresenter!
     
     // MARK: - Init
@@ -94,8 +94,7 @@ final class TasksViewController: UIViewController {
         setupSearchHandler()
     }
     
-    /// Обновляет размер `backgroundView` при изменении размеров таблицы.
-    /// Вызывается системой автоматически при layout-pass.
+    /// Adjusts the backgroundView frame when the table view layout changes.
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.backgroundView?.frame = tableView.bounds
@@ -105,24 +104,23 @@ final class TasksViewController: UIViewController {
 // MARK: - ITodoListView Implementation
 
 extension TasksViewController: ITodoListView {
-    /// Перезагружает таблицу задач и синхронизирует состояние футера с актуальным числом задач.
+    /// Reloads the table view and updates the footer with the current task count.
     func reloadData() {
         tableView.reloadData()
     }
     
-    /// Отображает ошибку пользователю через `UIAlertController`.
-    /// Используется при ошибках, возникающих в сетевых или локальных сервисах.
-    /// - Parameter message: Локализованный текст ошибки.
+    /// Displays an error alert to the user.
+    /// - Parameter message: Localized error message.
     func showError(_ message: String) {
         ToDoAlertError.present(on: self, message: message)
     }
     
-    /// Сбрасывает текст в поле поиска
+    /// Clears the search field.
     func clearSearch() {
         searchView.text = ""
     }
     
-    /// Обновляет отображаемое количество задач в футере, синхронизируя UI с моделью
+    /// Updates the footer with the current task count.
     func updateFooterCount(_ count: Int) {
         footer.updateCount(count)
     }
@@ -132,13 +130,13 @@ extension TasksViewController: ITodoListView {
 // MARK: - UITableViewDataSource
 
 extension TasksViewController: UITableViewDataSource {
-    /// Возвращает количество элементов в секции таблицы.
+    /// Returns the number of tasks in the list.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         presenter.numberOfTodos
     }
     
-    /// Конфигурирует и возвращает кастомную ячейку `TodoTableViewCell`.
-    /// Использует протокол `Reusable` для безопасного dequeuing.
+    /// Configures and returns a TodoTableViewCell.
+    /// Uses `Reusable` protocol for safe dequeuing.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let todo = presenter.todo(at: indexPath.row) else {
             return UITableViewCell()
@@ -152,8 +150,8 @@ extension TasksViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension TasksViewController: UITableViewDelegate {
-    /// Возвращает конфигурацию контекстного меню для элемента.
-    /// Логика вынесена в `ToDoContextMenu` и `UIMenu.makeToDoActionMenu` для повышения читаемости и переиспользуемости.
+    /// Returns the context menu configuration for a task.
+    /// Logic is encapsulated in `ToDoContextMenu` for readability and reuse.
     func tableView(
         _ tableView: UITableView,
         contextMenuConfigurationForRowAt indexPath: IndexPath,
@@ -168,8 +166,8 @@ extension TasksViewController: UITableViewDelegate {
         }
     }
     
-    /// Кастомизирует превью при долгом тапе (анимация появления).
-    /// Делегирует создание `UITargetedPreview` в extension `UITableView`, что упрощает поддержку и повторное использование.
+    /// Custom preview for highlighting the context menu (on long press).
+    /// Delegated to UITableView extension for reusability.
     func tableView(
         _ tableView: UITableView,
         previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration
@@ -177,8 +175,8 @@ extension TasksViewController: UITableViewDelegate {
         tableView.makeTargetedPreview(for: configuration)
     }
     
-    /// Кастомизирует превью при закрытии контекстного меню (анимация скрытия).
-    /// Реализация вынесена в extension `UITableView` для централизованного управления логикой.
+    /// Custom preview for dismissing the context menu.
+    /// Delegated to UITableView extension for centralized logic.
     func tableView(
         _ tableView: UITableView,
         previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration
@@ -186,21 +184,19 @@ extension TasksViewController: UITableViewDelegate {
         tableView.makeTargetedPreview(for: configuration)
     }
     
-    /// Возвращает кастомный Header для первой секции.
-    /// Используется для закрепления строки поиска (sticky-header).
-    /// Логика вынесена в extension `UIView.getHeader(with:)` для изоляции UI-конструкции.
+    /// Returns the custom header for the first section (sticky search field).
+    /// Encapsulated in UIView extension for better separation.
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         section == 0 ? UIView.getHeader(with: searchView) : nil
     }
     
-    /// Возвращает высоту Header-а для секции.
+    /// Returns the header height for the section.
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 ? Consts.heightSearchView : 0
     }
     
-    /// Обрабатывает выбор строки таблицы: уведомляет презентер о выборе задачи
-    /// и снимает выделение для корректного UI-поведения.
-    /// Навигация через Presenter -> Router
+    /// Handles row selection: notifies presenter and deselects the row.
+    /// Navigation handled via Presenter → Router.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didSelectTodo(at: indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
@@ -210,28 +206,27 @@ extension TasksViewController: UITableViewDelegate {
 // MARK: - Private functions
 
 extension TasksViewController {
-    /// Настраивает делегаты и источники данных для таблицы задач.
+    /// Sets up table view delegates and data source.
     private func setupTableView(){
         tableView.delegate = self
         tableView.dataSource = self
     }
     
-    /// Настраивает заголовок навигационного бара.
-    /// Устанавливает `navigationItem.title` и применяет кастомный стиль отображения через `UINavigationController.applyBlackLargeTitleStyle()`.
+    /// Configures the navigation bar title with large style.
     private func createNavigationItemTitle() {
         navigationItem.title = Consts.navTitle
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.applyBlackLargeTitleStyle()
     }
     
-    /// Строит иерархию view (`subviews`) для контроллера.
+    /// Adds all subviews to the view hierarchy.
     private func setupViews() {
         [backgroundView, tableView, footer].forEach{
             view.addSubview($0)
         }
     }
     
-    /// Конфигурирует AutoLayout-констрейнты для всех subviews.
+    /// Sets up Auto Layout constraints for all subviews.
     private func setupConstraints() {
         
         // MARK: - BackgroundView constraints
@@ -262,8 +257,7 @@ extension TasksViewController {
         ])
     }
     
-    /// Настраивает замыкание для поиска.
-    /// Обеспечивает реакцию на ввод текста в `searchView` и делегирует поиск презентеру.
+    /// Sets up the search handler and delegates text changes to the presenter.
     private func setupSearchHandler() {
         searchView.onTextChanged = { [weak self] query in
             self?.presenter.searchToDoItems(query: query)
@@ -274,7 +268,7 @@ extension TasksViewController {
 // MARK: - Keyboard handling
 
 extension TasksViewController {
-    /// Добавляет tap-gesture для скрытия клавиатуры по нажатию вне текстовых полей.
+    /// Adds a tap gesture to dismiss the keyboard when tapping outside text fields.
     private func setupDismissKeyboardGesture() {
         let tapGesture = UITapGestureRecognizer(
             target: self,
@@ -284,7 +278,7 @@ extension TasksViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
-    /// Закрывает клавиатуру.
+    /// Dismisses the keyboard.
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }

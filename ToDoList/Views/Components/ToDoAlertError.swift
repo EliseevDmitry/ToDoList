@@ -7,21 +7,21 @@
 
 import UIKit
 
-/// Обработчик ошибок и отображения стандартных alert для задач `ToDo`.
+/// Handles errors and displays standard alerts for `ToDo` tasks.
 enum ToDoAlertError {
-    /// Константы, используемые в `ToDoAlertError`.
+    /// Constants used in `ToDoAlertError`.
     enum Consts {
-        static let title = "Ошибка"
+        static let title = "Error"
         static let buttonTitle = "OK"
     }
     
-    /// Отображает UIAlertController с указанным заголовком и сообщением.
+    /// Shows a standard alert with a title, message, and confirmation button.
     ///
     /// - Parameters:
-    ///   - viewController: Контроллер, на котором будет показан alert.
-    ///   - title: Заголовок alert, по умолчанию `Consts.title`.
-    ///   - message: Сообщение alert.
-    ///   - buttonTitle: Текст кнопки подтверждения, по умолчанию `Consts.buttonTitle`.
+    ///   - viewController: Controller to present the alert on.
+    ///   - title: Alert title (default `Consts.title`).
+    ///   - message: Alert message.
+    ///   - buttonTitle: Confirmation button text (default `Consts.buttonTitle`).
     static func present(
         on viewController: UIViewController,
         title: String = Consts.title,

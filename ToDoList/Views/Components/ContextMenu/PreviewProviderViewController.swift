@@ -8,8 +8,8 @@
 import UIKit
 
 final class PreviewProviderViewController: UIViewController {
-    /// Константы, используемые в `PreviewProviderViewController`.
-    /// Централизованное хранение настроек внешнего вида и поведения UIViewController.
+    /// Constants used in `PreviewProviderViewController`.
+    /// Centralized storage for appearance and behavior settings.
     enum Consts {
         static let vStackLayoutMargins = NSDirectionalEdgeInsets(
             top: 12,
@@ -19,7 +19,7 @@ final class PreviewProviderViewController: UIViewController {
         )
         static let vStackSpacing: CGFloat = 6
         static let imageSize: CGFloat = 28
-        static let footerTitle = "Задач"
+        static let footerTitle = "Tasks"
         static let cornerRadius: CGFloat = 12
         static let preferredContentSize = CGSize(
             width: ScreenApp.width - 40,
@@ -92,7 +92,7 @@ final class PreviewProviderViewController: UIViewController {
 // MARK: - Private functions
 
 extension PreviewProviderViewController {
-    /// Конфигурирует внешний вид и базовые свойства UIViewController.
+    /// Configures view appearance and base properties.
     private func customInitPreviewProvider() {
         view.backgroundColor = UIColor.theme.cardBackground
         view.layer.cornerRadius = Consts.cornerRadius
@@ -100,7 +100,7 @@ extension PreviewProviderViewController {
         preferredContentSize = Consts.preferredContentSize
     }
     
-    /// Строит иерархию view (`subviews`) для контроллера.
+    /// Builds the view hierarchy.
     private func setupViews() {
         [verticalStackView].forEach{
             view.addSubview($0)
@@ -111,7 +111,7 @@ extension PreviewProviderViewController {
         }
     }
     
-    /// Настраивает и активирует констрейнты для всех подвидов контроллера.
+    /// Sets up and activates constraints for all subviews.
     private func setupConstraints() {
         
         // MARK: - verticalStackView
