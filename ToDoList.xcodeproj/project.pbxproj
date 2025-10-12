@@ -20,9 +20,13 @@
 		26BD60D22E81A403006C61E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60D12E81A403006C61E0 /* Constants.swift */; };
 		26BD60D52E81A5DF006C61E0 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60D42E81A5DF006C61E0 /* TodoItem.swift */; };
 		26BD60DA2E81A6C2006C61E0 /* Extension+URLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60D92E81A6C2006C61E0 /* Extension+URLResponse.swift */; };
-		26BD60DC2E81B405006C61E0 /* Extension+URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60DB2E81B405006C61E0 /* Extension+URLSession.swift */; };
+		26BD60DC2E81B405006C61E0 /* Extension+IURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60DB2E81B405006C61E0 /* Extension+IURLSession.swift */; };
 		26BD60DE2E81BC9B006C61E0 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60DD2E81BC9B006C61E0 /* StorageService.swift */; };
 		26BD60E22E81BD1D006C61E0 /* Todo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60E02E81BD1D006C61E0 /* Todo.xcdatamodeld */; };
+		26C4E4392E9BD31C003FB8A4 /* SettingsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4E4382E9BD31C003FB8A4 /* SettingsServiceTests.swift */; };
+		26C4E4422E9BD5EE003FB8A4 /* MocSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4E4412E9BD5EE003FB8A4 /* MocSettingsService.swift */; };
+		26C4E4532E9BEE5C003FB8A4 /* NetworkServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4E4522E9BEE5C003FB8A4 /* NetworkServicesTests.swift */; };
+		26C4E4552E9BF06D003FB8A4 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4E4542E9BF06D003FB8A4 /* MockURLSession.swift */; };
 		26C8610F2E8AFBBD000067BE /* Di.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8610E2E8AFBBD000067BE /* Di.swift */; };
 		26C861132E8AFBF1000067BE /* ScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C861122E8AFBF1000067BE /* ScreenFactory.swift */; };
 		26C861152E8B0ECD000067BE /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C861142E8B0ECD000067BE /* Extension+String.swift */; };
@@ -48,6 +52,16 @@
 		26FCD0FB2E8327A5009906DE /* TodoListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0FA2E8327A5009906DE /* TodoListPresenter.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		26C4E4302E9BD2A8003FB8A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 26BD60A82E81A1A0006C61E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 26BD60AF2E81A1A0006C61E0;
+			remoteInfo = ToDoList;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		263F1E642E88145F00D97344 /* ToDoAlertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoAlertError.swift; sourceTree = "<group>"; };
 		263F1E662E881D9000D97344 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
@@ -64,9 +78,14 @@
 		26BD60D12E81A403006C61E0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		26BD60D42E81A5DF006C61E0 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		26BD60D92E81A6C2006C61E0 /* Extension+URLResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+URLResponse.swift"; sourceTree = "<group>"; };
-		26BD60DB2E81B405006C61E0 /* Extension+URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+URLSession.swift"; sourceTree = "<group>"; };
+		26BD60DB2E81B405006C61E0 /* Extension+IURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+IURLSession.swift"; sourceTree = "<group>"; };
 		26BD60DD2E81BC9B006C61E0 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		26BD60E12E81BD1D006C61E0 /* Todo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Todo.xcdatamodel; sourceTree = "<group>"; };
+		26C4E42C2E9BD2A8003FB8A4 /* ToDoListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		26C4E4382E9BD31C003FB8A4 /* SettingsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsServiceTests.swift; sourceTree = "<group>"; };
+		26C4E4412E9BD5EE003FB8A4 /* MocSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MocSettingsService.swift; sourceTree = "<group>"; };
+		26C4E4522E9BEE5C003FB8A4 /* NetworkServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServicesTests.swift; sourceTree = "<group>"; };
+		26C4E4542E9BF06D003FB8A4 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		26C8610E2E8AFBBD000067BE /* Di.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Di.swift; sourceTree = "<group>"; };
 		26C861122E8AFBF1000067BE /* ScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenFactory.swift; sourceTree = "<group>"; };
 		26C861142E8B0ECD000067BE /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
@@ -100,6 +119,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		26C4E4292E9BD2A8003FB8A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -119,6 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				26BD60C82E81A1BC006C61E0 /* ToDoList */,
+				26C4E4432E9BEC18003FB8A4 /* ToDoListTests */,
+				26C4E4562E9BF18B003FB8A4 /* Screenshots */,
 				26BD60B12E81A1A0006C61E0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -127,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				26BD60B02E81A1A0006C61E0 /* ToDoList.app */,
+				26C4E42C2E9BD2A8003FB8A4 /* ToDoListTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -142,7 +171,7 @@
 				26BD60D82E81A6B0006C61E0 /* Extensions */,
 				26BD60CE2E81A3C0006C61E0 /* Constants */,
 				26E3B0622E88ECF3008A127F /* Helper */,
-				26FCD0ED2E8302C4009906DE /* MOC */,
+				26FCD0ED2E8302C4009906DE /* MockData */,
 				26BD60BE2E81A1A1006C61E0 /* LaunchScreen.storyboard */,
 				26BD60BC2E81A1A1006C61E0 /* Assets.xcassets */,
 				26BD60C12E81A1A1006C61E0 /* Info.plist */,
@@ -210,10 +239,236 @@
 				26E3B07A2E8942C8008A127F /* Extension+UITableView.swift */,
 				26E3B07F2E898973008A127F /* Extension+UIView.swift */,
 				26BD60D92E81A6C2006C61E0 /* Extension+URLResponse.swift */,
-				26BD60DB2E81B405006C61E0 /* Extension+URLSession.swift */,
+				26BD60DB2E81B405006C61E0 /* Extension+IURLSession.swift */,
 				26FCD0F12E8304D4009906DE /* UITableView+Reusable.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		26C4E4432E9BEC18003FB8A4 /* ToDoListTests */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E4442E9BEC40003FB8A4 /* SettingsServiceTests */,
+				26C4E44B2E9BEC8D003FB8A4 /* NetworkServicesTests */,
+				26C4E45D2E9BF2A7003FB8A4 /* StorageServiceTests */,
+				26C4E4602E9BF2DA003FB8A4 /* TodoRepositoryTests */,
+				26C4E4632E9BF352003FB8A4 /* RouterTests */,
+				26C4E4662E9BF3A8003FB8A4 /* ToDoListTests */,
+				26C4E46D2E9BF454003FB8A4 /* TodoDetailTests */,
+			);
+			path = ToDoListTests;
+			sourceTree = "<group>";
+		};
+		26C4E4442E9BEC40003FB8A4 /* SettingsServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E4492E9BEC6A003FB8A4 /* Tests */,
+				26C4E44A2E9BEC70003FB8A4 /* Mock */,
+			);
+			path = SettingsServiceTests;
+			sourceTree = "<group>";
+		};
+		26C4E4492E9BEC6A003FB8A4 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E4382E9BD31C003FB8A4 /* SettingsServiceTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		26C4E44A2E9BEC70003FB8A4 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E4412E9BD5EE003FB8A4 /* MocSettingsService.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		26C4E44B2E9BEC8D003FB8A4 /* NetworkServicesTests */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E44C2E9BECB9003FB8A4 /* Tests */,
+				26C4E44D2E9BECBE003FB8A4 /* Mock */,
+			);
+			path = NetworkServicesTests;
+			sourceTree = "<group>";
+		};
+		26C4E44C2E9BECB9003FB8A4 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E4522E9BEE5C003FB8A4 /* NetworkServicesTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		26C4E44D2E9BECBE003FB8A4 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E4542E9BF06D003FB8A4 /* MockURLSession.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		26C4E4562E9BF18B003FB8A4 /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Screenshots;
+			sourceTree = "<group>";
+		};
+		26C4E45D2E9BF2A7003FB8A4 /* StorageServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E45E2E9BF2C1003FB8A4 /* Tests */,
+				26C4E45F2E9BF2C8003FB8A4 /* Mock */,
+			);
+			path = StorageServiceTests;
+			sourceTree = "<group>";
+		};
+		26C4E45E2E9BF2C1003FB8A4 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		26C4E45F2E9BF2C8003FB8A4 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		26C4E4602E9BF2DA003FB8A4 /* TodoRepositoryTests */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E4612E9BF2E8003FB8A4 /* Tests */,
+				26C4E4622E9BF2ED003FB8A4 /* Mock */,
+			);
+			path = TodoRepositoryTests;
+			sourceTree = "<group>";
+		};
+		26C4E4612E9BF2E8003FB8A4 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		26C4E4622E9BF2ED003FB8A4 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		26C4E4632E9BF352003FB8A4 /* RouterTests */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E4642E9BF373003FB8A4 /* Tests */,
+				26C4E4652E9BF379003FB8A4 /* Mock */,
+			);
+			path = RouterTests;
+			sourceTree = "<group>";
+		};
+		26C4E4642E9BF373003FB8A4 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		26C4E4652E9BF379003FB8A4 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		26C4E4662E9BF3A8003FB8A4 /* ToDoListTests */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E46A2E9BF3E6003FB8A4 /* TodoListInteractorTests */,
+				26C4E4672E9BF3BB003FB8A4 /* TodoListPresenterTests */,
+			);
+			path = ToDoListTests;
+			sourceTree = "<group>";
+		};
+		26C4E4672E9BF3BB003FB8A4 /* TodoListPresenterTests */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E4692E9BF3DD003FB8A4 /* Tests */,
+				26C4E4682E9BF3D7003FB8A4 /* Mock */,
+			);
+			path = TodoListPresenterTests;
+			sourceTree = "<group>";
+		};
+		26C4E4682E9BF3D7003FB8A4 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		26C4E4692E9BF3DD003FB8A4 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		26C4E46A2E9BF3E6003FB8A4 /* TodoListInteractorTests */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E46C2E9BF431003FB8A4 /* Tests */,
+				26C4E46B2E9BF429003FB8A4 /* Mock */,
+			);
+			path = TodoListInteractorTests;
+			sourceTree = "<group>";
+		};
+		26C4E46B2E9BF429003FB8A4 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		26C4E46C2E9BF431003FB8A4 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		26C4E46D2E9BF454003FB8A4 /* TodoDetailTests */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E46E2E9BF462003FB8A4 /* TodoDetailPresenterTests */,
+			);
+			path = TodoDetailTests;
+			sourceTree = "<group>";
+		};
+		26C4E46E2E9BF462003FB8A4 /* TodoDetailPresenterTests */ = {
+			isa = PBXGroup;
+			children = (
+				26C4E4702E9BF488003FB8A4 /* Tests */,
+				26C4E4712E9BF48D003FB8A4 /* Mock */,
+			);
+			path = TodoDetailPresenterTests;
+			sourceTree = "<group>";
+		};
+		26C4E4702E9BF488003FB8A4 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		26C4E4712E9BF48D003FB8A4 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		26C8610D2E8AFB9A000067BE /* ScreenFactory */ = {
@@ -278,12 +533,12 @@
 			path = TodoDetailVC;
 			sourceTree = "<group>";
 		};
-		26FCD0ED2E8302C4009906DE /* MOC */ = {
+		26FCD0ED2E8302C4009906DE /* MockData */ = {
 			isa = PBXGroup;
 			children = (
 				26FCD0EE2E8302DD009906DE /* Moc.swift */,
 			);
-			path = MOC;
+			path = MockData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,6 +563,26 @@
 			productReference = 26BD60B02E81A1A0006C61E0 /* ToDoList.app */;
 			productType = "com.apple.product-type.application";
 		};
+		26C4E42B2E9BD2A8003FB8A4 /* ToDoListTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 26C4E4342E9BD2A8003FB8A4 /* Build configuration list for PBXNativeTarget "ToDoListTests" */;
+			buildPhases = (
+				26C4E4282E9BD2A8003FB8A4 /* Sources */,
+				26C4E4292E9BD2A8003FB8A4 /* Frameworks */,
+				26C4E42A2E9BD2A8003FB8A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				26C4E4312E9BD2A8003FB8A4 /* PBXTargetDependency */,
+			);
+			name = ToDoListTests;
+			packageProductDependencies = (
+			);
+			productName = ToDoListTests;
+			productReference = 26C4E42C2E9BD2A8003FB8A4 /* ToDoListTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -320,6 +595,10 @@
 				TargetAttributes = {
 					26BD60AF2E81A1A0006C61E0 = {
 						CreatedOnToolsVersion = 16.2;
+					};
+					26C4E42B2E9BD2A8003FB8A4 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 26BD60AF2E81A1A0006C61E0;
 					};
 				};
 			};
@@ -338,6 +617,7 @@
 			projectRoot = "";
 			targets = (
 				26BD60AF2E81A1A0006C61E0 /* ToDoList */,
+				26C4E42B2E9BD2A8003FB8A4 /* ToDoListTests */,
 			);
 		};
 /* End PBXProject section */
@@ -349,6 +629,13 @@
 			files = (
 				26BD60C02E81A1A1006C61E0 /* LaunchScreen.storyboard in Resources */,
 				26BD60BD2E81A1A1006C61E0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26C4E42A2E9BD2A8003FB8A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,7 +673,7 @@
 				26E3B0752E8922F8008A127F /* PreviewProviderViewController.swift in Sources */,
 				26FCD0F22E8304D4009906DE /* UITableView+Reusable.swift in Sources */,
 				26C861152E8B0ECD000067BE /* Extension+String.swift in Sources */,
-				26BD60DC2E81B405006C61E0 /* Extension+URLSession.swift in Sources */,
+				26BD60DC2E81B405006C61E0 /* Extension+IURLSession.swift in Sources */,
 				26BD60CD2E81A383006C61E0 /* NetworkServices.swift in Sources */,
 				26FCD0FB2E8327A5009906DE /* TodoListPresenter.swift in Sources */,
 				26BD60D52E81A5DF006C61E0 /* TodoItem.swift in Sources */,
@@ -399,7 +686,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		26C4E4282E9BD2A8003FB8A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26C4E4552E9BF06D003FB8A4 /* MockURLSession.swift in Sources */,
+				26C4E4532E9BEE5C003FB8A4 /* NetworkServicesTests.swift in Sources */,
+				26C4E4392E9BD31C003FB8A4 /* SettingsServiceTests.swift in Sources */,
+				26C4E4422E9BD5EE003FB8A4 /* MocSettingsService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		26C4E4312E9BD2A8003FB8A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 26BD60AF2E81A1A0006C61E0 /* ToDoList */;
+			targetProxy = 26C4E4302E9BD2A8003FB8A4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		26BD60BE2E81A1A1006C61E0 /* LaunchScreen.storyboard */ = {
@@ -598,6 +904,44 @@
 			};
 			name = Release;
 		};
+		26C4E4322E9BD2A8003FB8A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LT54Q8Z33F;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.eliseev.dmitry.ToDoListTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ToDoList.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ToDoList";
+			};
+			name = Debug;
+		};
+		26C4E4332E9BD2A8003FB8A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LT54Q8Z33F;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.eliseev.dmitry.ToDoListTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ToDoList.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ToDoList";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -615,6 +959,15 @@
 			buildConfigurations = (
 				26BD60C42E81A1A1006C61E0 /* Debug */,
 				26BD60C52E81A1A1006C61E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		26C4E4342E9BD2A8003FB8A4 /* Build configuration list for PBXNativeTarget "ToDoListTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26C4E4322E9BD2A8003FB8A4 /* Debug */,
+				26C4E4332E9BD2A8003FB8A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
