@@ -7,26 +7,22 @@
 
 import Foundation
 
-/// Протокол для работы с настройками приложения и определения первого запуска.
-/// Позволяет подменять реализацию для тестирования.
+/// Interface for managing app settings.
 protocol ISettingsService {
-    /// Проверяет, был ли это первый запуск приложения.
-    /// - Returns: `true`, если приложение уже запускалось ранее; иначе `false`.
+    /// Returns `true` if the app has been launched before.
     func isFirstLaunch() -> Bool
 }
 
-/// Сервис для управления настройками приложения и отслеживания состояния первого запуска.
-/// Инкапсулирует работу с `UserDefaults` и предоставляет возможность легкого тестирования через внедрение зависимостей.
+/// Service responsible for managing app settings and first-launch state.
+/// Encapsulates `UserDefaults` and supports dependency injection for testing.
 final class SettingsService: ISettingsService {
     enum StorageKey {
-        /// Ключ для хранения информации о том, запускалось ли приложение ранее.
         static let hasLaunchedKey = "hasLaunchedBefore"
     }
     
     private let storage: UserDefaults
     
-    /// Инициализация сервиса с возможностью внедрения кастомного хранилища, что упрощает unit-тестирование.
-    /// - Parameter storage: экземпляр `UserDefaults`, по умолчанию `.standard`.
+    /// Allows injecting a custom `UserDefaults` instance (useful for unit testing).
     init(storage: UserDefaults = .standard) {
         self.storage = storage
     }
@@ -34,12 +30,8 @@ final class SettingsService: ISettingsService {
 
 // MARK: - Public functions
 extension SettingsService {
-    /// Проверяет, был ли это первый запуск приложения.
-    ///
-    /// В случае первого запуска (`false`) вызывается `setFirstLaunch()` и данные загружаются из сети через `NetworkServices`.
-    /// Для последующих запусков (`true`) данные извлекаются из локального хранилища (`CoreData`) через `StorageService`.
-    ///
-    /// - Returns: `true`, если приложение уже запускалось ранее; `false` в случае первого запуска.
+    /// Determines whether this is the app’s first launch.
+    /// Sets the flag on the first call.
     func isFirstLaunch() -> Bool {
         let flag = storage.bool(forKey: StorageKey.hasLaunchedKey)
         if !flag {
@@ -52,7 +44,7 @@ extension SettingsService {
 
 // MARK: - Private functions
 extension SettingsService {
-    /// Устанавливает флаг первого запуска в хранилище, чтобы последующие обращения возвращали `true`.
+    /// Sets the first-launch flag in persistent storage.
     private func setFirstLaunch() {
         storage.set(true, forKey: StorageKey.hasLaunchedKey)
     }

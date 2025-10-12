@@ -7,20 +7,18 @@
 
 import Foundation
 
-/// Возможные ошибки сетевого слоя.
-/// Расширяемый для обработки ошибок и отображения пользователю.
+/// Network layer errors.
 enum NetworkError: Error {
     case badData
 }
 
-/// Протокол сетевого сервиса.
-/// Предоставляет метод для загрузки и декодирования данных в указанную модель.
+/// Network service protocol.
 protocol INetworkServices {
-    /// Загружает данные с API и декодирует их в указанный `Codable` тип.
+    /// Fetches and decodes data from a URL.
     /// - Parameters:
-    ///   - url: URL запроса.
-    ///   - type: Тип модели для декодирования.
-    ///   - completion: Результат запроса (`success` с моделью / `failure` с ошибкой).
+    ///   - url: Request URL.
+    ///   - type: Codable model type.
+    ///   - completion: Result with decoded model or error.
     func fetchEntityData<T: Codable>(
         url: URL,
         type: T.Type,
@@ -28,22 +26,20 @@ protocol INetworkServices {
     )
 }
 
-/// Реализация сетевого сервиса с использованием `URLSession`.
-/// Все сетевые запросы выполняются в фоновом потоке через GCD.
+/// Network service implementation using URLSession.
 final class NetworkServices: INetworkServices {
-    private let session: URLSessionProtocol
+    private let session: IURLSession
     
-    /// Инициализация сервиса с возможностью внедрения кастомного `URLSession` (для тестирования).
-    /// - Parameter session: URLSession или его протокольная обертка.
-    init(session: URLSessionProtocol = URLSession.shared) {
+    /// Initializes service with injectable session.
+    /// - Parameter session: URLSession or its protocol wrapper.
+    init(session: IURLSession = URLSession.shared) {
         self.session = session
     }
 }
 
 //MARK: - Public functions
 extension NetworkServices {
-    /// Загружает данные с API и декодирует их в указанную модель.
-    /// Универсальный метод для любых моделей, соответствующих `Codable`.
+    /// Fetches and decodes any Codable model from a URL.
     func fetchEntityData<T: Codable>(
         url: URL,
         type: T.Type,
@@ -67,8 +63,7 @@ extension NetworkServices {
 
 //MARK: - Private functions
 extension NetworkServices {
-    /// Выполняет низкоуровневый сетевой запрос и возвращает `Data`.
-    /// Используется для переиспользования в любых универсальных методах декодирования.
+    /// Performs a low-level data request.
     private func fetchData(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         let task = session.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -90,12 +85,8 @@ extension NetworkServices {
         task.resume()
     }
     
-    /// Декодирует `Data` в указанную модель `Codable`.
-    /// - Parameters:
-    ///   - data: Данные для декодирования.
-    ///   - type: Тип модели.
-    /// - Returns: Декодированная модель.
-    /// - Throws: Ошибку декодирования.
+    /// Decodes data into a Codable model.
+    /// - Throws: Decoding error.
     private func decodeData<T: Codable>(_ data: Data, as type: T.Type) throws -> T {
         return try JSONDecoder().decode(type, from: data)
     }
