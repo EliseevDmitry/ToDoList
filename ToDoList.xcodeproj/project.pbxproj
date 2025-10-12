@@ -629,6 +629,16 @@
 			files = (
 				26BD60C02E81A1A1006C61E0 /* LaunchScreen.storyboard in Resources */,
 				26BD60BD2E81A1A1006C61E0 /* Assets.xcassets in Resources */,
+				26C4E45A2E9BF1D6003FB8A4 /* Screenshot2.png in Resources */,
+				26C4E45B2E9BF1D6003FB8A4 /* Screenshot1.png in Resources */,
+				26C4E45C2E9BF1D6003FB8A4 /* Screenshot3.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		26C4E42A2E9BD2A8003FB8A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
