@@ -9,7 +9,7 @@ import Foundation
 
 /// Abstract representation of a Todo item.
 /// Allows working with any ToDo implementation without depending on a specific model.
-protocol IToDo: Identifiable {
+protocol IToDo: Identifiable, Codable {
     var id: UUID { get }
     var todo: String { get }
     var content: String { get }
@@ -35,7 +35,7 @@ struct TodosResponse: Codable {
 
 /// Todo model for local and network data.
 /// Implements `IToDo`.
-struct TodoItem: Codable, IToDo {
+struct TodoItem: IToDo {
     enum CodingKeys: String, CodingKey {
         case todo
         case completed

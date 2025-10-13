@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26147A262E9D26F600DB594C /* Extension+NSPersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26147A252E9D26F600DB594C /* Extension+NSPersistentContainer.swift */; };
+		26147A2A2E9D274A00DB594C /* StorageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26147A292E9D274A00DB594C /* StorageServiceTests.swift */; };
+		26147A2C2E9D280300DB594C /* MocToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26147A2B2E9D280300DB594C /* MocToDo.swift */; };
 		263F1E652E88145F00D97344 /* ToDoAlertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F1E642E88145F00D97344 /* ToDoAlertError.swift */; };
 		263F1E672E881D9000D97344 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F1E662E881D9000D97344 /* Extension+Date.swift */; };
 		263F1E692E8820A100D97344 /* FooterUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F1E682E8820A100D97344 /* FooterUIView.swift */; };
@@ -66,6 +69,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		26147A252E9D26F600DB594C /* Extension+NSPersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+NSPersistentContainer.swift"; sourceTree = "<group>"; };
+		26147A292E9D274A00DB594C /* StorageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceTests.swift; sourceTree = "<group>"; };
+		26147A2B2E9D280300DB594C /* MocToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MocToDo.swift; sourceTree = "<group>"; };
 		263F1E642E88145F00D97344 /* ToDoAlertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoAlertError.swift; sourceTree = "<group>"; };
 		263F1E662E881D9000D97344 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		263F1E682E8820A100D97344 /* FooterUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterUIView.swift; sourceTree = "<group>"; };
@@ -337,6 +343,7 @@
 		26C4E45E2E9BF2C1003FB8A4 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				26147A292E9D274A00DB594C /* StorageServiceTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -344,6 +351,8 @@
 		26C4E45F2E9BF2C8003FB8A4 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
+				26147A252E9D26F600DB594C /* Extension+NSPersistentContainer.swift */,
+				26147A2B2E9D280300DB594C /* MocToDo.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -703,8 +712,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				26C4E4552E9BF06D003FB8A4 /* MockURLSession.swift in Sources */,
+				26147A2A2E9D274A00DB594C /* StorageServiceTests.swift in Sources */,
 				26C4E4532E9BEE5C003FB8A4 /* NetworkServicesTests.swift in Sources */,
+				26147A2C2E9D280300DB594C /* MocToDo.swift in Sources */,
 				26C4E4392E9BD31C003FB8A4 /* SettingsServiceTests.swift in Sources */,
+				26147A262E9D26F600DB594C /* Extension+NSPersistentContainer.swift in Sources */,
 				26C4E4422E9BD5EE003FB8A4 /* MocSettingsService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

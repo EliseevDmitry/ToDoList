@@ -8,39 +8,39 @@
 import Foundation
 import CoreData
 
-/// Протокол сервиса работы с CoreData для CRUD операций и поиска.
+/// Core Data service protocol defining CRUD and search operations.
 protocol IStorageService {
-    /// Добавляет одну задачу.
+    /// Adds a single todo item.
     func addTodo<T: IToDo>(
         item: T,
         completion: @escaping (Result<Bool, Error>) -> Void
     )
     
-    /// Добавляет массив задач за одну транзакцию.
+    /// Adds multiple todo items in a single transaction.
     func addTodos<T: IToDo>(
         items: [T],
         completion: @escaping (Result<Bool, Error>) -> Void
     )
     
-    /// Получает все задачи.
+    /// Fetches all todo items.
     func getToDos<T: IToDo>(
         _ type: T.Type,
         completion: @escaping (Result<[T], Error>) -> Void
     )
     
-    /// Обновляет задачу.
+    /// Updates an existing todo item.
     func updateTodo<T: IToDo>(
         item: T,
         completion: @escaping (Result<Bool, Error>) -> Void
     )
     
-    /// Удаляет задачу по ID.
+    /// Deletes a todo item by its ID.
     func deleteTodo(
         id: UUID,
         completion: @escaping (Result<Bool, Error>) -> Void
     )
     
-    /// Выполняет поиск задач по строке.
+    /// Searches todo items matching the given query.
     func searchTodos<T: IToDo>(
         _ type: T.Type,
         query: String,
@@ -48,13 +48,11 @@ protocol IStorageService {
     )
 }
 
-/// Сервис хранения данных задач с использованием CoreData.
-/// Все операции выполняются в фоновом потоке через `performBackgroundTask`.
+/// Core Data–based storage service performing all operations on background contexts.
 final class StorageService: IStorageService {
     private let container: NSPersistentContainer
     
-    /// Инициализация с NSPersistentContainer.
-    /// - Parameter container: CoreData контейнер.
+    /// Initializes the service with a given Core Data container.
     init(container:  NSPersistentContainer){
         self.container = container
         container.loadPersistentStores { (description, error) in
@@ -68,8 +66,9 @@ final class StorageService: IStorageService {
 }
 
 // MARK: - CRUD & Search
+
 extension StorageService {
-    /// Добавление одной задачи в CoreData.
+    /// Inserts a single todo item into Core Data.
     func addTodo<T: IToDo>(
         item: T,
         completion: @escaping (Result<Bool, Error>) -> Void
@@ -80,7 +79,7 @@ extension StorageService {
         }
     }
     
-    /// Добавление нескольких задач за один вызов сохранения.
+    /// Inserts multiple todo items in one background context save.
     func addTodos<T: IToDo>(
         items: [T],
         completion: @escaping (Result<Bool, Error>) -> Void
@@ -93,7 +92,7 @@ extension StorageService {
         }
     }
     
-    /// Получение всех задач из CoreData.
+    /// Retrieves all todo entities and maps them to model objects.
     func getToDos<T: IToDo>(
         _ type: T.Type,
         completion: @escaping (Result<[T], Error>) -> Void
@@ -109,7 +108,7 @@ extension StorageService {
         }
     }
     
-    /// Обновление существующей задачи.
+    /// Updates an existing todo entity by ID.
     func updateTodo<T: IToDo>(
         item: T,
         completion: @escaping (Result<Bool, Error>) -> Void
@@ -129,7 +128,7 @@ extension StorageService {
         }
     }
     
-    /// Удаление задачи по ID.
+    /// Deletes a todo entity matching the given ID.
     func deleteTodo(
         id: UUID,
         completion: @escaping (Result<Bool, Error>) -> Void
@@ -147,7 +146,7 @@ extension StorageService {
         }
     }
     
-    /// Поиск задач по строке запроса.
+    /// Performs a text-based search on todo and content fields.
     func searchTodos<T: IToDo>(
         _ type: T.Type,
         query: String,
@@ -169,8 +168,9 @@ extension StorageService {
 }
 
 // MARK: - Private helpers
+
 extension StorageService {
-    /// Фоновый запрос всех задач.
+    /// Fetches all TodoEntities from the background context.
     private func fetchTodos(completion: @escaping (Result<[TodoEntities], Error>) -> Void) {
         container.performBackgroundTask { context in
             let request: NSFetchRequest<TodoEntities> = TodoEntities.fetchRequest()
@@ -183,7 +183,7 @@ extension StorageService {
         }
     }
     
-    /// Конвертация сущностей CoreData в модель IToDo.
+    /// Maps Core Data entities to domain models.
     private func convertEntities<T: IToDo>(_ entities: [TodoEntities]) -> [T] {
         let items: [T] = entities.compactMap { entity in
             guard
@@ -205,7 +205,7 @@ extension StorageService {
         return items
     }
     
-    /// Конвертация модели IToDo в сущность CoreData.
+    /// Creates a new Core Data entity from the given domain model.
     private func convertItem<T: IToDo>(item: T, context: NSManagedObjectContext) {
         let newEntity = TodoEntities(context: context)
         newEntity.id = item.id
@@ -215,7 +215,7 @@ extension StorageService {
         newEntity.date = item.date
     }
     
-    /// Сохраняет контекст CoreData и вызывает completion.
+    /// Saves the given managed object context and propagates errors.
     private func saveContext(
         _ context: NSManagedObjectContext,
         completion: @escaping (Result<Bool, Error>) -> Void
@@ -228,7 +228,7 @@ extension StorageService {
         }
     }
     
-    /// Обновление сущности CoreData по модели IToDo.
+    /// Updates an existing Core Data entity from a domain model.
     private func updateEntity<T: IToDo>(entity: TodoEntities, item: T) {
         entity.todo = item.todo
         entity.content = item.content
@@ -236,12 +236,12 @@ extension StorageService {
         entity.date = item.date
     }
     
-    /// NSPredicate по ID задачи.
+    /// Returns a predicate for filtering by UUID.
     private func predicate(for id: UUID) -> NSPredicate {
         NSPredicate(format: "id == %@", id as CVarArg)
     }
     
-    /// NSPredicate для поиска по todo и content.
+    /// Returns a compound predicate for full-text search in todo and content.
     private func searchPredicate(_ query: String) -> NSPredicate {
         NSCompoundPredicate(orPredicateWithSubpredicates: [
             NSPredicate(format: "todo CONTAINS[cd] %@", query),
@@ -249,7 +249,7 @@ extension StorageService {
         ])
     }
     
-    /// Фильтрация моделей по дате и тексту.
+    /// Filters domain models by date, title, or content matching the query.
     private func filterItems<T: IToDo>(_ items: [T], _ query: String) -> [T] {
         items.filter {
             $0.date.getToDoDateFormat.contains(query) ||
