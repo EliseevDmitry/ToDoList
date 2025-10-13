@@ -9,10 +9,10 @@ import XCTest
 import CoreData
 @testable import ToDoList
 
+/// Unit tests for `StorageService`, verifying Core Data persistence logic, CRUD operations, search functionality, and contract behavior.
 final class StorageServiceTests: XCTestCase {
-    
+    /// Test-wide constants for consistency and readability.
     enum Consts {
-        //Для проверки добавления одной записи в хранилище CoreData
         static let fixedEntityCount = 1
         static let emptyCount = 0
         static let updateTodo = "Updated title"
@@ -45,7 +45,9 @@ final class StorageServiceTests: XCTestCase {
         todo = []
         super.tearDown()
     }
-
+    
+    /// Verifies that adding any item conforming to `IToDo` creates a new entity in Core Data.
+    /// Ensures `addTodo()` correctly persists the object and that it can be fetched afterward.
     func test_addTodo_createsNewEntity() {
         // Given
         let expectation = expectation(description: "Save single Todo")
@@ -57,13 +59,13 @@ final class StorageServiceTests: XCTestCase {
         sut.addTodo(item: entity) { result in
             switch result {
             case .success(let success):
-                // Then — addTodo успешно
+                // Then
                 XCTAssertTrue(success)
-                // When — получаем все сущности после сохранения
+                // When
                 self.sut.getToDos(MockToDo.self) { fetchResult in
                     switch fetchResult {
                     case .success(let todos):
-                        // Then — проверка, что сущность добавлена
+                        // Then
                         XCTAssertEqual(todos.count, Consts.fixedEntityCount)
                         XCTAssertEqual(todos.first?.id, entity.id)
                         expectation.fulfill()
@@ -77,49 +79,68 @@ final class StorageServiceTests: XCTestCase {
         }
         wait(for: [expectation], timeout: Consts.timeout)
     }
-
-    func test_addTodos_createsMultipleEntities() {
-            // Given
-            let expectation = expectation(description: "Save multiple Todos")
-            // When
-            sut.addTodos(items: todo) { result in
-                switch result {
-                case .success(let success):
-                    // Then — addTodos успешно
-                    XCTAssertTrue(success)
-                    // When — получаем все сущности после сохранения
-                    self.sut.getToDos(MockToDo.self) { fetchResult in
-                        switch fetchResult {
-                        case .success(let todos):
-                            // Then — проверка, что все сущности добавлены
-                            self.assertTodosEqual(todos, self.todo, expectation: expectation)
-                        case .failure(let error):
-                            self.fail(error: error, expectation: expectation)
-                        }
-                    }
-                case .failure(let error):
-                    self.fail(error: error, expectation: expectation)
-                }
+    
+    /// Contract test verifying that Core Data **does not enforce uniqueness** on the `id` field.
+    /// Demonstrates that inserting two entities with the same ID results in duplicates.
+    func test_addTodo_withExistingId_createsDuplicateEntity() {
+        // Given
+        let mockToDo = MockToDo(
+            id: UUID(),
+            todo: "Duplicate",
+            content: "Duplicate two mockToDo",
+            completed: false,
+            date: .now
+        )
+        let expectationOne = expectation(description: "First insert")
+        let expectationTwo = expectation(description: "Second insert")
+        let expectationThree = expectation(description: "Fetch after duplicates")
+        // When
+        sut.addTodo(item: mockToDo) { result in
+            if case .failure(let error) = result {
+                XCTFail("Unexpected error on first insert: \(error)")
             }
-            wait(for: [expectation], timeout: Consts.timeout)
+            expectationOne.fulfill()
         }
+        wait(for: [expectationOne], timeout: Consts.timeout)
+        sut.addTodo(item: mockToDo) { result in
+            if case .failure(let error) = result {
+                XCTFail("Unexpected error on duplicate insert: \(error)")
+            }
+            expectationTwo.fulfill()
+        }
+        wait(for: [expectationTwo], timeout: Consts.timeout)
+        // Then
+        sut.getToDos(MockToDo.self) { result in
+            switch result {
+            case .success(let todos):
+                let duplicates = todos.filter { $0.id == mockToDo.id }
+                XCTAssertEqual(duplicates.count, 2, "Expected 2 entities with the same id (duplicate created)")
+            case .failure(let error):
+                XCTFail("Fetch failed: \(error)")
+            }
+            expectationThree.fulfill()
+        }
+        wait(for: [expectationThree], timeout: Consts.timeout)
+    }
     
-    
-    func test_addTodos_shouldSaveAllEntities() {
-        //Given
-        let expectation = expectation(description: "Get")
+    /// Verifies that multiple items conforming to `IToDo` are persisted in a single batch operation.
+    /// Confirms that `addTodos()` writes all entities to Core Data without loss.
+    func test_addTodos_createsMultipleEntities() {
+        // Given
+        let expectation = expectation(description: "Save multiple Todos")
+        // When
         sut.addTodos(items: todo) { result in
             switch result {
             case .success(let success):
+                // Then
                 XCTAssertTrue(success)
-                //When
-                self.sut.getToDos(MockToDo.self) { result in
-                    switch result {
+                // When
+                self.sut.getToDos(MockToDo.self) { fetchResult in
+                    switch fetchResult {
                     case .success(let todos):
-                        //Then
+                        // Then
                         self.assertTodosEqual(todos, self.todo, expectation: expectation)
                     case .failure(let error):
-                        //Then
                         self.fail(error: error, expectation: expectation)
                     }
                 }
@@ -130,114 +151,232 @@ final class StorageServiceTests: XCTestCase {
         wait(for: [expectation], timeout: Consts.timeout)
     }
     
-    func test_updateTodo_shouldChangeFields() {
-           // Given
-           let expectation = expectation(description: "Update Todo")
-           guard var entity = todo.first else {
-               XCTFail("No MockToDo available to test update")
-               return
-           }
-           // When — сначала добавляем задачу
-           sut.addTodo(item: entity) { result in
-               switch result {
-               case .success(let success):
-                   // Then — добавление успешно
-                   XCTAssertTrue(success)
-                   entity.updateTodoAndContent(todo: Consts.updateTodo, content: Consts.updateContent)
-                   // When — обновляем задачу
-                   self.sut.updateTodo(item: entity) { result in
-                       switch result {
-                       case .success(let success):
-                           // Then — обновление успешно
-                           XCTAssertTrue(success)
-                           // When — получаем все сущности после обновления
-                           self.sut.getToDos(MockToDo.self) { result in
-                               switch result {
-                               case .success(let todos):
-                                   // Then — проверяем изменения
-                                   XCTAssertEqual(todos.count, Consts.fixedEntityCount)
-                                   XCTAssertEqual(todos.first?.id, entity.id)
-                                   XCTAssertNotEqual(todos.first?.todo, self.todo.first?.todo)
-                                   XCTAssertEqual(todos.first?.todo, Consts.updateTodo)
-                                   XCTAssertEqual(todos.first?.content, Consts.updateContent)
-                                   expectation.fulfill()
-                               case .failure(let error):
-                                   self.fail(error: error, expectation: expectation)
-                               }
-                           }
-                       case .failure(let error):
-                           self.fail(error: error, expectation: expectation)
-                       }
-                   }
-               case .failure(let error):
-                   self.fail(error: error, expectation: expectation)
-               }
-           }
-           wait(for: [expectation], timeout: Consts.timeout)
-       }
-    
-    func test_deleteTodo_shouldRemoveEntity() {
-            // Given
-            let expectation = expectation(description: "Delete Todo")
-            guard let entity = todo.first else {
-                XCTFail("No MockToDo available to test delete")
-                return
-            }
-            // When — добавляем задачу
-            sut.addTodo(item: entity) { result in
-                switch result {
-                case .success(let success):
-                    // Then — добавление успешно
-                    XCTAssertTrue(success)
-                    // When — удаляем задачу
-                    self.sut.deleteTodo(id: entity.id) { result in
-                        switch result {
-                        case .success(let success):
-                            // Then — удаление успешно
-                            XCTAssertTrue(success)
-                            // When — проверяем, что список пуст
-                            self.sut.getToDos(MockToDo.self) { result in
-                                switch result {
-                                case .success(let todos):
-                                    // Then — список пуст
-                                    XCTAssertEqual(todos.count, Consts.emptyCount)
-                                    expectation.fulfill()
-                                case .failure(let error):
-                                    self.fail(error: error, expectation: expectation)
-                                }
-                            }
-                        case .failure(let error):
-                            self.fail(error: error, expectation: expectation)
-                        }
+    /// Cross-verification test ensuring consistency between `addTodos()` and `getToDos()`.
+    /// Validates deterministic behavior — all inserted entities must be retrievable.
+    func test_addTodos_shouldSaveAllEntities() {
+        // Given
+        let expectation = expectation(description: "Get")
+        sut.addTodos(items: todo) { result in
+            switch result {
+            case .success(let success):
+                XCTAssertTrue(success)
+                // When
+                self.sut.getToDos(MockToDo.self) { result in
+                    switch result {
+                    case .success(let todos):
+                        // Then
+                        self.assertTodosEqual(todos, self.todo, expectation: expectation)
+                    case .failure(let error):
+                        // Then
+                        self.fail(error: error, expectation: expectation)
                     }
-                case .failure(let error):
-                    self.fail(error: error, expectation: expectation)
                 }
+            case .failure(let error):
+                self.fail(error: error, expectation: expectation)
             }
-            wait(for: [expectation], timeout: Consts.timeout)
         }
-        
+        wait(for: [expectation], timeout: Consts.timeout)
+    }
     
+    /// Ensures that updating an existing entity correctly modifies its stored fields.
+    /// Confirms that `updateTodo()` locates the entity by ID and persists new values.
+    func test_updateTodo_shouldChangeFields() {
+        // Given
+        let expectation = expectation(description: "Update Todo")
+        guard var entity = todo.first else {
+            XCTFail("No MockToDo available to test update")
+            return
+        }
+        // When
+        sut.addTodo(item: entity) { result in
+            switch result {
+            case .success(let success):
+                // Then
+                XCTAssertTrue(success)
+                entity.updateTodoAndContent(todo: Consts.updateTodo, content: Consts.updateContent)
+                // When
+                self.sut.updateTodo(item: entity) { result in
+                    switch result {
+                    case .success(let success):
+                        // Then
+                        XCTAssertTrue(success)
+                        // When
+                        self.sut.getToDos(MockToDo.self) { result in
+                            switch result {
+                            case .success(let todos):
+                                // Then
+                                XCTAssertEqual(todos.count, Consts.fixedEntityCount)
+                                XCTAssertEqual(todos.first?.id, entity.id)
+                                XCTAssertNotEqual(todos.first?.todo, self.todo.first?.todo)
+                                XCTAssertEqual(todos.first?.todo, Consts.updateTodo)
+                                XCTAssertEqual(todos.first?.content, Consts.updateContent)
+                                expectation.fulfill()
+                            case .failure(let error):
+                                self.fail(error: error, expectation: expectation)
+                            }
+                        }
+                    case .failure(let error):
+                        self.fail(error: error, expectation: expectation)
+                    }
+                }
+            case .failure(let error):
+                self.fail(error: error, expectation: expectation)
+            }
+        }
+        wait(for: [expectation], timeout: Consts.timeout)
+    }
+    
+    /// **Contract test:** verifies that updating a non-existing entity still returns `.success(true)`.
+    /// Documents that the current persistence layer treats “no-op” updates as successful — a valid idempotent design choice.
+    func test_updateTodo_withNonExistingId_returnsSuccessTrue() {
+        // Given
+        let nonExistingMockToDo = MockToDo(
+            id: UUID(),
+            todo: "Ghost",
+            content: "Not in DB",
+            completed: false,
+            date: .now
+        )
+        let expectation = self.expectation(description: "Update non-existing todo")
+        // When
+        sut.updateTodo(item: nonExistingMockToDo) { result in
+            // Then
+            switch result {
+            case .success(let success):
+                XCTAssertTrue(success, "Updating non-existing ID should still return success=true")
+            case .failure(let error):
+                XCTFail("Expected success, got error: \(error)")
+            }
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: Consts.timeout)
+    }
+    
+    /// Ensures that deleting an existing entity removes it from Core Data storage.
+    /// Confirms that `deleteTodo()` successfully performs removal and persists the state.
+    func test_deleteTodo_shouldRemoveEntity() {
+        // Given
+        let expectation = expectation(description: "Delete Todo")
+        guard let entity = todo.first else {
+            XCTFail("No MockToDo available to test delete")
+            return
+        }
+        // When
+        sut.addTodo(item: entity) { result in
+            switch result {
+            case .success(let success):
+                // Then
+                XCTAssertTrue(success)
+                // When
+                self.sut.deleteTodo(id: entity.id) { result in
+                    switch result {
+                    case .success(let success):
+                        // Then
+                        XCTAssertTrue(success)
+                        // When
+                        self.sut.getToDos(MockToDo.self) { result in
+                            switch result {
+                            case .success(let todos):
+                                // Then
+                                XCTAssertEqual(todos.count, Consts.emptyCount)
+                                expectation.fulfill()
+                            case .failure(let error):
+                                self.fail(error: error, expectation: expectation)
+                            }
+                        }
+                    case .failure(let error):
+                        self.fail(error: error, expectation: expectation)
+                    }
+                }
+            case .failure(let error):
+                self.fail(error: error, expectation: expectation)
+            }
+        }
+        wait(for: [expectation], timeout: Consts.timeout)
+    }
+    
+    /// **Contract test:** verifies that deleting a non-existent entity still returns `.success(true)`.
+    /// Explicitly documents that `deleteTodo()` is **idempotent**, meaning it’s safe to call multiple times or on missing entities.
+    func test_deleteTodo_withNonExistingId_returnsSuccessTrue() {
+        // Given
+        let nonExistingId = UUID()
+        let expectation = self.expectation(description: "Delete non-existing todo")
+        
+        // When
+        sut.deleteTodo(id: nonExistingId) { result in
+            // Then
+            switch result {
+            case .success(let success):
+                XCTAssertTrue(success, "Deleting non-existing ID should still return success=true")
+            case .failure(let error):
+                XCTFail("Expected success, got error: \(error)")
+            }
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: Consts.timeout)
+    }
+    
+    /// Tests `searchTodos()` returns only entities matching the query.
+    /// Test data is generated using a loop 0...2, creating `todo` values "Test ToDo 0", "Test ToDo 1", "Test ToDo 2" and corresponding `content`.
+    func test_searchTodos_shouldReturnMatchingEntities() {
+        // Given
+        let expectation = expectation(description: "Search Todos")
+        // When
+        sut.addTodos(items: todo) { result in
+            switch result {
+            case .success(let success):
+                XCTAssertTrue(success)
+                self.sut.searchTodos(MockToDo.self, query: "1") { searchResult in
+                    // Then
+                    switch searchResult {
+                    case .success(let results):
+                        XCTAssertEqual(results.count, Consts.fixedEntityCount, "Expected 1 search result for query '1'")
+                        XCTAssertEqual(results.first?.todo, "Test ToDo 1")
+                    case .failure(let error):
+                        XCTFail("Search failed: \(error)")
+                    }
+                    expectation.fulfill()
+                }
+            case .failure(let error):
+                XCTFail("Failed to add todos before search: \(error)")
+                expectation.fulfill()
+            }
+        }
+        wait(for: [expectation], timeout: Consts.timeout)
+    }
+    
+    /// Contract test: verifies that searchTodos returns an empty array
+    /// instead of throwing when no matches are found.
+    func test_searchTodos_withNoMatches_returnsEmptyArray() {
+        // Given
+        let expectation = expectation(description: "Search with no matches")
+        // When
+        sut.searchTodos(MockToDo.self, query: "NothingToFind") { result in
+            // Then
+            switch result {
+            case .success(let todos):
+                XCTAssertTrue(todos.isEmpty, "Expected empty search results for unmatched query")
+            case .failure(let error):
+                XCTFail("Expected empty success, got error: \(error)")
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: Consts.timeout)
+    }
 }
 
 extension StorageServiceTests {
-   private func assertTodosEqual(_ fetched: [MockToDo], _ expected: [MockToDo], expectation: XCTestExpectation) {
+    /// Asserts that two arrays of `IToDo`-conforming items contain identical sets of IDs.
+    private func assertTodosEqual(_ fetched: [MockToDo], _ expected: [MockToDo], expectation: XCTestExpectation) {
         let fetchedIDs = Set(fetched.map { $0.id })
         let expectedIDs = Set(expected.map { $0.id })
         XCTAssertEqual(fetchedIDs, expectedIDs)
         expectation.fulfill()
     }
     
+    /// Reports a failed Core Data operation with a detailed error message.
     private func fail(error: Error, expectation: XCTestExpectation) {
         XCTFail("Add Todo failed: \(error.localizedDescription)")
         expectation.fulfill()
     }
 }
-
-/*
- удаление несуществующего id
-
- обновление несуществующей сущности
-
- добавление сущности с уже существующим id
- */

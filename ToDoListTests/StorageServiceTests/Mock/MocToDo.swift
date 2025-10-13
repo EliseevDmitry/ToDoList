@@ -8,6 +8,9 @@
 import Foundation
 @testable import ToDoList
 
+/// A mock implementation of the IToDo protocol used for testing purposes.
+/// Provides simple in-memory storage of todo properties and helper methods to mutate fields,
+/// allowing tests to simulate CRUD operations without relying on real persistence.
 struct MockToDo: IToDo {
     var id: UUID
     var todo: String
