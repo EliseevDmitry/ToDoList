@@ -41,7 +41,7 @@ final class TodoListInteractor {
 extension TodoListInteractor: ITodoInteractor {
     /// Fetches all Todo items from repository and forwards results to delegate.
     func fetchItems() {
-        todoRepository.getToDos { [weak self] result in
+        todoRepository.getToDos { [weak self] (result: Result<[TodoItem], Error>) in
             self?.handleResult(result) { todos in
                 self?.delegate?.didFetchTodos(todos)
             }
@@ -59,7 +59,7 @@ extension TodoListInteractor: ITodoInteractor {
     
     /// Updates an existing Todo item and notifies delegate on success.
     func updateItem<T: IToDo>(_ item: T) {
-        todoRepository.updateToDO(item: item) { [weak self] result in
+        todoRepository.updateToDo(item: item) { [weak self] result in
             self?.handleResult(result) { _ in
                 self?.delegate?.didUpdateTodo(item)
             }
@@ -68,7 +68,7 @@ extension TodoListInteractor: ITodoInteractor {
     
     /// Deletes a Todo item by id and notifies delegate on success.
     func deleteItem(id: UUID) {
-        todoRepository.deleteToDO(id: id) { [weak self] result in
+        todoRepository.deleteToDo(id: id) { [weak self] result in
             self?.handleResult(result) { _ in
                 self?.delegate?.didDeleteTodo(id: id)
             }
@@ -77,7 +77,7 @@ extension TodoListInteractor: ITodoInteractor {
     
     /// Searches Todo items matching query and notifies delegate.
     func searchItems(query: String) {
-        todoRepository.searchTodos(query: query) { [weak self] result in
+        todoRepository.searchTodos(query: query) { [weak self] (result: Result<[TodoItem], Error>) in
             self?.handleResult(result) { todos in
                 self?.delegate?.didSearchTodos(todos)
             }

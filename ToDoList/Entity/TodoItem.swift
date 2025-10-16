@@ -7,6 +7,11 @@
 
 import Foundation
 
+protocol ITodosResponse {
+    associatedtype T: IToDo
+    var todos: [T] { get set }
+}
+
 /// Abstract representation of a Todo item.
 /// Allows working with any ToDo implementation without depending on a specific model.
 protocol IToDo: Identifiable, Codable {
@@ -29,8 +34,8 @@ protocol IToDo: Identifiable, Codable {
 }
 
 /// API response with a list of todos.
-struct TodosResponse: Codable {
-    let todos: [TodoItem]
+struct TodosResponse<T: IToDo>: ITodosResponse, Codable {
+    var todos: [T]
 }
 
 /// Todo model for local and network data.

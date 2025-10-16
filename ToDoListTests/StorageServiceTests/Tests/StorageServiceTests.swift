@@ -373,10 +373,4 @@ extension StorageServiceTests {
         XCTAssertEqual(fetchedIDs, expectedIDs)
         expectation.fulfill()
     }
-    
-    /// Reports a failed Core Data operation with a detailed error message.
-    private func fail(error: Error, expectation: XCTestExpectation) {
-        XCTFail("Add Todo failed: \(error.localizedDescription)")
-        expectation.fulfill()
-    }
 }

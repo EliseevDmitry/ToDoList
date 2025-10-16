@@ -58,7 +58,7 @@ final class StorageService: IStorageService {
         container.loadPersistentStores { (description, error) in
             if let error = error {
                 print("Error loading Core Data. \(error.localizedDescription)")
-            } else {
+            } else { 
                 print("Successfully loaded core data!")
             }
         }
