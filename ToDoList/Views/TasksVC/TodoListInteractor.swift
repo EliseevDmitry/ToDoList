@@ -9,6 +9,7 @@ import Foundation
 
 /// Interactor interface for Todo list use cases.
 protocol ITodoInteractor: AnyObject {
+    var delegate: ITodoInteractorOutput? { get set }
     func fetchItems()
     func addItem<T: IToDo>(_ item: T)
     func updateItem<T: IToDo>(_ item: T)

@@ -13,11 +13,6 @@ protocol ITodoDetailView: AnyObject {
     func display<T: IToDo>(todo: T)
 }
 
-//интересный вопрос?! - для упрощения тестирования Router - насколько это swiflly?
-extension ITodoDetailView {
-    func display<T: IToDo>(todo: T) { }
-}
-
 /// ViewController for Todo detail screen using VIPER.
 final class TodoDetailViewController: UIViewController {
     /// Constants for layout and UI configuration.

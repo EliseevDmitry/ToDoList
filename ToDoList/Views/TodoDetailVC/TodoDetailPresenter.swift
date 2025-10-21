@@ -9,6 +9,7 @@ import UIKit
 
 /// Presenter interface for Todo detail screen.
 protocol ITodoDetailPresenter {
+    var delegate: ITodoDetailOutput? { get set }
     func viewDidLoad()
     func updateItem(title: String, content: String)
     func didTapBack()
