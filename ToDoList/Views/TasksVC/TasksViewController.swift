@@ -16,14 +16,6 @@ protocol ITodoListView: AnyObject {
     func updateFooterCount(_ count: Int)
 }
 
-//интересный вопрос?! - для упрощения тестирования Router - насколько это swiflly?
-extension ITodoListView {
-    func reloadData() {}
-    func showError(_ message: String) {}
-    func clearSearch() {}
-    func updateFooterCount(_ count: Int) {}
-}
-
 final class TasksViewController: UIViewController {
     
     /// Constants used in `TasksViewController`.

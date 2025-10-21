@@ -9,6 +9,8 @@ import Foundation
 @testable import ToDoList
 
 final class MockInteractor: ITodoInteractor {
+    var delegate: ITodoInteractorOutput?
+    
     var didCallFetchItems = false
     var didCallAddItem = false
     var didCallUpdateItem = false
