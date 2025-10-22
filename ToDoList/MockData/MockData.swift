@@ -1,5 +1,5 @@
 //
-//  Moc.swift
+//  MockData.swift
 //  ToDoList
 //
 //  Created by Dmitriy Eliseev on 23.09.2025.

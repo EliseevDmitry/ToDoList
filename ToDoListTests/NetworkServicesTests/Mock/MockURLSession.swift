@@ -8,6 +8,8 @@
 import Foundation
 @testable import ToDoList
 
+/// Mock implementation of `IURLSession` that captures the last requested URL
+/// and returns predefined data, response, or error for testing.
 final class MockURLSession: IURLSession {
     private(set) var lastURL: URL?
     var nextData: Data?
@@ -23,19 +25,5 @@ final class MockURLSession: IURLSession {
         return MockURLSessionDataTask {
             completionHandler(self.nextData, self.nextResponse, self.nextError)
         }
-    }
-}
-
-/// Mock `IURLSessionDataTask` that executes a closure on `resume()`.
-final class MockURLSessionDataTask: IURLSessionDataTask {
-    private let closure: () -> Void
-    
-    init(_ closure: @escaping () -> Void) {
-        self.closure = closure
-    }
-    
-    /// Simulate task start.
-    func resume() {
-        closure()
     }
 }

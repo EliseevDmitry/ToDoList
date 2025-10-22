@@ -24,7 +24,7 @@ final class StorageServiceTests: XCTestCase {
     var container: NSPersistentContainer!
     var todo: [MockToDo] = []
     
-    override func setUpWithError() throws {
+    override func setUp() {
         super.setUp()
         container = NSPersistentContainer.makeInMemoryContainer()
         sut = StorageService(container: container)
@@ -39,12 +39,14 @@ final class StorageServiceTests: XCTestCase {
         }
     }
     
-    override func tearDownWithError() throws {
+    override func tearDown() {
         sut = nil
         container = nil
         todo = []
         super.tearDown()
     }
+    
+    // MARK: - Tests
     
     /// Verifies that adding any item conforming to `IToDo` creates a new entity in Core Data.
     /// Ensures `addTodo()` correctly persists the object and that it can be fetched afterward.
@@ -362,15 +364,5 @@ final class StorageServiceTests: XCTestCase {
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: Consts.timeout)
-    }
-}
-
-extension StorageServiceTests {
-    /// Asserts that two arrays of `IToDo`-conforming items contain identical sets of IDs.
-    private func assertTodosEqual(_ fetched: [MockToDo], _ expected: [MockToDo], expectation: XCTestExpectation) {
-        let fetchedIDs = Set(fetched.map { $0.id })
-        let expectedIDs = Set(expected.map { $0.id })
-        XCTAssertEqual(fetchedIDs, expectedIDs)
-        expectation.fulfill()
     }
 }

@@ -16,16 +16,18 @@ final class NetworkServicesTests: XCTestCase {
         let id: Int
         let todo: String
     }
-
-    override func setUpWithError() throws {
+    
+    override func setUp() {
         session = MockURLSession()
         service = NetworkServices(session: session)
     }
     
-    override func tearDownWithError() throws {
-        session = nil
+    override func tearDown() {
         service = nil
+        session = nil
     }
+    
+    // MARK: - Tests
     
     /// Tests that `fetchEntityData` correctly decodes valid JSON into the expected model.
     func test_fetchEntityData_decodesValidJSON() throws {
@@ -43,7 +45,6 @@ final class NetworkServicesTests: XCTestCase {
         )
         let expectation = self.expectation(description: "Fetch completes")
         var receivedTodo: TodoTest?
-        
         //When
         service.fetchEntityData(
             url: try XCTUnwrap(URL(string: "https://example.com")),
@@ -54,7 +55,6 @@ final class NetworkServicesTests: XCTestCase {
             }
             expectation.fulfill()
         }
-
         //Then
         wait(for: [expectation], timeout: 1)
         XCTAssertEqual(receivedTodo, expectedTodo)
@@ -68,7 +68,6 @@ final class NetworkServicesTests: XCTestCase {
         session.nextError = expectedError
         let expectation = self.expectation(description: "Fetch fails")
         var receivedError: Error?
-        
         // When
         service.fetchEntityData(
             url: URL(string: "https://example.com")!,
@@ -77,7 +76,6 @@ final class NetworkServicesTests: XCTestCase {
             if case let .failure(error) = result { receivedError = error }
             expectation.fulfill()
         }
-        
         // Then
         wait(for: [expectation], timeout: 1)
         XCTAssertNotNil(receivedError)
@@ -97,7 +95,6 @@ final class NetworkServicesTests: XCTestCase {
         )
         let expectation = self.expectation(description: "Fetch fails on decode")
         var receivedError: Error?
-        
         // When
         service.fetchEntityData(
             url: URL(string: "https://example.com")!,
@@ -106,7 +103,6 @@ final class NetworkServicesTests: XCTestCase {
             if case let .failure(error) = result { receivedError = error }
             expectation.fulfill()
         }
-        
         // Then
         wait(for: [expectation], timeout: 1)
         XCTAssertNotNil(receivedError)

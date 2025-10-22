@@ -8,6 +8,8 @@
 import XCTest
 @testable import ToDoList
 
+/// Unit tests for `TasksRouter`.
+/// Verifies correct push/pop behavior when navigating between TodoList and TodoDetail screens.
 final class RouterTests: XCTestCase {
     
     enum Consts {
@@ -29,26 +31,27 @@ final class RouterTests: XCTestCase {
     }
     
     override func tearDown() {
-        router = nil
         navigationController = nil
+        router = nil
         sourceVC = nil
         destinationVC = nil
         super.tearDown()
     }
     
+    // MARK: - Tests
+    
+    /// Tests that calling `showTodoDetail` pushes the destination view controller onto the navigation stack.
     func testShowTodoDetail_PushesDestinationVC() {
         // Given
         XCTAssertEqual(
             navigationController.viewControllers.count,
             Consts.initialViewControllerCount
         )
-        
         // When
         router.showTodoDetail(
             from: sourceVC,
             destination: destinationVC
         )
-        
         // Then
         XCTAssertEqual(
             navigationController.pushedViewController,
@@ -60,6 +63,7 @@ final class RouterTests: XCTestCase {
         )
     }
     
+    /// Tests that calling `pop` removes the top view controller from the navigation stack.
     func testPop_PopsViewController() {
         // Given
         router.showTodoDetail(
@@ -70,10 +74,8 @@ final class RouterTests: XCTestCase {
             navigationController.viewControllers.count,
             Consts.allViewControllersInStack
         )
-        
         // When
         router.pop(from: destinationVC)
-        
         // Then
         XCTAssertTrue(navigationController.didPopViewController)
         XCTAssertEqual(
@@ -81,5 +83,4 @@ final class RouterTests: XCTestCase {
             Consts.initialViewControllerCount
         )
     }
-    
 }

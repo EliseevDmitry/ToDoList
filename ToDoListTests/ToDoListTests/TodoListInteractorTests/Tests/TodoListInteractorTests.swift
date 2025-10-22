@@ -8,10 +8,31 @@
 import XCTest
 @testable import ToDoList
 
+/// Unit tests for TodoListInteractor validating CRUD and search behavior.
 final class TodoListInteractorTests: XCTestCase {
     
-    enum MockError: Error {
-        case someError
+    enum Consts {
+        static let testQuery = "test"
+        static let timeout:Double = 2.0
+    }
+    
+    /// Errors used in TodoListInteractorTests to simulate repository failures.
+    enum MockError: Error, LocalizedError {
+        case fetchFailed
+        case addFailed
+        case updateFailed
+        case deleteFailed
+        case searchFailed
+        
+        var errorDescription: String? {
+            switch self {
+            case .fetchFailed: return "Failed to fetch todos"
+            case .addFailed: return "Failed to add todo"
+            case .updateFailed: return "Failed to update todo"
+            case .deleteFailed: return "Failed to delete todo"
+            case .searchFailed: return "Failed to search todos"
+            }
+        }
     }
     
     private var sut: ITodoInteractor!
@@ -25,137 +46,164 @@ final class TodoListInteractorTests: XCTestCase {
         sut = TodoListInteractor(todoRepository: mockRepository)
         mockDelegate = MockInteractorOutput()
         sut.delegate = mockDelegate
-        toDo = TodoItem(
-            id: UUID(),
-            todo: "Test toDo",
-            content: "Test description",
-            completed: false,
-            date: .now
-        )
-        
+        toDo = self.mockTodoItem
     }
     
     override func tearDown() {
-        mockRepository = nil
         sut = nil
+        mockDelegate = nil
+        mockRepository = nil
         super.tearDown()
     }
     
     // MARK: - Helper
+    
+    /// Creates an XCTestExpectation and assigns it to the mock delegate.
     private func setupExpectation(_ description: String) -> XCTestExpectation {
         let expectation = self.expectation(description: description)
         mockDelegate.expectation = expectation
         return expectation
     }
     
-    // MARK: - fetchItems
+    // MARK: - Tests
+    
+    /// Ensures fetchItems success triggers delegate's didFetchTodos.
     func test_fetchItems_success_callsDidFetchTodos() {
         // Given
         mockRepository.getToDosResult = .success([toDo])
         _ = setupExpectation("FetchSuccess")
-        
         // When
         sut.fetchItems()
-        
         // Then
-        waitForExpectations(timeout: 1)
+        waitForExpectations(timeout: Consts.timeout)
         XCTAssertTrue(mockDelegate.didCallDidFetchTodos)
     }
     
+    /// Ensures fetchItems failure triggers delegate's didFail with fetchFailed error.
     func test_fetchItems_failure_callsDidFail() {
         // Given
-        mockRepository.getToDosResult = .failure(MockError.someError)
+        mockRepository.getToDosResult = .failure(MockError.fetchFailed)
         _ = setupExpectation("FetchFail")
-        
         // When
         sut.fetchItems()
-        
         // Then
-        waitForExpectations(timeout: 1)
+        waitForExpectations(timeout: Consts.timeout)
         XCTAssertTrue(mockDelegate.didCallDidFail)
+        XCTAssertEqual(
+            mockDelegate.capturedError?.localizedDescription,
+            MockError.fetchFailed.localizedDescription
+        )
     }
     
-    // MARK: - addItem
+    /// Ensures addItem success triggers delegate's didAddTodo.
     func test_addItem_success_callsDidAddTodo() {
+        // Given
         mockRepository.addToDoResult = .success(true)
         _ = setupExpectation("AddSuccess")
-        
+        // When
         sut.addItem(toDo)
-        
-        waitForExpectations(timeout: 1)
+        // Then
+        waitForExpectations(timeout: Consts.timeout)
         XCTAssertTrue(mockDelegate.didCallDidAddTodo)
     }
     
+    /// Ensures addItem failure triggers delegate's didFail with addFailed error.
     func test_addItem_failure_callsDidFail() {
-        mockRepository.addToDoResult = .failure(MockError.someError)
+        // Given
+        mockRepository.addToDoResult = .failure(MockError.addFailed)
         _ = setupExpectation("AddFail")
-        
+        // When
         sut.addItem(toDo)
-        
-        waitForExpectations(timeout: 1)
+        // Then
+        waitForExpectations(timeout: Consts.timeout)
         XCTAssertTrue(mockDelegate.didCallDidFail)
+        XCTAssertEqual(
+            mockDelegate.capturedError?.localizedDescription,
+            MockError.addFailed.localizedDescription
+        )
     }
     
-    // MARK: - updateItem
+    /// Ensures updateItem success triggers delegate's didUpdateTodo.
     func test_updateItem_success_callsDidUpdateTodo() {
+        // Given
         mockRepository.updateToDoResult = .success(true)
         _ = setupExpectation("UpdateSuccess")
-        
+        // When
         sut.updateItem(toDo)
-        
-        waitForExpectations(timeout: 1)
+        // Then
+        waitForExpectations(timeout: Consts.timeout)
         XCTAssertTrue(mockDelegate.didCallDidUpdateTodo)
     }
     
+    /// Ensures updateItem failure triggers delegate's didFail with updateFailed error.
     func test_updateItem_failure_callsDidFail() {
-        mockRepository.updateToDoResult = .failure(MockError.someError)
+        // Given
+        mockRepository.updateToDoResult = .failure(MockError.updateFailed)
         _ = setupExpectation("UpdateFail")
-        
+        // When
         sut.updateItem(toDo)
-        
-        waitForExpectations(timeout: 1)
+        // Then
+        waitForExpectations(timeout: Consts.timeout)
         XCTAssertTrue(mockDelegate.didCallDidFail)
+        XCTAssertEqual(
+            mockDelegate.capturedError?.localizedDescription,
+            MockError.updateFailed.localizedDescription
+        )
     }
     
-    // MARK: - deleteItem
+    /// Ensures deleteItem success triggers delegate's didDeleteTodo.
     func test_deleteItem_success_callsDidDeleteTodo() {
+        // Given
         mockRepository.deleteToDoResult = .success(true)
         _ = setupExpectation("DeleteSuccess")
-        
+        // When
         sut.deleteItem(id: toDo.id)
-        
-        waitForExpectations(timeout: 1)
+        // Then
+        waitForExpectations(timeout: Consts.timeout)
         XCTAssertTrue(mockDelegate.didCallDidDeleteTodo)
     }
     
+    /// Ensures deleteItem failure triggers delegate's didFail with deleteFailed error.
     func test_deleteItem_failure_callsDidFail() {
-        mockRepository.deleteToDoResult = .failure(MockError.someError)
+        // Given
+        mockRepository.deleteToDoResult = .failure(MockError.deleteFailed)
         _ = setupExpectation("DeleteFail")
-        
+        // When
         sut.deleteItem(id: toDo.id)
-        
-        waitForExpectations(timeout: 1)
+        // Then
+        waitForExpectations(timeout: Consts.timeout)
         XCTAssertTrue(mockDelegate.didCallDidFail)
+        XCTAssertEqual(
+            mockDelegate.capturedError?.localizedDescription,
+            MockError.deleteFailed.localizedDescription
+        )
     }
     
-    // MARK: - searchItems
+    /// Ensures searchItems success triggers delegate's didSearchTodos.
     func test_searchItems_success_callsDidSearchTodos() {
+        // Given
         mockRepository.searchTodosResult = .success([toDo])
         _ = setupExpectation("SearchSuccess")
-        
-        sut.searchItems(query: "test")
-        
-        waitForExpectations(timeout: 1)
+        // When
+        sut.searchItems(query: Consts.testQuery)
+        // Then
+        waitForExpectations(timeout: Consts.timeout)
         XCTAssertTrue(mockDelegate.didCallDidSearchTodos)
     }
     
+    /// Ensures searchItems failure triggers delegate's didFail with searchFailed error.
     func test_searchItems_failure_callsDidFail() {
-        mockRepository.searchTodosResult = .failure(MockError.someError)
+        // Given
+        mockRepository.searchTodosResult = .failure(MockError.searchFailed)
         _ = setupExpectation("SearchFail")
-        
-        sut.searchItems(query: "test")
-        
-        waitForExpectations(timeout: 1)
+        // When
+        sut.searchItems(query: Consts.testQuery)
+        // Then
+        waitForExpectations(timeout: Consts.timeout)
         XCTAssertTrue(mockDelegate.didCallDidFail)
+        XCTAssertEqual(
+            mockDelegate.capturedError?.localizedDescription,
+            MockError.searchFailed.localizedDescription
+        )
     }
 }

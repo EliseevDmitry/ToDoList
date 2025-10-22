@@ -8,40 +8,27 @@
 import Foundation
 @testable import ToDoList
 
+/// Mock implementation of ITodoInteractor
 final class MockInteractor: ITodoInteractor {
     var delegate: ITodoInteractorOutput?
-    
     var didCallFetchItems = false
     var didCallAddItem = false
     var didCallUpdateItem = false
     var didCallDeleteItem = false
     var didCallSearchItems = false
-
-    func fetchItems() { didCallFetchItems = true }
-    func addItem<T>(_ item: T) where T : IToDo { didCallAddItem = true }
-    func updateItem<T>(_ item: T) where T : IToDo { didCallUpdateItem = true }
-    func deleteItem(id: UUID) { didCallDeleteItem = true }
-    func searchItems(query: String) { didCallSearchItems = true }
-}
-
-final class MockView: ITodoListView {
-    var didReloadData = false
-    var didClearSearch = false
-    var footerCount = 0
-    func reloadData() { didReloadData = true }
-    func showError(_ message: String) {}
-    func clearSearch() { didClearSearch = true }
-    func updateFooterCount(_ count: Int) { footerCount = count }
-}
-
-final class MockRouter: ITasksRouter {
-    var didCallShowDetail = false
-    var didCallPop = false
-    func showTodoDetail(from source: (any ToDoList.ITodoListView)?, destination: any ToDoList.ITodoDetailView) {
-        didCallShowDetail = true
-    }
     
-    func pop(from source: (any ToDoList.ITodoDetailView)?) {
-        didCallPop = true
-    }
+    /// Tracks fetchItems calls
+    func fetchItems() { didCallFetchItems = true }
+    
+    /// Tracks addItem calls
+    func addItem<T>(_ item: T) where T : IToDo { didCallAddItem = true }
+    
+    /// Tracks updateItem calls
+    func updateItem<T>(_ item: T) where T : IToDo { didCallUpdateItem = true }
+    
+    /// Tracks deleteItem calls
+    func deleteItem(id: UUID) { didCallDeleteItem = true }
+    
+    /// Tracks searchItems calls
+    func searchItems(query: String) { didCallSearchItems = true }
 }

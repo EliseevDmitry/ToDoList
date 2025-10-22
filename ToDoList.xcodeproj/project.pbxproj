@@ -14,8 +14,8 @@
 		26266B182EA696D1003A7920 /* MockInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26266B172EA696D1003A7920 /* MockInteractor.swift */; };
 		26266B1C2EA69AF8003A7920 /* ToDoListTests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 26266B1B2EA69AF8003A7920 /* ToDoListTests.xctestplan */; };
 		2638567D2EA13EF0004822DA /* TodoRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2638567C2EA13EF0004822DA /* TodoRepositoryTests.swift */; };
-		263856812EA13F95004822DA /* MockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263856802EA13F95004822DA /* MockServices.swift */; };
-		263856832EA15C9B004822DA /* Extension+XCTestCase.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263856822EA15C9B004822DA /* Extension+XCTestCase.swift.swift */; };
+		263856812EA13F95004822DA /* MockSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263856802EA13F95004822DA /* MockSettingsService.swift */; };
+		263856832EA15C9B004822DA /* Extension+XCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263856822EA15C9B004822DA /* Extension+XCTestCase.swift */; };
 		263F1E652E88145F00D97344 /* ToDoAlertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F1E642E88145F00D97344 /* ToDoAlertError.swift */; };
 		263F1E672E881D9000D97344 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F1E662E881D9000D97344 /* Extension+Date.swift */; };
 		263F1E692E8820A100D97344 /* FooterUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F1E682E8820A100D97344 /* FooterUIView.swift */; };
@@ -41,7 +41,7 @@
 		26BD60DE2E81BC9B006C61E0 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60DD2E81BC9B006C61E0 /* StorageService.swift */; };
 		26BD60E22E81BD1D006C61E0 /* Todo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 26BD60E02E81BD1D006C61E0 /* Todo.xcdatamodeld */; };
 		26C4E4392E9BD31C003FB8A4 /* SettingsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4E4382E9BD31C003FB8A4 /* SettingsServiceTests.swift */; };
-		26C4E4422E9BD5EE003FB8A4 /* MocSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4E4412E9BD5EE003FB8A4 /* MocSettingsService.swift */; };
+		26C4E4422E9BD5EE003FB8A4 /* MockUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4E4412E9BD5EE003FB8A4 /* MockUserDefaults.swift */; };
 		26C4E4532E9BEE5C003FB8A4 /* NetworkServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4E4522E9BEE5C003FB8A4 /* NetworkServicesTests.swift */; };
 		26C4E4552E9BF06D003FB8A4 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C4E4542E9BF06D003FB8A4 /* MockURLSession.swift */; };
 		26C4E47B2E9C2BF5003FB8A4 /* Screenshot2.png in Resources */ = {isa = PBXBuildFile; fileRef = 26C4E4792E9C2BF5003FB8A4 /* Screenshot2.png */; };
@@ -50,6 +50,16 @@
 		26C8610F2E8AFBBD000067BE /* Di.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8610E2E8AFBBD000067BE /* Di.swift */; };
 		26C861132E8AFBF1000067BE /* ScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C861122E8AFBF1000067BE /* ScreenFactory.swift */; };
 		26C861152E8B0ECD000067BE /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C861142E8B0ECD000067BE /* Extension+String.swift */; };
+		26D19A402EA92FE200011E6D /* MockDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D19A3F2EA92FE200011E6D /* MockDelegate.swift */; };
+		26D19A422EA9369500011E6D /* MockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D19A412EA9369500011E6D /* MockView.swift */; };
+		26D19A442EA936C800011E6D /* MockRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D19A432EA936C800011E6D /* MockRouter.swift */; };
+		26D19A462EA93C5F00011E6D /* MockInteractorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D19A452EA93C5F00011E6D /* MockInteractorOutput.swift */; };
+		26D19A4A2EA9446E00011E6D /* MockTodoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D19A492EA9446E00011E6D /* MockTodoListView.swift */; };
+		26D19A4C2EA9448000011E6D /* MockTodoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D19A4B2EA9448000011E6D /* MockTodoDetailView.swift */; };
+		26D19A4F2EA947FD00011E6D /* MockNSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D19A4E2EA947FD00011E6D /* MockNSError.swift */; };
+		26D19A512EA9483A00011E6D /* MockStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D19A502EA9483A00011E6D /* MockStorageService.swift */; };
+		26D19A532EA94AB100011E6D /* MockURLSessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D19A522EA94AB100011E6D /* MockURLSessionDataTask.swift */; };
+		26D19A552EA951A500011E6D /* Screenshot4.png in Resources */ = {isa = PBXBuildFile; fileRef = 26D19A542EA951A500011E6D /* Screenshot4.png */; };
 		26E3201A2E841646003A82E5 /* TodoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E320192E841646003A82E5 /* TodoRepository.swift */; };
 		26E3201D2E8418DB003A82E5 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3201C2E8418DB003A82E5 /* SettingsService.swift */; };
 		26E3B0642E88ED0B008A127F /* ScreenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B0632E88ED0B008A127F /* ScreenApp.swift */; };
@@ -64,7 +74,7 @@
 		26EC298F2E8BECFC0075A893 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EC298E2E8BECFC0075A893 /* Router.swift */; };
 		26EC29922E8BF1440075A893 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EC29912E8BF1440075A893 /* TodoDetailViewController.swift */; };
 		26ED04952E84FBD900DE33CC /* Extension+UIMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ED04942E84FBC600DE33CC /* Extension+UIMenu.swift */; };
-		26FCD0EF2E8302DD009906DE /* Moc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0EE2E8302DD009906DE /* Moc.swift */; };
+		26FCD0EF2E8302DD009906DE /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0EE2E8302DD009906DE /* MockData.swift */; };
 		26FCD0F22E8304D4009906DE /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0F12E8304D4009906DE /* UITableView+Reusable.swift */; };
 		26FCD0F42E83055E009906DE /* TodoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0F32E83055E009906DE /* TodoTableView.swift */; };
 		26FCD0F62E83077B009906DE /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FCD0F52E83077B009906DE /* TodoTableViewCell.swift */; };
@@ -90,8 +100,8 @@
 		26266B172EA696D1003A7920 /* MockInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInteractor.swift; sourceTree = "<group>"; };
 		26266B1B2EA69AF8003A7920 /* ToDoListTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ToDoListTests.xctestplan; sourceTree = "<group>"; };
 		2638567C2EA13EF0004822DA /* TodoRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepositoryTests.swift; sourceTree = "<group>"; };
-		263856802EA13F95004822DA /* MockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServices.swift; sourceTree = "<group>"; };
-		263856822EA15C9B004822DA /* Extension+XCTestCase.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+XCTestCase.swift.swift"; sourceTree = "<group>"; };
+		263856802EA13F95004822DA /* MockSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSettingsService.swift; sourceTree = "<group>"; };
+		263856822EA15C9B004822DA /* Extension+XCTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+XCTestCase.swift"; sourceTree = "<group>"; };
 		263F1E642E88145F00D97344 /* ToDoAlertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoAlertError.swift; sourceTree = "<group>"; };
 		263F1E662E881D9000D97344 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		263F1E682E8820A100D97344 /* FooterUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterUIView.swift; sourceTree = "<group>"; };
@@ -120,7 +130,7 @@
 		26BD60E12E81BD1D006C61E0 /* Todo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Todo.xcdatamodel; sourceTree = "<group>"; };
 		26C4E42C2E9BD2A8003FB8A4 /* ToDoListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26C4E4382E9BD31C003FB8A4 /* SettingsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsServiceTests.swift; sourceTree = "<group>"; };
-		26C4E4412E9BD5EE003FB8A4 /* MocSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MocSettingsService.swift; sourceTree = "<group>"; };
+		26C4E4412E9BD5EE003FB8A4 /* MockUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserDefaults.swift; sourceTree = "<group>"; };
 		26C4E4522E9BEE5C003FB8A4 /* NetworkServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServicesTests.swift; sourceTree = "<group>"; };
 		26C4E4542E9BF06D003FB8A4 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		26C4E4782E9C2BF5003FB8A4 /* Screenshot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot1.png; sourceTree = "<group>"; };
@@ -129,6 +139,16 @@
 		26C8610E2E8AFBBD000067BE /* Di.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Di.swift; sourceTree = "<group>"; };
 		26C861122E8AFBF1000067BE /* ScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenFactory.swift; sourceTree = "<group>"; };
 		26C861142E8B0ECD000067BE /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
+		26D19A3F2EA92FE200011E6D /* MockDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDelegate.swift; sourceTree = "<group>"; };
+		26D19A412EA9369500011E6D /* MockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockView.swift; sourceTree = "<group>"; };
+		26D19A432EA936C800011E6D /* MockRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRouter.swift; sourceTree = "<group>"; };
+		26D19A452EA93C5F00011E6D /* MockInteractorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInteractorOutput.swift; sourceTree = "<group>"; };
+		26D19A492EA9446E00011E6D /* MockTodoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTodoListView.swift; sourceTree = "<group>"; };
+		26D19A4B2EA9448000011E6D /* MockTodoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTodoDetailView.swift; sourceTree = "<group>"; };
+		26D19A4E2EA947FD00011E6D /* MockNSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNSError.swift; sourceTree = "<group>"; };
+		26D19A502EA9483A00011E6D /* MockStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorageService.swift; sourceTree = "<group>"; };
+		26D19A522EA94AB100011E6D /* MockURLSessionDataTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSessionDataTask.swift; sourceTree = "<group>"; };
+		26D19A542EA951A500011E6D /* Screenshot4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot4.png; sourceTree = "<group>"; };
 		26E320192E841646003A82E5 /* TodoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRepository.swift; sourceTree = "<group>"; };
 		26E3201C2E8418DB003A82E5 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		26E3B0632E88ED0B008A127F /* ScreenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenApp.swift; sourceTree = "<group>"; };
@@ -143,7 +163,7 @@
 		26EC298E2E8BECFC0075A893 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		26EC29912E8BF1440075A893 /* TodoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewController.swift; sourceTree = "<group>"; };
 		26ED04942E84FBC600DE33CC /* Extension+UIMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIMenu.swift"; sourceTree = "<group>"; };
-		26FCD0EE2E8302DD009906DE /* Moc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moc.swift; sourceTree = "<group>"; };
+		26FCD0EE2E8302DD009906DE /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		26FCD0F12E8304D4009906DE /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
 		26FCD0F32E83055E009906DE /* TodoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableView.swift; sourceTree = "<group>"; };
 		26FCD0F52E83077B009906DE /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
@@ -172,7 +192,9 @@
 		2638567F2EA13F3E004822DA /* Mock */ = {
 			isa = PBXGroup;
 			children = (
-				263856802EA13F95004822DA /* MockServices.swift */,
+				26D19A4E2EA947FD00011E6D /* MockNSError.swift */,
+				263856802EA13F95004822DA /* MockSettingsService.swift */,
+				26D19A502EA9483A00011E6D /* MockStorageService.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -306,7 +328,7 @@
 				26C4E4632E9BF352003FB8A4 /* RouterTests */,
 				26C4E4662E9BF3A8003FB8A4 /* ToDoListTests */,
 				26C4E46D2E9BF454003FB8A4 /* TodoDetailTests */,
-				263856822EA15C9B004822DA /* Extension+XCTestCase.swift.swift */,
+				26D19A4D2EA946EA00011E6D /* Extensions */,
 			);
 			path = ToDoListTests;
 			sourceTree = "<group>";
@@ -331,7 +353,7 @@
 		26C4E44A2E9BEC70003FB8A4 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
-				26C4E4412E9BD5EE003FB8A4 /* MocSettingsService.swift */,
+				26C4E4412E9BD5EE003FB8A4 /* MockUserDefaults.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -357,6 +379,7 @@
 			isa = PBXGroup;
 			children = (
 				26C4E4542E9BF06D003FB8A4 /* MockURLSession.swift */,
+				26D19A522EA94AB100011E6D /* MockURLSessionDataTask.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -367,6 +390,7 @@
 				26C4E4782E9C2BF5003FB8A4 /* Screenshot1.png */,
 				26C4E4792E9C2BF5003FB8A4 /* Screenshot2.png */,
 				26C4E47A2E9C2BF5003FB8A4 /* Screenshot3.png */,
+				26D19A542EA951A500011E6D /* Screenshot4.png */,
 			);
 			path = Screenshots;
 			sourceTree = "<group>";
@@ -435,6 +459,8 @@
 			isa = PBXGroup;
 			children = (
 				26AB91DF2EA54C4F005E9112 /* MockNavigationController.swift */,
+				26D19A492EA9446E00011E6D /* MockTodoListView.swift */,
+				26D19A4B2EA9448000011E6D /* MockTodoDetailView.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -461,6 +487,8 @@
 			isa = PBXGroup;
 			children = (
 				26266B172EA696D1003A7920 /* MockInteractor.swift */,
+				26D19A412EA9369500011E6D /* MockView.swift */,
+				26D19A432EA936C800011E6D /* MockRouter.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -486,6 +514,7 @@
 			isa = PBXGroup;
 			children = (
 				2659A1922EA7C5E4007BDC80 /* MockRepository.swift */,
+				26D19A452EA93C5F00011E6D /* MockInteractorOutput.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -527,6 +556,7 @@
 			isa = PBXGroup;
 			children = (
 				2659A1982EA7F56B007BDC80 /* MockDetailView.swift */,
+				26D19A3F2EA92FE200011E6D /* MockDelegate.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -538,6 +568,14 @@
 				26C861122E8AFBF1000067BE /* ScreenFactory.swift */,
 			);
 			path = ScreenFactory;
+			sourceTree = "<group>";
+		};
+		26D19A4D2EA946EA00011E6D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				263856822EA15C9B004822DA /* Extension+XCTestCase.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		26E3B0622E88ECF3008A127F /* Helper */ = {
@@ -596,7 +634,7 @@
 		26FCD0ED2E8302C4009906DE /* MockData */ = {
 			isa = PBXGroup;
 			children = (
-				26FCD0EE2E8302DD009906DE /* Moc.swift */,
+				26FCD0EE2E8302DD009906DE /* MockData.swift */,
 			);
 			path = MockData;
 			sourceTree = "<group>";
@@ -687,6 +725,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26D19A552EA951A500011E6D /* Screenshot4.png in Resources */,
 				26BD60C02E81A1A1006C61E0 /* LaunchScreen.storyboard in Resources */,
 				26C4E47B2E9C2BF5003FB8A4 /* Screenshot2.png in Resources */,
 				26C4E47C2E9C2BF5003FB8A4 /* Screenshot3.png in Resources */,
@@ -732,7 +771,7 @@
 				26EC298F2E8BECFC0075A893 /* Router.swift in Sources */,
 				26C8610F2E8AFBBD000067BE /* Di.swift in Sources */,
 				263F1E672E881D9000D97344 /* Extension+Date.swift in Sources */,
-				26FCD0EF2E8302DD009906DE /* Moc.swift in Sources */,
+				26FCD0EF2E8302DD009906DE /* MockData.swift in Sources */,
 				26BD60DA2E81A6C2006C61E0 /* Extension+URLResponse.swift in Sources */,
 				26FCD0F62E83077B009906DE /* TodoTableViewCell.swift in Sources */,
 				26E3B0752E8922F8008A127F /* PreviewProviderViewController.swift in Sources */,
@@ -757,22 +796,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				26266B162EA6967F003A7920 /* TodoListPresenterTests.swift in Sources */,
+				26D19A4C2EA9448000011E6D /* MockTodoDetailView.swift in Sources */,
 				26C4E4552E9BF06D003FB8A4 /* MockURLSession.swift in Sources */,
+				26D19A402EA92FE200011E6D /* MockDelegate.swift in Sources */,
 				26147A2A2E9D274A00DB594C /* StorageServiceTests.swift in Sources */,
 				2659A19D2EA7F673007BDC80 /* TodoDetailPresenterTests.swift in Sources */,
-				263856812EA13F95004822DA /* MockServices.swift in Sources */,
+				263856812EA13F95004822DA /* MockSettingsService.swift in Sources */,
+				26D19A512EA9483A00011E6D /* MockStorageService.swift in Sources */,
+				26D19A4F2EA947FD00011E6D /* MockNSError.swift in Sources */,
 				26C4E4532E9BEE5C003FB8A4 /* NetworkServicesTests.swift in Sources */,
 				26147A2C2E9D280300DB594C /* MocToDo.swift in Sources */,
 				26266B182EA696D1003A7920 /* MockInteractor.swift in Sources */,
+				26D19A462EA93C5F00011E6D /* MockInteractorOutput.swift in Sources */,
+				26D19A4A2EA9446E00011E6D /* MockTodoListView.swift in Sources */,
 				2659A1932EA7C5E4007BDC80 /* MockRepository.swift in Sources */,
 				2659A1992EA7F56B007BDC80 /* MockDetailView.swift in Sources */,
 				2659A1952EA7CC5C007BDC80 /* TodoListInteractorTests.swift in Sources */,
+				26D19A442EA936C800011E6D /* MockRouter.swift in Sources */,
 				26AB91DE2EA54B7B005E9112 /* RouterTests.swift in Sources */,
 				26C4E4392E9BD31C003FB8A4 /* SettingsServiceTests.swift in Sources */,
 				2638567D2EA13EF0004822DA /* TodoRepositoryTests.swift in Sources */,
 				26147A262E9D26F600DB594C /* Extension+NSPersistentContainer.swift in Sources */,
-				263856832EA15C9B004822DA /* Extension+XCTestCase.swift.swift in Sources */,
-				26C4E4422E9BD5EE003FB8A4 /* MocSettingsService.swift in Sources */,
+				263856832EA15C9B004822DA /* Extension+XCTestCase.swift in Sources */,
+				26C4E4422E9BD5EE003FB8A4 /* MockUserDefaults.swift in Sources */,
+				26D19A532EA94AB100011E6D /* MockURLSessionDataTask.swift in Sources */,
+				26D19A422EA9369500011E6D /* MockView.swift in Sources */,
 				26AB91E02EA54C4F005E9112 /* MockNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

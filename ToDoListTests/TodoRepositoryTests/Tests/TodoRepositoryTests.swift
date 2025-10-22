@@ -21,7 +21,7 @@ final class TodoRepositoryTests: XCTestCase {
     var mockStorage: MockStorageService!
     var sut: TodoRepository!
     
-    override func setUpWithError() throws {
+    override func setUp() {
         super.setUp()
         mockSettings = MockSettingsService()
         mockNetwork = MockNetworkService()
@@ -33,13 +33,15 @@ final class TodoRepositoryTests: XCTestCase {
         )
     }
     
-    override func tearDownWithError() throws {
-        mockNetwork = nil
-        mockStorage = nil
-        mockSettings = nil
+    override func tearDown() {
         sut = nil
+        mockStorage = nil
+        mockNetwork = nil
+        mockSettings = nil
         super.tearDown()
     }
+    
+    // MARK: - Tests
     
     /// Verifies that on first launch, todos are fetched from network
     /// and saved into local storage.

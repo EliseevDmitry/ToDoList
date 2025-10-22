@@ -10,7 +10,6 @@ import XCTest
 
 
 final class SettingsServiceTests: XCTestCase {
-    
     var storage: MockUserDefaults!
     var service: ISettingsService!
     
@@ -25,24 +24,23 @@ final class SettingsServiceTests: XCTestCase {
         service = nil
     }
     
+    // MARK: - Tests
+    
     /// Returns false on first app launch and sets the flag in storage.
     func test_isFirstLaunch_returnsFalseOnFirstRun() {
         // when
         let result = service.isFirstLaunch()
-        
         // then
         XCTAssertFalse(result)
     }
     
     /// Returns true if the app has launched before.
     func test_isFirstLaunch_returnsTrueOnSubsequentRuns() {
-            // given
-            storage.set(true, forKey: SettingsService.StorageKey.hasLaunchedKey)
-            
-            // when
-            let result = service.isFirstLaunch()
-            
-            // then
-            XCTAssertTrue(result)
-        }
+        // given
+        storage.set(true, forKey: SettingsService.StorageKey.hasLaunchedKey)
+        // when
+        let result = service.isFirstLaunch()
+        // then
+        XCTAssertTrue(result)
+    }
 }

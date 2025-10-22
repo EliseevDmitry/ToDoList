@@ -8,18 +8,13 @@
 import Foundation
 @testable import ToDoList
 
+/// Mock implementation of ITodoDetailView
 final class MockDetailView: ITodoDetailView {
     var displayedTodo: (any IToDo)?
+    
+    /// Saves the displayed Todo item
     func display<T: IToDo>(todo: T) {
         displayedTodo = todo
     }
 }
 
-final class MockDelegate: ITodoDetailOutput {
-    var didUpdateItemCalled = false
-    var updatedTodo: (any IToDo)?
-    func didUpdateItem<T>(entity: T) where T : IToDo {
-        didUpdateItemCalled = true
-        updatedTodo = entity
-    }
-}
