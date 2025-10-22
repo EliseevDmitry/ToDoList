@@ -77,14 +77,22 @@ The app’s architecture is built entirely on **VIPER**, ensuring modularity and
 
 ---
 
-## Demo Screenshots
+## App Design Mockups
 
-Below are screenshots of the **ToDoList** app in action:
+Below are the design mockups from **Figma** that served as the basis for the ToDoList app:
 
 <p align="center">
-  <img src="Screenshots/Screenshot1.png" width="150" alt="Screenshot 1" style="margin-right: 10px;" />
-  <img src="Screenshots/Screenshot2.png" width="150" alt="Screenshot 2" style="margin-right: 10px;" />
-  <img src="Screenshots/Screenshot3.png" width="150" alt="Screenshot 3" />
+  <img src="Screenshots/Screenshot4.png" width="300" alt="Full Figma Screen" style="margin-bottom: 10px;" />
+</p>
+
+---
+
+### Individual Screen Designs
+
+<p align="center">
+  <img src="Screenshots/Screenshot1.png" width="150" alt="Figma Screen 1" style="margin-right: 10px;" />
+  <img src="Screenshots/Screenshot2.png" width="150" alt="Figma Screen 2" style="margin-right: 10px;" />
+  <img src="Screenshots/Screenshot3.png" width="150" alt="Figma Screen 3" />
 </p>
 
 ---
